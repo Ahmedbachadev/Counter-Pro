@@ -1,0 +1,36 @@
+{
+  "appId": "com.sanishop.pos",
+  "productName": "SaniShop POS",
+  "directories": {
+    "output": "dist-electron"
+  },
+  "files": [
+    "dist/**/*",
+    "public/electron.js",
+    "public/preload.js",
+    "node_modules/**/*"
+  ],
+  "extraResources": [
+    {
+      "from": "public/assets",
+      "to": "assets",
+      "filter": ["**/*"]
+    }
+  ],
+  "mac": {
+    "category": "public.app-category.business",
+    "target": "dmg"
+  },
+  "win": {
+    "target": "nsis",
+    "icon": "public/assets/icon.ico"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Office"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  }
+}
