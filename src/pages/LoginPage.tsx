@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Store, Eye, EyeOff, AlertCircle, ArrowRight, ShieldCheck, Sparkles, TrendingUp, ShoppingBag, Landmark, Key } from 'lucide-react';
+import { Store, Eye, EyeOff, AlertCircle, ArrowRight, ShieldCheck, Sparkles, TrendingUp, ShoppingBag, Key } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 
 const LoginPage: React.FC = () => {
@@ -19,7 +19,6 @@ const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
 
-  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       const { appType } = useAuthStore.getState();
@@ -33,7 +32,6 @@ const LoginPage: React.FC = () => {
     }
   }, [isAuthenticated, navigate, location]);
 
-  // Clean up error state when email/password change
   useEffect(() => {
     setFormError('');
     if (loginError) {
@@ -79,17 +77,9 @@ const LoginPage: React.FC = () => {
 
   const [showForgotScreen, setShowForgotScreen] = useState(false);
 
-  const handleForgotPassword = () => {
-    setShowForgotScreen(true);
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row transition-colors duration-300">
-      
-      {/* LEFT SIDE: Login Form (Stripe/Linear Feel) */}
       <div className="w-full md:w-1/2 flex flex-col justify-between p-6 sm:p-12 md:p-16 lg:p-24 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800">
-        
-        {/* Top: Brand Header */}
         <div className="flex items-center space-x-3 rtl:space-x-reverse mb-10 md:mb-0">
           <div className="h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20 text-white transform hover:rotate-6 transition-transform">
             <Store className="h-5 w-5" />
@@ -104,7 +94,6 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Center: Auth Form Container */}
         <div className="w-full max-w-md mx-auto my-auto py-8">
           {showForgotScreen ? (
             <div className="space-y-6">
@@ -142,13 +131,10 @@ const LoginPage: React.FC = () => {
                   {isUrdu ? 'خوش آمدید' : 'Sign in to workspace'}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {isUrdu
-                    ? 'اپنے کاؤنٹر پرو اکاؤنٹ میں سائن ان کریں'
-                    : 'Enter your credentials below to access your local dashboard.'}
+                  {isUrdu ? 'اپنے کاؤنٹر پرو اکاؤنٹ میں سائن ان کریں' : 'Enter your credentials below to access your local dashboard.'}
                 </p>
               </div>
 
-              {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
@@ -173,7 +159,7 @@ const LoginPage: React.FC = () => {
                     </label>
                     <button
                       type="button"
-                      onClick={handleForgotPassword}
+                      onClick={() => setShowForgotScreen(true)}
                       className="text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
                     >
                       {isUrdu ? 'پاس ورڈ بھول گئے؟' : 'Forgot Password?'}
@@ -217,7 +203,6 @@ const LoginPage: React.FC = () => {
                   </label>
                 </div>
 
-                {/* Error States */}
                 {(formError || loginError) && (
                   <div className="flex items-start space-x-3 p-3.5 bg-red-50 dark:bg-red-950/30 border border-red-200/50 dark:border-red-900/30 rounded-lg text-red-600 dark:text-red-400 animate-shake">
                     <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
@@ -225,7 +210,6 @@ const LoginPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -251,7 +235,6 @@ const LoginPage: React.FC = () => {
           )}
         </div>
 
-        {/* Bottom Footer */}
         <div className="flex justify-between items-center text-xs text-slate-400 dark:text-slate-500 mt-8">
           <span>© {new Date().getFullYear()} Swat Shop POS</span>
           <span className="flex items-center space-x-1.5 rtl:space-x-reverse">
@@ -261,23 +244,13 @@ const LoginPage: React.FC = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE: SaaS Dashboard Art / Graphic Overlay (Stripe/Linear Style) */}
       <div className="hidden md:flex w-1/2 bg-slate-950 text-white items-center justify-center p-12 relative overflow-hidden">
-        
-        {/* Glow Effects */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none" />
-        
-        {/* Abstract Grid Line Overlays */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35" />
         
-        {/* Graphic & Copy Container */}
         <div className="max-w-md w-full relative z-10 space-y-12">
-          
-          {/* Glassmorphic Floating Dashboard Widget Group */}
           <div className="space-y-6">
-            
-            {/* Widget 1: Live Revenue KPI */}
             <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800 p-5 rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300">
               <div className="flex justify-between items-start mb-3">
                 <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-400">
@@ -290,12 +263,9 @@ const LoginPage: React.FC = () => {
               <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">
                 {isUrdu ? 'آج کی فروخت' : 'Live Revenue Daily Stream'}
               </p>
-              <h3 className="text-2xl font-bold text-white tracking-tight mt-1">
-                Rs. 182,490
-              </h3>
+              <h3 className="text-2xl font-bold text-white tracking-tight mt-1">Rs. 182,490</h3>
             </div>
 
-            {/* Widget 2: Shopping Cart Overview */}
             <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800 p-5 rounded-2xl shadow-2xl ml-8 hover:scale-105 transition-transform duration-300">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-400">
@@ -305,7 +275,6 @@ const LoginPage: React.FC = () => {
                   {isUrdu ? 'سرگرم فروخت' : 'Active Checkout Terminal'}
                 </span>
               </div>
-              
               <div className="space-y-3.5">
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-slate-300">Swat Honey (Wild Organic)</span>
@@ -322,7 +291,6 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Widget 3: Quick Status Info */}
             <div className="bg-slate-900/40 backdrop-blur-sm border border-slate-800/60 py-3.5 px-5 rounded-xl flex items-center justify-between text-xs text-slate-400">
               <span className="flex items-center space-x-1.5">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -333,25 +301,20 @@ const LoginPage: React.FC = () => {
                 <span>CPDS v1.2 Enabled</span>
               </span>
             </div>
-
           </div>
 
-          {/* Core Branding Copy */}
           <div className="space-y-3">
             <h3 className="text-2xl font-bold tracking-tight text-white">
               {isUrdu ? 'تیز ترین انوینٹری اور فروخت کا نظام' : 'Swiftest retail terminal system.'}
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               {isUrdu
-                ? 'کاؤنٹر پرو آپ کے خوردہ کاروبار کو جدید رفتار، گہرائی سے تجزیات، اور محفوظ ڈیٹا بیس کے ساتھ طاقتور بناتا ہے۔'
+                ? 'کاؤنٹر پرو آپ کے خوردہ کاروبار کو جدید سرعت، گہرائی سے تجزیات، اور محفوظ ڈیٹا بیس کے ساتھ طاقتور بناتا ہے۔'
                 : 'Khata Book has transitioned. Empower Swat local retail stores with real-time analytics, lightweight offline storage, and modern billing templates.'}
             </p>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 };
