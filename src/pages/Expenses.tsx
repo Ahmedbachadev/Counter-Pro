@@ -19,6 +19,7 @@ import FilterSection from '../components/FilterSection';
 import KpiCard from '../components/KpiCard';
 import ContentCard from '../components/ContentCard';
 import EmptyState from '../components/EmptyState';
+import LoadingButton from '../components/LoadingButton';
 
 interface Budget {
   category: string;
@@ -42,6 +43,7 @@ const Expenses: React.FC = () => {
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [csvTextInput, setCsvTextInput] = useState('');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [isSaving, setIsSaving] = useState(false);
   const [selectedReportType, setSelectedReportType] = useState<string>('summary');
 
   // Search & Filter State
@@ -152,6 +154,7 @@ const Expenses: React.FC = () => {
       nextRecurringDate: formData.isRecurring && formData.nextRecurringDate ? formData.nextRecurringDate : undefined
     };
 
+    setIsSaving(true);
     try {
       if (editingId) {
         await updateExpense(editingId, payload as Partial<Expense>);
@@ -167,6 +170,8 @@ const Expenses: React.FC = () => {
     } catch (error) {
       console.error(error);
       alert('Failed to save expense.');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -636,6 +641,69 @@ const Expenses: React.FC = () => {
     };
     reader.readAsText(file);
   };
+
+  const filteredExpenses = React.useMemo(() => {
+    return expenses.filter(e => {
+      // Search term match
+      if (searchTerm.trim()) {
+        const term = searchTerm.toLowerCase();
+        const matchesSearch = 
+          e.id.toString().toLowerCase().includes(term) ||
+          e.description.toLowerCase().includes(term) ||
+          (e.vendor && e.vendor.toLowerCase().includes(term)) ||
+          e.category.toLowerCase().includes(term);
+        if (!matchesSearch) return false;
+      }
+
+      // Category filter
+      if (filterCategory && e.category !== filterCategory) return false;
+
+      // Payment method filter
+      if (filterPaymentMethod && e.paymentMethod !== filterPaymentMethod) return false;
+
+      // Status filter
+      if (filterStatus && (e.status || 'Paid') !== filterStatus) return false;
+
+      // Min amount filter
+      if (filterMinAmount) {
+        const minVal = parseFloat(filterMinAmount);
+        if (!isNaN(minVal) && e.amount < minVal) return false;
+      }
+
+      // Max amount filter
+      if (filterMaxAmount) {
+        const maxVal = parseFloat(filterMaxAmount);
+        if (!isNaN(maxVal) && e.amount > maxVal) return false;
+      }
+
+      // Start date filter
+      if (filterStartDate) {
+        const start = new Date(filterStartDate);
+        const created = new Date(e.createdAt);
+        if (created < start) return false;
+      }
+
+      // End date filter
+      if (filterEndDate) {
+        const end = new Date(filterEndDate);
+        end.setHours(23, 59, 59, 999);
+        const created = new Date(e.createdAt);
+        if (created > end) return false;
+      }
+
+      return true;
+    });
+  }, [
+    expenses,
+    searchTerm,
+    filterCategory,
+    filterPaymentMethod,
+    filterStatus,
+    filterMinAmount,
+    filterMaxAmount,
+    filterStartDate,
+    filterEndDate
+  ]);
 
   return (
     <div className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900 p-6 transition-colors duration-300">
@@ -1450,7 +1518,7 @@ const Expenses: React.FC = () => {
 
               <div className="flex gap-3 pt-4 border-t">
                 <button type="button" onClick={() => { setIsModalOpen(false); resetForm(); }} className="flex-1 px-4 py-2 border rounded-lg text-slate-750 dark:text-slate-350 font-bold hover:bg-slate-50 text-sm">Cancel</button>
-                <button type="submit" className="flex-1 px-4 py-2 bg-indigo-650 hover:bg-indigo-700 text-white rounded-lg font-bold text-sm">Save Expense</button>
+                <LoadingButton type="submit" isLoading={isSaving} loadingText="Saving..." className="flex-1 px-4 py-2 bg-indigo-650 hover:bg-indigo-700 text-white rounded-lg font-bold text-sm">Save Expense</LoadingButton>
               </div>
             </form>
           </div>

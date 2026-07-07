@@ -61,7 +61,8 @@ export interface ReceiptData {
   shopInfo: ShopSettings;
 }
 
-export const generatePDFReceipt = (data: ReceiptData): void => {
+// Internal helper: builds and returns the jsPDF document
+const buildReceiptDoc = (data: ReceiptData): { doc: jsPDF; filename: string } | null => {
   const { sale, customer, shopInfo } = data;
   
   // FIX: Exit if sale object is null/undefined
@@ -294,6 +295,56 @@ export const generatePDFReceipt = (data: ReceiptData): void => {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const filename = `receipt_${sale.id}_en_${timestamp}.pdf`;
 
-  // Save the PDF
+  return { doc, filename };
+};
+
+/**
+ * Downloads the receipt as a PDF file.
+ */
+export const downloadPDFReceipt = (data: ReceiptData): void => {
+  const result = buildReceiptDoc(data);
+  if (!result) return;
+  const { doc, filename } = result;
   doc.save(filename);
 };
+
+/**
+ * Opens the receipt in a small print popup window and triggers the browser print dialog.
+ */
+export const printPDFReceipt = (data: ReceiptData): void => {
+  const result = buildReceiptDoc(data);
+  if (!result) return;
+  const { doc } = result;
+
+  const blob = doc.output('blob');
+  const url = URL.createObjectURL(blob);
+
+  const printWindow = window.open(
+    url,
+    '_blank',
+    'width=800,height=900,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,status=no'
+  );
+
+  if (printWindow) {
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+    };
+  }
+};
+
+/**
+ * Silently saves/downloads the receipt PDF (used for auto-save on sale completion).
+ */
+export const savePDFReceipt = (data: ReceiptData): void => {
+  const result = buildReceiptDoc(data);
+  if (!result) return;
+  const { doc, filename } = result;
+  doc.save(filename);
+};
+
+/**
+ * @deprecated Use downloadPDFReceipt or printPDFReceipt instead.
+ * Kept for backward compatibility.
+ */
+export const generatePDFReceipt = downloadPDFReceipt;

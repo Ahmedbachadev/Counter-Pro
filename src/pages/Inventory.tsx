@@ -60,6 +60,7 @@ import KpiCard from '../components/KpiCard';
 import ContentCard from '../components/ContentCard';
 import EmptyState from '../components/EmptyState';
 import DetailPageLayout from '../components/DetailPageLayout';
+import LoadingButton from '../components/LoadingButton';
 
 interface SavedPreset {
   name: string;
@@ -186,6 +187,39 @@ const renderBarcodeSVG = (text: string) => {
   );
 };
 
+// Pure-string SVG generator for print window (no React JSX)
+const renderBarcodeSVGString = (text: string): string => {
+  const cleanText = `*${text.toUpperCase().replace(/\*/g, '')}*`;
+  let totalWidth = 0;
+  const characters: string[][] = [];
+
+  for (let i = 0; i < cleanText.length; i++) {
+    const char = cleanText[i];
+    const encoding = CODE39_ENCODINGS[char];
+    if (!encoding) continue;
+    const elements = encoding.split(' ');
+    characters.push(elements);
+    elements.forEach(el => { totalWidth += el === 'W' ? 3 : 1; });
+    if (i < cleanText.length - 1) totalWidth += 1;
+  }
+
+  let currentX = 0;
+  let rectsHTML = '';
+
+  characters.forEach(elements => {
+    elements.forEach((el, elIdx) => {
+      const width = el === 'W' ? 3 : 1;
+      if (elIdx % 2 === 0) {
+        rectsHTML += `<rect x="${currentX}" y="0" width="${width}" height="32" fill="black"/>`;
+      }
+      currentX += width;
+    });
+    currentX += 1; // inter-character gap
+  });
+
+  return `<svg viewBox="0 0 ${totalWidth} 32" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">${rectsHTML}</svg>`;
+};
+
 const Inventory: React.FC = () => {
   const { t } = useTranslation();
   const {
@@ -265,6 +299,12 @@ const Inventory: React.FC = () => {
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
 
+  // Form saving states
+  const [isSavingProduct, setIsSavingProduct] = useState(false);
+  const [isSavingCategory, setIsSavingCategory] = useState(false);
+  const [isSavingAdjustment, setIsSavingAdjustment] = useState(false);
+  const [isSavingPurchase, setIsSavingPurchase] = useState(false);
+
   // Stock Adjustment Form
   const [adjustmentForm, setAdjustmentForm] = useState({
     productId: '',
@@ -309,6 +349,12 @@ const Inventory: React.FC = () => {
     showNumber: true
   });
   const printAreaRef = useRef<HTMLDivElement>(null);
+
+  // Search & custom dropdowns state
+  const [categorySearch, setCategorySearch] = useState('');
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+  const [supplierSearch, setSupplierSearch] = useState('');
+  const [isSupplierDropdownOpen, setIsSupplierDropdownOpen] = useState(false);
 
   // Forms State
   const [productForm, setProductForm] = useState({
@@ -913,8 +959,8 @@ const Inventory: React.FC = () => {
       barcode: productForm.barcode || undefined,
       sku: productForm.sku || undefined,
       brand: productForm.brand || undefined,
-      categoryId: parseInt(productForm.categoryId),
-      supplierId: productForm.supplierId ? parseInt(productForm.supplierId) : undefined,
+      categoryId: productForm.categoryId as any,
+      supplierId: productForm.supplierId ? (productForm.supplierId as any) : undefined,
       price: parseFloat(productForm.price),
       cost: parseFloat(productForm.cost),
       stock: parseInt(productForm.stock),
@@ -927,51 +973,65 @@ const Inventory: React.FC = () => {
       variants: productForm.hasVariants ? productForm.variants : []
     };
 
-    if (editingProduct) {
-      await updateProduct(editingProduct.id, productData);
-      setEditingProduct(null);
-      alert(t('common.product') + ' updated successfully');
-    } else {
-      const result = await addProduct(productData);
-      if (!result.success) {
+    setIsSavingProduct(true);
+    try {
+      if (editingProduct) {
+        await updateProduct(editingProduct.id, productData);
+        setEditingProduct(null);
+        alert(t('common.product') + ' updated successfully');
+      } else {
+        const result = await addProduct(productData);
+        if (!result.success) {
+          alert(result.message);
+          return;
+        }
         alert(result.message);
-        return;
       }
-      alert(result.message);
-    }
 
-    resetProductForm();
-    setShowProductModal(false);
+      resetProductForm();
+      setShowProductModal(false);
+    } catch (err: any) {
+      alert('Error: ' + (err?.message || 'Failed to save product. Please try again.'));
+    } finally {
+      setIsSavingProduct(false);
+    }
   };
 
   // Category Submit
   const handleCategorySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (editingCategory) {
-      await updateCategory(editingCategory.id.toString(), categoryForm);
-      setEditingCategory(null);
-      alert('Category updated successfully');
-    } else {
-      await addCategory(categoryForm);
-      alert('Category added successfully');
-    }
+    setIsSavingCategory(true);
+    try {
+      if (editingCategory) {
+        await updateCategory(editingCategory.id.toString(), categoryForm);
+        setEditingCategory(null);
+        alert('Category updated successfully');
+      } else {
+        await addCategory(categoryForm);
+        alert('Category added successfully');
+      }
 
-    resetCategoryForm();
-    setShowCategoryModal(false);
+      resetCategoryForm();
+      setShowCategoryModal(false);
+    } catch (err: any) {
+      alert('Error: ' + (err?.message || 'Failed to save category. Please try again.'));
+    } finally {
+      setIsSavingCategory(false);
+    }
   };
 
   // Stock Adjustment Submission
   const handleAdjustmentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const prodId = parseInt(adjustmentForm.productId);
+    const prodId = adjustmentForm.productId;
     const qtyRaw = parseInt(adjustmentForm.quantity);
     if (!prodId || isNaN(qtyRaw) || qtyRaw <= 0) {
       alert('Please select a valid product and numeric quantity.');
       return;
     }
 
-    const prod = products.find(p => p.id === prodId);
+    const prod = products.find(p => p.id.toString() === prodId.toString());
     if (!prod) return;
 
     let finalQty = qtyRaw;
@@ -981,6 +1041,7 @@ const Inventory: React.FC = () => {
       finalQty = Math.abs(qtyRaw);
     }
 
+    setIsSavingAdjustment(true);
     try {
       await inventoryService.addStockAdjustment({
         productId: prodId,
@@ -1000,99 +1061,141 @@ const Inventory: React.FC = () => {
         notes: ''
       });
       loadAdjustments();
+      // Reload products so stock qty reflects immediately in the UI
+      await useInventoryStore.getState().initializeFromDatabase();
     } catch (err) {
       console.error(err);
       alert('Database error during adjustment.');
+    } finally {
+      setIsSavingAdjustment(false);
     }
   };
 
   const handlePrintBarcodes = () => {
-    if (!printAreaRef.current) return;
-    
-    const printContent = printAreaRef.current.innerHTML;
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Pop-up blocker is preventing printing.');
+    const prod = products.find(p => p.id.toString() === barcodeConfig.productId);
+    if (!prod) {
+      alert('Please select a valid product first.');
       return;
     }
-    
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print Barcodes</title>
-          <style>
-            @media print {
-              @page {
-                size: auto;
-                margin: 0;
-              }
-              body {
-                margin: 10px;
-                background: white;
-                color: black;
-              }
-            }
-            body {
-              font-family: system-ui, -apple-system, sans-serif;
-              padding: 20px;
-              background: #f9fafb;
-            }
-            .grid {
-              display: grid;
-              grid-template-columns: repeat(4, 1fr);
-              gap: 15px;
-            }
-            .barcode-card {
-              border: 1px solid #e5e7eb;
-              padding: 12px;
-              border-radius: 8px;
-              text-align: center;
-              background: white;
-              page-break-inside: avoid;
-            }
-            .title {
-              font-weight: bold;
-              font-size: 11px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              margin-bottom: 2px;
-            }
-            .price {
-              font-weight: 800;
-              font-size: 12px;
-              margin-bottom: 4px;
-            }
-            .barcode-svg {
-              height: 36px;
-              margin: 6px auto;
-            }
-            .value {
-              font-size: 9px;
-              font-family: monospace;
-              color: #4b5563;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="grid">
-            ${printContent}
-          </div>
-          <script>
-            window.onload = () => {
-              window.print();
-              window.close();
-            };
-          </script>
-        </body>
-      </html>
-    `);
+
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Pop-up blocker is preventing printing. Please allow pop-ups for this site.');
+      return;
+    }
+
+    const copies = parseInt(barcodeConfig.copies) || 1;
+    const gridCols = barcodeConfig.size === '38x25' ? 5 : barcodeConfig.size === '60x30' ? 3 : 4;
+    const cardHeight = barcodeConfig.size === '38x25' ? '95px' : barcodeConfig.size === '60x30' ? '130px' : '110px';
+    const cardMaxWidth = barcodeConfig.size === '38x25' ? '130px' : 'none';
+    const cardFontSize = barcodeConfig.size === '38x25' ? '10px' : barcodeConfig.size === '60x30' ? '12px' : '11px';
+
+    const barcodeValue = prod.barcode || prod.id.toString();
+    const svgString = renderBarcodeSVGString(barcodeValue);
+
+    // Build each barcode card as a plain HTML string
+    const cardHTML = `
+      <div class="barcode-card">
+        ${barcodeConfig.showName ? `<div class="title">${prod.name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>` : ''}
+        ${barcodeConfig.showPrice ? `<div class="price">PKR ${prod.price.toFixed(2)}</div>` : ''}
+        <div class="barcode-svg">${svgString}</div>
+        ${barcodeConfig.showNumber ? `<div class="value">${barcodeValue}</div>` : ''}
+      </div>
+    `;
+
+    const allCards = Array.from({ length: copies }).map(() => cardHTML).join('');
+
+    printWindow.document.write(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Print Barcodes - ${prod.name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</title>
+    <style>
+      @media print {
+        @page { size: auto; margin: 10mm; }
+        body { margin: 0; background: white; color: black; }
+        .no-print { display: none; }
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: system-ui, -apple-system, Arial, sans-serif;
+        padding: 20px;
+        background: #f9fafb;
+        color: black;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(${gridCols}, 1fr);
+        gap: 12px;
+      }
+      .barcode-card {
+        border: 1px solid #e5e7eb;
+        padding: 10px 8px;
+        border-radius: 6px;
+        text-align: center;
+        background: white;
+        page-break-inside: avoid;
+        height: ${cardHeight};
+        max-width: ${cardMaxWidth};
+        font-size: ${cardFontSize};
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden;
+      }
+      .title {
+        font-weight: 700;
+        font-size: ${cardFontSize};
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        color: #111827;
+      }
+      .price {
+        font-weight: 800;
+        font-size: calc(${cardFontSize} + 1px);
+        color: #000;
+      }
+      .barcode-svg {
+        width: 100%;
+        height: 36px;
+        display: block;
+        overflow: hidden;
+      }
+      .barcode-svg svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .value {
+        font-size: calc(${cardFontSize} - 1px);
+        font-family: 'Courier New', Courier, monospace;
+        color: #4b5563;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">${allCards}</div>
+    <script>
+      window.onload = function() {
+        setTimeout(function() {
+          window.print();
+          window.close();
+        }, 400);
+      };
+    </script>
+  </body>
+</html>`);
     printWindow.document.close();
+    printWindow.focus();
   };
 
   // Add Item inside Purchase Entry form
   const handleAddPurchaseItem = () => {
-    const prodId = parseInt(purchaseItemInput.productId);
+    const prodId = purchaseItemInput.productId;
     const costVal = parseFloat(purchaseItemInput.costPrice);
     const qtyVal = parseInt(purchaseItemInput.quantity);
 
@@ -1101,16 +1204,16 @@ const Inventory: React.FC = () => {
       return;
     }
 
-    const prod = products.find(p => p.id === prodId);
+    const prod = products.find(p => p.id.toString() === prodId.toString());
     if (!prod) return;
 
-    if (purchaseForm.items.some(i => i.productId === prodId)) {
+    if (purchaseForm.items.some(i => i.productId.toString() === prodId.toString())) {
       alert('Product already added to items. Remove or edit quantity instead.');
       return;
     }
 
     const newItem: Omit<PurchaseEntryItem, 'id' | 'purchaseEntryId'> = {
-      productId: prodId,
+      productId: prodId as any,
       productName: prod.name,
       costPrice: costVal,
       quantity: qtyVal,
@@ -1141,7 +1244,7 @@ const Inventory: React.FC = () => {
   const handlePurchaseSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const supplierId = parseInt(purchaseForm.supplierId);
+    const supplierId = purchaseForm.supplierId;
     if (!supplierId) {
       alert('Please select a supplier.');
       return;
@@ -1152,7 +1255,7 @@ const Inventory: React.FC = () => {
       return;
     }
 
-    const supplier = suppliers.find(s => s.id === supplierId);
+    const supplier = suppliers.find(s => s.id.toString() === supplierId.toString());
     if (!supplier) return;
 
     const subtotal = purchaseForm.items.reduce((sum, i) => sum + i.subtotal, 0);
@@ -1160,6 +1263,7 @@ const Inventory: React.FC = () => {
     const discounts = parseFloat(purchaseForm.discounts) || 0;
     const netTotal = subtotal + taxes - discounts;
 
+    setIsSavingPurchase(true);
     try {
       await supplierService.addPurchaseEntry({
         supplierId,
@@ -1184,9 +1288,13 @@ const Inventory: React.FC = () => {
         items: []
       });
       loadPurchaseEntries();
+      // Reload products so stock qty reflects immediately in the UI
+      await useInventoryStore.getState().initializeFromDatabase();
     } catch (err) {
       console.error(err);
       alert('Procurement entry failed due to database transaction error.');
+    } finally {
+      setIsSavingPurchase(false);
     }
   };
 
@@ -3184,25 +3292,25 @@ const Inventory: React.FC = () => {
                   className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 border rounded-xl border-dashed border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 max-h-[400px] overflow-y-auto"
                 >
                   {Array.from({ length: parseInt(barcodeConfig.copies) || 1 }).map((_, idx) => {
-                    const prod = products.find(p => p.id === parseInt(barcodeConfig.productId));
+                    const prod = products.find(p => p.id.toString() === barcodeConfig.productId);
                     if (!prod) return null;
                     return (
                       <div
                         key={idx}
-                        className={`bg-white text-black p-3 rounded border text-center font-sans shadow-xs ${
+                        className={`barcode-card bg-white text-black p-3 rounded border text-center font-sans shadow-xs ${
                           barcodeConfig.size === '38x25' ? 'h-[95px] max-w-[130px] text-[10px]' :
                           barcodeConfig.size === '60x30' ? 'h-[130px] text-xs' : 'h-[110px] text-[11px]'
                         }`}
                       >
                         {barcodeConfig.showName && (
-                          <div className="font-bold text-gray-900 truncate mb-0.5">{prod.name}</div>
+                          <div className="title font-bold text-gray-900 truncate mb-0.5">{prod.name}</div>
                         )}
                         {barcodeConfig.showPrice && (
-                          <div className="font-extrabold text-[12px] mb-1">PKR {prod.price.toFixed(2)}</div>
+                          <div className="price font-extrabold text-[12px] mb-1">PKR {prod.price.toFixed(2)}</div>
                         )}
-                        <div className="my-1.5 h-9">{renderBarcodeSVG(prod.barcode || prod.id.toString())}</div>
+                        <div className="barcode-svg my-1.5 h-9">{renderBarcodeSVG(prod.barcode || prod.id.toString())}</div>
                         {barcodeConfig.showNumber && (
-                          <div className="text-[9px] text-gray-600 font-mono mt-1 select-none">{prod.barcode || prod.id}</div>
+                          <div className="value text-[9px] text-gray-600 font-mono mt-1 select-none">{prod.barcode || prod.id}</div>
                         )}
                       </div>
                     );
@@ -3685,7 +3793,7 @@ const Inventory: React.FC = () => {
                 </h4>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
+                  <div className="md:col-span-2">
                     <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">
                       Product Name (English) *
                     </label>
@@ -3696,19 +3804,6 @@ const Inventory: React.FC = () => {
                       className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                       required
                       placeholder="e.g. Master PPR Tee 25mm"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">
-                      Product Name (Urdu - Option)
-                    </label>
-                    <input
-                      type="text"
-                      value={productForm.nameUrdu}
-                      onChange={(e) => setProductForm({ ...productForm, nameUrdu: e.target.value })}
-                      className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white text-right font-urdu outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="مثلاً ماسٹر پی پی آر ٹی 25 ملی میٹر"
                     />
                   </div>
                 </div>
@@ -3757,21 +3852,75 @@ const Inventory: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
+                  <div className="relative">
                     <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">
                       Category Assignment *
                     </label>
-                    <select
-                      value={productForm.categoryId}
-                      onChange={(e) => setProductForm({ ...productForm, categoryId: e.target.value })}
-                      className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500"
-                      required
+                    <div 
+                      onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                      className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white outline-none cursor-pointer flex justify-between items-center text-sm"
                     >
-                      <option value="">Select Category</option>
-                      {categories.map(c => (
-                        <option key={c.id} value={c.id}>{c.name}</option>
-                      ))}
-                    </select>
+                      <span>
+                        {categories.find(c => c.id.toString() === productForm.categoryId.toString())?.name || 'Select Category'}
+                      </span>
+                      <span className="text-gray-400 text-xs">▼</span>
+                    </div>
+
+                    {isCategoryDropdownOpen && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setIsCategoryDropdownOpen(false)} />
+                        <div className="absolute left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 p-2 space-y-2 max-h-60 overflow-y-auto">
+                          <input
+                            type="text"
+                            placeholder="Search category..."
+                            value={categorySearch}
+                            onChange={(e) => setCategorySearch(e.target.value)}
+                            className="w-full px-3 py-1.5 text-xs border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white outline-none"
+                            onClick={(e) => e.stopPropagation()}
+                            autoFocus
+                          />
+                          <div className="space-y-1">
+                            <button
+                              type="button"
+                              onClick={async (e) => {
+                                e.stopPropagation();
+                                const name = window.prompt("Enter new category name:");
+                                if (name && name.trim()) {
+                                  try {
+                                    await addCategory({ name: name.trim(), nameUrdu: '', description: '' });
+                                    await useInventoryStore.getState().initializeFromDatabase();
+                                    alert('Category added successfully!');
+                                  } catch (err) {
+                                    alert('Failed to add category');
+                                  }
+                                }
+                              }}
+                              className="w-full text-left px-2.5 py-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg"
+                            >
+                              ➕ Add New Category
+                            </button>
+                            {categories
+                              .filter(c => c.name.toLowerCase().includes(categorySearch.toLowerCase()))
+                              .map(c => (
+                                <button
+                                  key={c.id}
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setProductForm({ ...productForm, categoryId: c.id.toString() });
+                                    setIsCategoryDropdownOpen(false);
+                                    setCategorySearch('');
+                                  }}
+                                  className={`w-full text-left px-2.5 py-1.5 text-xs rounded-lg ${productForm.categoryId.toString() === c.id.toString() ? 'bg-blue-50 text-blue-600 font-bold dark:bg-blue-950/40 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                                >
+                                  {c.name}
+                                </button>
+                              ))
+                            }
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <div>
@@ -3787,20 +3936,87 @@ const Inventory: React.FC = () => {
                     />
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">
                       Primary Supplier
                     </label>
-                    <select
-                      value={productForm.supplierId}
-                      onChange={(e) => setProductForm({ ...productForm, supplierId: e.target.value })}
-                      className="w-full px-3.5 py-2 border border-gray-305 dark:border-gray-655 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500"
+                    <div 
+                      onClick={() => setIsSupplierDropdownOpen(!isSupplierDropdownOpen)}
+                      className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white outline-none cursor-pointer flex justify-between items-center text-sm"
                     >
-                      <option value="">No Supplier</option>
-                      {suppliers.map(s => (
-                        <option key={s.id} value={s.id}>{s.name}</option>
-                      ))}
-                    </select>
+                      <span>
+                        {suppliers.find(s => s.id.toString() === productForm.supplierId.toString())?.name || 'No Supplier'}
+                      </span>
+                      <span className="text-gray-400 text-xs">▼</span>
+                    </div>
+
+                    {isSupplierDropdownOpen && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setIsSupplierDropdownOpen(false)} />
+                        <div className="absolute left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 p-2 space-y-2 max-h-60 overflow-y-auto">
+                          <input
+                            type="text"
+                            placeholder="Search supplier..."
+                            value={supplierSearch}
+                            onChange={(e) => setSupplierSearch(e.target.value)}
+                            className="w-full px-3 py-1.5 text-xs border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white outline-none"
+                            onClick={(e) => e.stopPropagation()}
+                            autoFocus
+                          />
+                          <div className="space-y-1">
+                            <button
+                              type="button"
+                              onClick={async (e) => {
+                                e.stopPropagation();
+                                const name = window.prompt("Enter new supplier name:");
+                                if (name && name.trim()) {
+                                  try {
+                                    await useSupplierStore.getState().addSupplier({ name: name.trim() });
+                                    await useSupplierStore.getState().initializeFromDatabase();
+                                    alert('Supplier added successfully!');
+                                  } catch (err) {
+                                    alert('Failed to add supplier');
+                                  }
+                                }
+                              }}
+                              className="w-full text-left px-2.5 py-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-955/30 rounded-lg"
+                            >
+                              ➕ Add New Supplier
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setProductForm({ ...productForm, supplierId: '' });
+                                setIsSupplierDropdownOpen(false);
+                                setSupplierSearch('');
+                              }}
+                              className={`w-full text-left px-2.5 py-1.5 text-xs rounded-lg ${productForm.supplierId === '' ? 'bg-blue-50 text-blue-600 font-bold dark:bg-blue-955/40 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                            >
+                              No Supplier
+                            </button>
+                            {suppliers
+                              .filter(s => s.name.toLowerCase().includes(supplierSearch.toLowerCase()))
+                              .map(s => (
+                                <button
+                                  key={s.id}
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setProductForm({ ...productForm, supplierId: s.id.toString() });
+                                    setIsSupplierDropdownOpen(false);
+                                    setSupplierSearch('');
+                                  }}
+                                  className={`w-full text-left px-2.5 py-1.5 text-xs rounded-lg ${productForm.supplierId.toString() === s.id.toString() ? 'bg-blue-50 text-blue-600 font-bold dark:bg-blue-955/40 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                                >
+                                  {s.name}
+                                </button>
+                              ))
+                            }
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -3982,158 +4198,19 @@ const Inventory: React.FC = () => {
                         })}
                       </div>
                     </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                <div className="flex justify-between items-center">
-                  <h4 className="text-xs font-bold text-blue-505 uppercase tracking-widest flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-505" />
-                    Product Variants &amp; Options
-                  </h4>
-
-                  <label className="flex items-center space-x-2 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={productForm.hasVariants}
-                      onChange={(e) => {
-                        const active = e.target.checked;
-                        setProductForm(prev => {
-                          const initialVars = active && prev.variants.length === 0 
-                            ? [{
-                                id: Math.random().toString(36).substr(2, 9),
-                                name: 'Default Option',
-                                sku: prev.sku ? `${prev.sku}-VAR1` : '',
-                                barcode: prev.barcode || '',
-                                cost: parseFloat(prev.cost) || 0,
-                                price: parseFloat(prev.price) || 0,
-                                stock: 0
-                              }] 
-                            : prev.variants;
-                          return {
-                            ...prev,
-                            hasVariants: active,
-                            variants: initialVars
-                          };
-                        });
-                      }}
-                      className="rounded text-blue-600 border-gray-300 focus:ring-blue-505 h-4.5 w-4.5"
-                    />
-                    <span className="text-xs font-semibold text-gray-750 dark:text-gray-350">Catalog Has Variant Options</span>
-                  </label>
-                </div>
-
-                {productForm.hasVariants && (
-                  <div className="space-y-3 p-4 bg-gray-55/50 dark:bg-gray-900/30 border border-gray-250 dark:border-gray-805 rounded-2xl">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Setup Sizes, Colors, Material variants</span>
-                      <button
-                        type="button"
-                        onClick={handleAddVariantRow}
-                        className="px-3 py-1 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-605 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-lg text-xs font-bold transition-all"
-                      >
-                        Add Variant Row
-                      </button>
-                    </div>
-
-                    <div className="space-y-3">
-                      {productForm.variants.map((v) => (
-                        <div key={v.id} className="grid grid-cols-1 sm:grid-cols-6 gap-2 bg-white dark:bg-gray-805 border border-gray-205 dark:border-gray-700 p-3 rounded-xl shadow-xs items-end relative pr-10 sm:pr-2">
-                          <div className="sm:col-span-1.5">
-                            <label className="text-[10px] font-bold text-gray-400 block mb-0.5">Option Name *</label>
-                            <input
-                              type="text"
-                              value={v.name}
-                              onChange={(e) => handleUpdateVariantField(v.id, 'name', e.target.value)}
-                              placeholder="e.g. Size 32"
-                              className="w-full px-2.5 py-1 border border-gray-300 dark:border-gray-650 bg-gray-55 dark:bg-gray-755 text-xs text-gray-900 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-505"
-                              required
-                            />
-                          </div>
-                          <div>
-                            <label className="text-[10px] font-bold text-gray-400 block mb-0.5">SKU</label>
-                            <input
-                              type="text"
-                              value={v.sku}
-                              onChange={(e) => handleUpdateVariantField(v.id, 'sku', e.target.value)}
-                              placeholder="SKU"
-                              className="w-full px-2.5 py-1 border border-gray-300 dark:border-gray-655 bg-gray-55 dark:bg-gray-755 text-xs text-gray-950 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-505 font-mono"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-[10px] font-bold text-gray-400 block mb-0.5">Barcode</label>
-                            <input
-                              type="text"
-                              value={v.barcode}
-                              onChange={(e) => handleUpdateVariantField(v.id, 'barcode', e.target.value)}
-                              placeholder="Barcode"
-                              className="w-full px-2.5 py-1 border border-gray-305 dark:border-gray-655 bg-gray-55 dark:bg-gray-755 text-xs text-gray-955 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-505 font-mono"
-                            />
-                          </div>
-                          <div>
-                            <label className="text-[10px] font-bold text-gray-400 block mb-0.5">Cost</label>
-                            <input
-                              type="number"
-                              value={v.cost}
-                              onChange={(e) => handleUpdateVariantField(v.id, 'cost', e.target.value)}
-                              placeholder="Cost"
-                              className="w-full px-2.5 py-1 border border-gray-300 dark:border-gray-655 bg-gray-55 dark:bg-gray-755 text-xs text-gray-905 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-505"
-                              required
-                            />
-                          </div>
-                          <div>
-                            <label className="text-[10px] font-bold text-gray-400 block mb-0.5">Price</label>
-                            <input
-                              type="number"
-                              value={v.price}
-                              onChange={(e) => handleUpdateVariantField(v.id, 'price', e.target.value)}
-                              placeholder="Price"
-                              className="w-full px-2.5 py-1 border border-gray-300 dark:border-gray-655 bg-gray-55 dark:bg-gray-755 text-xs text-gray-905 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-505 font-bold"
-                              required
-                            />
-                          </div>
-                          <div>
-                            <label className="text-[10px] font-bold text-gray-400 block mb-0.5">Stock</label>
-                            <input
-                              type="number"
-                              value={v.stock}
-                              onChange={(e) => handleUpdateVariantField(v.id, 'stock', e.target.value)}
-                              placeholder="Stock"
-                              className="w-full px-2.5 py-1 border border-gray-305 dark:border-gray-655 bg-gray-55 dark:bg-gray-755 text-xs text-gray-905 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-505 font-semibold"
-                              required
-                            />
-                          </div>
-
-                          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 sm:static sm:transform-none flex items-center justify-center">
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteVariantRow(v.id)}
-                              className="p-1 hover:bg-red-50 dark:hover:bg-red-950/20 text-gray-400 hover:text-red-650 rounded-lg transition-colors"
-                              title="Delete Variant"
-                            >
-                              <X className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="text-[11px] text-gray-400 flex items-center gap-1 mt-2">
-                      <Info className="h-3 w-3 inline text-blue-505" />
-                      <span>Stock amount is aggregated automatically from variant listings to the core product stock.</span>
-                    </div>
-                  </div>
                 )}
               </div>
+            </div>
 
-              <div className="flex space-x-3 pt-6 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
-                <button
+            <div className="flex space-x-3 pt-6 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <LoadingButton
                   type="submit"
+                  isLoading={isSavingProduct}
+                  loadingText="Saving..."
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all shadow"
                 >
                   Confirm Specifications
-                </button>
+                </LoadingButton>
                 <button
                   type="button"
                   onClick={() => {
@@ -4188,20 +4265,6 @@ const Inventory: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-gray-505 dark:text-gray-405 mb-1">
-                  Category Name (Urdu - Required) *
-                </label>
-                <input
-                  type="text"
-                  value={categoryForm.nameUrdu}
-                  onChange={(e) => setCategoryForm({ ...categoryForm, nameUrdu: e.target.value })}
-                  className="w-full px-3.5 py-2 border border-gray-350 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-755 text-gray-905 dark:text-white text-right font-urdu outline-none focus:ring-2 focus:ring-blue-505 focus:border-transparent transition-all"
-                  required
-                  placeholder="مثلاً سینیٹری فٹنگز"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-505 dark:text-gray-405 mb-1">
                   Description / Details
                 </label>
                 <textarea
@@ -4214,12 +4277,14 @@ const Inventory: React.FC = () => {
               </div>
 
               <div className="flex space-x-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-                <button
+                <LoadingButton
                   type="submit"
+                  isLoading={isSavingCategory}
+                  loadingText="Saving..."
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all shadow"
                 >
-                  Save Category
-                </button>
+                  {editingCategory ? 'Save Changes' : 'Add Category'}
+                </LoadingButton>
                 <button
                   type="button"
                   onClick={() => {
@@ -4325,9 +4390,14 @@ const Inventory: React.FC = () => {
               </div>
 
               <div className="flex space-x-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-                <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all shadow">
+                <LoadingButton
+                  type="submit"
+                  isLoading={isSavingAdjustment}
+                  loadingText="Applying..."
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all shadow"
+                >
                   Apply Adjustment
-                </button>
+                </LoadingButton>
                 <button type="button" onClick={() => setShowAdjustmentModal(false)} className="flex-1 bg-gray-150 hover:bg-gray-250 dark:bg-gray-700 dark:hover:bg-gray-650 text-gray-750 dark:text-gray-305 font-semibold py-2.5 px-4 rounded-xl transition-all">
                   Cancel
                 </button>
@@ -4547,13 +4617,15 @@ const Inventory: React.FC = () => {
               </div>
 
               <div className="flex space-x-3 pt-4 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
-                <button
+                <LoadingButton
                   type="submit"
+                  isLoading={isSavingPurchase}
+                  loadingText="Recording..."
                   disabled={purchaseForm.items.length === 0}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition-all shadow disabled:opacity-50"
                 >
                   Record Procurement Invoice
-                </button>
+                </LoadingButton>
                 <button
                   type="button"
                   onClick={() => setShowPurchaseModal(false)}

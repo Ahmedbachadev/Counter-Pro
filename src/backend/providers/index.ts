@@ -1,5 +1,6 @@
 import { DataProvider } from './DataProvider';
 import { SupabaseProvider } from './SupabaseProvider';
+import supabase from '../supabaseClient';
 
 const supabaseProvider = new SupabaseProvider();
 
@@ -14,6 +15,22 @@ const errorHandlingProxy = new Proxy(supabaseProvider, {
         } catch (error: any) {
           console.error(`[Supabase Error in ${String(prop)}]:`, error);
           
+          // Auto-refresh token if expired and retry
+          if (error.message && (error.message.includes('JWT expired') || error.message.includes('token expired') || error.status === 401)) {
+            try {
+              console.log('JWT expired or unauthorized, attempting to refresh session...');
+              if (supabase) {
+                const { data: { session }, error: refreshError } = await supabase.auth.getSession();
+                if (session && !refreshError) {
+                  console.log('Session successfully refreshed. Retrying database operation...');
+                  return await originalMethod.apply(target, args);
+                }
+              }
+            } catch (refreshErr) {
+              console.error('Failed to automatically refresh session on JWT expiry:', refreshErr);
+            }
+          }
+
           let friendlyMessage = 'An unexpected error occurred while communicating with the server.';
           
           if (error.code === 'PGRST116') {

@@ -23,13 +23,12 @@ const LoginPage: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated) {
       const { appType } = useAuthStore.getState();
-      if (appType === 'admin') {
-        navigate('/adminpanel', { replace: true });
-        return;
-      }
       if (appType === 'business') {
         const from = (location.state as any)?.from?.pathname || '/';
-        navigate(from, { replace: true });
+        const target = (from === '/login' || from.startsWith('/adminpanel')) ? '/' : from;
+        navigate(target, { replace: true });
+      } else if (appType === 'admin') {
+        navigate('/adminpanel', { replace: true });
       }
     }
   }, [isAuthenticated, navigate, location]);

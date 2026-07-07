@@ -37,7 +37,8 @@ import { usePOSStore, SaleItem, PaymentMethod, Sale, SplitPaymentItem } from '..
 import { useInventoryStore, Product } from '../stores/inventoryStore';
 import { useCustomerStore, Customer } from '../stores/customersStore';
 import { useSettingsStore } from '../stores/settingsStore';
-import { generatePDFReceipt } from '../utils/pdfReceiptGenerator';
+import { useAuthStore } from '../stores/authStore';
+import { generatePDFReceipt, printPDFReceipt, downloadPDFReceipt, savePDFReceipt } from '../utils/pdfReceiptGenerator';
 import { generateUrduPDFReceipt } from '../utils/urduPdfReceiptGenerator';
 
 // Helper function to calculate the true due balance for a customer from sales data
@@ -279,6 +280,7 @@ const POS: React.FC = () => {
   const [payments, setPayments] = useState<SplitPaymentItem[]>([
     { method: 'cash', amount: 0, reference: '' }
   ]);
+  const [isPaymentEdited, setIsPaymentEdited] = useState(false);
 
   const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -616,10 +618,10 @@ const POS: React.FC = () => {
 
   // Sync payments total automatically when cart final amount transforms
   useEffect(() => {
-    if (payments.length === 1) {
+    if (!isPaymentEdited && payments.length === 1) {
       setPayments([{ ...payments[0], amount: finalAmount }]);
     }
-  }, [finalAmount]);
+  }, [finalAmount, isPaymentEdited, payments.length]);
 
   // Real-time payment calculation summary engine
   const totalPaidAmount = useMemo(() => {
@@ -739,7 +741,7 @@ const POS: React.FC = () => {
       customer: selectedCustomer || undefined,
       shopInfo: settings
     };
-    generatePDFReceipt(receiptData);
+    printPDFReceipt(receiptData);
     showToast('Re-printing past receipt...', 'info');
   };
 
@@ -797,16 +799,26 @@ const POS: React.FC = () => {
   // Split Payment Action Matrix
   const handleAddPaymentRow = () => {
     setPayments(prev => [...prev, { method: 'cash', amount: remainingBalance, reference: '' }]);
+    setIsPaymentEdited(true);
     showToast('Split payment mode activated', 'info');
   };
 
   const handleRemovePaymentRow = (index: number) => {
     if (payments.length === 1) return;
-    setPayments(prev => prev.filter((_, idx) => idx !== index));
+    setPayments(prev => {
+      const next = prev.filter((_, idx) => idx !== index);
+      if (next.length === 1) {
+        setIsPaymentEdited(false);
+      }
+      return next;
+    });
     showToast('Payment row removed', 'info');
   };
 
   const handleUpdatePaymentValue = (index: number, key: keyof SplitPaymentItem, val: any) => {
+    if (key === 'amount') {
+      setIsPaymentEdited(true);
+    }
     setPayments(prev => prev.map((p, idx) => {
       if (idx !== index) return p;
       if (key === 'amount') {
@@ -819,6 +831,7 @@ const POS: React.FC = () => {
 
   const handleQuickPayFull = (method: PaymentMethod) => {
     setPayments([{ method, amount: finalAmount, reference: '' }]);
+    setIsPaymentEdited(false);
     showToast(`Quick allocation: ${method}`, 'success');
   };
 
@@ -892,6 +905,7 @@ const POS: React.FC = () => {
       setOrderDiscountReason('');
       setCartNotes('');
       setPayments([{ method: 'cash', amount: 0, reference: '' }]);
+      setIsPaymentEdited(false);
       setUndoStack({});
       showToast(`Sale held on ticket ID ${holdId}`, 'success');
     } catch (error) {
@@ -923,8 +937,10 @@ const POS: React.FC = () => {
 
     if (targetSale.payments && targetSale.payments.length > 0) {
       setPayments(targetSale.payments);
+      setIsPaymentEdited(true);
     } else {
       setPayments([{ method: targetSale.paymentMethod || 'cash', amount: targetSale.amountPaid || 0, reference: '' }]);
+      setIsPaymentEdited(targetSale.amountPaid !== targetSale.finalAmount);
     }
 
     await HeldSalesStorage.deleteHeldSale(targetSale.holdId);
@@ -1046,7 +1062,7 @@ const POS: React.FC = () => {
       payments,
       paymentStatus: computedPaymentStatus,
       customerId: selectedCustomer?.id,
-      cashierId: 'admin',
+      cashierId: useAuthStore.getState().user?.id?.toString() || 'admin',
       notes: cartNotes,
       discountType: orderDiscountType,
       discountValue: orderDiscountValue,
@@ -1085,14 +1101,10 @@ const POS: React.FC = () => {
         receiptData
       });
 
-      // Quick auto receipt prints
+      // Auto-save receipt silently on sale completion
       setTimeout(() => {
-        generatePDFReceipt(receiptData);
+        savePDFReceipt(receiptData);
       }, 500);
-
-      setTimeout(() => {
-        generateUrduPDFReceipt(receiptData);
-      }, 1500);
 
       clearCart();
       setOrderDiscountType(null);
@@ -1102,6 +1114,7 @@ const POS: React.FC = () => {
       setRedeemedPoints(0);
       setPointsToRedeemInput('');
       setPayments([{ method: 'cash', amount: 0, reference: '' }]);
+      setIsPaymentEdited(false);
       setUndoStack({});
 
       setShowCheckoutReviewModal(false);
@@ -1513,101 +1526,7 @@ const POS: React.FC = () => {
             )}
           </div>
 
-          {/* Product Feed Grid */}
           <div className="flex-1 overflow-y-auto min-h-0 pr-1">
-
-            {/* Quick Registry Deck block (Favorites/Popular/Scans) */}
-            {!isLoading && (
-              <div className="mb-4 bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-800 rounded-2xl p-4 shadow-sm shrink-0">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3.5 border-b border-gray-100 dark:border-gray-800/80 pb-3">
-                  <span className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-wider flex items-center gap-1.5 select-none">
-                    <Sparkles className="h-4.5 w-4.5 text-indigo-500 animate-pulse" />
-                    Quick Access Registry
-                  </span>
-                  <div className="flex gap-1 bg-gray-50 dark:bg-gray-950 p-1 rounded-xl">
-                    {[
-                      { id: 'favorites', label: '⭐ Favorites', data: favoriteProducts },
-                      { id: 'popular', label: '🔥 Popular', data: frequentlySold },
-                      { id: 'recent_scans', label: '⏱️ Scans', data: recentlyScannedProducts }
-                    ].map(tab => (
-                      <button
-                        key={tab.id}
-                        onClick={() => setQuickAccessTab(tab.id as any)}
-                        className={`px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-150 flex items-center gap-1.5 ${quickAccessTab === tab.id
-                            ? 'bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 shadow-sm border border-gray-200/40 dark:border-gray-800'
-                            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
-                          }`}
-                      >
-                        <span>{tab.label}</span>
-                        <span className="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[9px] px-1.5 py-0.2 rounded font-black">
-                          {tab.data.length}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Tab items deck grid layout */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
-                  {quickAccessTab === 'favorites' && (
-                    favoriteProducts.length === 0 ? (
-                      <div className="col-span-full py-5 text-center text-xs font-bold text-gray-400 italic">
-                        No favorites pinned. Add items by checking the ⭐ icon in catalog cards.
-                      </div>
-                    ) : (
-                      favoriteProducts.map(p => (
-                        <button
-                          key={p.id}
-                          onClick={() => handleAddToCartWithTelemetry(p)}
-                          className="p-2.5 bg-gray-50/70 hover:bg-indigo-50/30 dark:bg-gray-800/40 dark:hover:bg-indigo-950/20 border border-gray-200/40 dark:border-gray-700/50 hover:border-indigo-300 rounded-xl text-left transition-all active:scale-95 group relative duration-150 animate-in fade-in"
-                        >
-                          <span className="block text-xs font-black text-gray-800 dark:text-gray-200 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">{p.name}</span>
-                          <span className="block text-[10px] font-bold text-indigo-600 dark:text-indigo-450 mt-1">Rs {p.price.toLocaleString()}</span>
-                        </button>
-                      ))
-                    )
-                  )}
-
-                  {quickAccessTab === 'popular' && (
-                    frequentlySold.length === 0 ? (
-                      <div className="col-span-full py-5 text-center text-xs font-bold text-gray-400 italic">
-                        Frequently purchased products compile automatically from completed checkouts.
-                      </div>
-                    ) : (
-                      frequentlySold.map(p => (
-                        <button
-                          key={p.id}
-                          onClick={() => handleAddToCartWithTelemetry(p)}
-                          className="p-2.5 bg-gray-50/70 hover:bg-indigo-50/30 dark:bg-gray-800/40 dark:hover:bg-indigo-950/20 border border-gray-200/40 dark:border-gray-700/50 hover:border-indigo-300 rounded-xl text-left transition-all active:scale-95 group duration-150 animate-in fade-in"
-                        >
-                          <span className="block text-xs font-black text-gray-800 dark:text-gray-200 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">{p.name}</span>
-                          <span className="block text-[10px] font-bold text-indigo-600 dark:text-indigo-450 mt-1">Rs {p.price.toLocaleString()}</span>
-                        </button>
-                      ))
-                    )
-                  )}
-
-                  {quickAccessTab === 'recent_scans' && (
-                    recentlyScannedProducts.length === 0 ? (
-                      <div className="col-span-full py-5 text-center text-xs font-bold text-gray-400 italic">
-                        Your scanner log history feed is currently empty.
-                      </div>
-                    ) : (
-                      recentlyScannedProducts.map(p => (
-                        <button
-                          key={p.id}
-                          onClick={() => handleAddToCartWithTelemetry(p)}
-                          className="p-2.5 bg-gray-50/70 hover:bg-indigo-50/30 dark:bg-gray-800/40 dark:hover:bg-indigo-950/20 border border-gray-200/40 dark:border-gray-700/50 hover:border-indigo-300 rounded-xl text-left transition-all active:scale-95 group duration-150 animate-in fade-in"
-                        >
-                          <span className="block text-xs font-black text-gray-800 dark:text-gray-200 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">{p.name}</span>
-                          <span className="block text-[10px] font-bold text-indigo-600 dark:text-indigo-450 mt-1">Rs {p.price.toLocaleString()}</span>
-                        </button>
-                      ))
-                    )
-                  )}
-                </div>
-              </div>
-            )}
 
             {isLoading ? (
               // Products loading skeletons
@@ -1708,112 +1627,9 @@ const POS: React.FC = () => {
               </button>
             )}
           </div>
-
-          {/* Cart items scroll block */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
-            {Object.keys(undoStack).map((productId) => (
-              <div key={productId} className="flex items-center justify-between bg-amber-50/70 border border-amber-200/50 rounded-xl p-2.5 text-xs animate-pulse">
-                <span className="font-semibold text-amber-900 dark:text-amber-300 truncate flex-1">
-                  Removed: {undoStack[productId].item.product.name}
-                </span>
-                <button onClick={() => handleUndoRemove(productId)} className="flex items-center gap-1 text-amber-950 font-black hover:underline ml-2 shrink-0">
-                  <Undo2 className="h-3.5 w-3.5" /> Undo
-                </button>
-              </div>
-            ))}
-
-            {cart.length === 0 ? (
-              // Empty state illustrator inside cart
-              <div className="flex flex-col items-center justify-center h-full py-16 text-center text-gray-400">
-                <div className="h-16 w-16 bg-gray-50 dark:bg-gray-950 rounded-full flex items-center justify-center text-gray-300 mb-3 border border-gray-100 dark:border-gray-800">
-                  <ShoppingCart className="h-8 w-8 stroke-[1.5]" />
-                </div>
-                <p className="text-xs font-black text-gray-700 dark:text-white uppercase tracking-wider">Cart Register Empty</p>
-                <p className="text-[10px] text-gray-400 mt-1 max-w-[200px]">Click products in grid or scan barcode barcodes directly to register invoice lines.</p>
-              </div>
-            ) : (
-              cart.map((item) => {
-                const calculations = calculateItemDiscount(item);
-                return (
-                  <div key={item.product.id} className="flex flex-col bg-gray-50/50 dark:bg-gray-850/40 border border-gray-150 dark:border-gray-800/80 rounded-xl p-3 gap-2 animate-in fade-in slide-in-from-top-1.5 duration-100">
-                    <div className="flex items-center justify-between w-full">
-                      <button
-                        type="button"
-                        onClick={() => handleOpenItemEditDialog(item)}
-                        className="min-w-0 flex-1 pr-3 text-left hover:opacity-85 transition-opacity"
-                        title="Customize Line Item (Notes / Line Discount)"
-                      >
-                        <h5 className="text-xs font-black text-gray-900 dark:text-white truncate flex items-center gap-1.5">
-                          {item.product.name}
-                          {(item.notes || item.discountType) && (
-                            <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0 animate-ping" />
-                          )}
-                        </h5>
-                        <div className="flex flex-wrap items-center gap-x-2 mt-0.5 text-xs text-gray-450 font-bold">
-                          {item.discountType ? (
-                            <>
-                              <span className="line-through text-red-400">Rs {item.product.price.toLocaleString()}</span>
-                              <span className="text-indigo-650 dark:text-indigo-400 font-extrabold">
-                                Rs {calculations.finalPrice.toLocaleString()}
-                              </span>
-                            </>
-                          ) : (
-                            <span>Rs {item.product.price.toLocaleString()} each</span>
-                          )}
-                        </div>
-
-                        {item.notes && (
-                          <p className="text-[10px] text-gray-500 dark:text-gray-400 italic mt-1 truncate bg-white dark:bg-gray-900 px-1.5 py-0.5 rounded border border-gray-100 dark:border-gray-800 w-fit">
-                            Note: {item.notes}
-                          </p>
-                        )}
-
-                        {item.discountType && (
-                          <p className="text-[10px] text-indigo-600 dark:text-indigo-455 font-bold mt-1 bg-indigo-50/55 dark:bg-indigo-950/40 px-1.5 py-0.5 rounded w-fit">
-                            Discount: {item.discountType === 'percentage' ? `${item.discountValue}%` : `Rs ${item.discountValue}`} off
-                            {item.discountReason ? ` (${item.discountReason})` : ''}
-                          </p>
-                        )}
-                      </button>
-
-                      {/* Touch-Friendly quantities panel */}
-                      <div className="flex items-center gap-2 shrink-0 select-none">
-                        <div className="flex items-center bg-white dark:bg-gray-900 border border-gray-250 dark:border-gray-800 rounded-lg shadow-sm overflow-hidden">
-                          <button
-                            onClick={() => updateCartItemQuantity(item.product.id.toString(), item.quantity - 1)}
-                            className="p-2.5 px-3 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all"
-                            title="Decrease Quantity"
-                          >
-                            <Minus className="h-3.5 w-3.5" />
-                          </button>
-                          <span className="text-xs font-black text-gray-900 dark:text-white px-2.5 min-w-[24px] text-center">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => updateCartItemQuantity(item.product.id.toString(), item.quantity + 1)}
-                            className="p-2.5 px-3 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all"
-                            title="Increase Quantity"
-                          >
-                            <Plus className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-                        <button
-                          onClick={() => handleSmartRemove(item)}
-                          className="p-2.5 text-gray-400 hover:text-red-500 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/20 transition-all"
-                          title="Remove Item"
-                        >
-                          <Trash2 className="h-4.5 w-4.5" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-
+          
           {/* CRM Account Linking console block */}
-          <div className="p-4 border-t border-gray-150 dark:border-gray-805 bg-gray-50/50 dark:bg-gray-900 shrink-0">
+          <div className="p-4 border-b border-gray-150 dark:border-gray-805 bg-gray-50/50 dark:bg-gray-900 shrink-0">
             {selectedCustomer ? (
               <div className="flex flex-col bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/40 rounded-2xl p-3.5 shadow-sm gap-3 animate-in zoom-in-95 duration-100">
                 <div className="flex items-center justify-between">
@@ -1858,32 +1674,146 @@ const POS: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-[10px] pt-1.5 border-t border-indigo-100/50 dark:border-indigo-900/20 font-bold text-gray-500 dark:text-gray-400">
+                <div className="grid grid-cols-2 gap-2 text-[10px] pt-1.5 border-t border-indigo-100/50 dark:border-indigo-900/20 font-bold text-gray-500 dark:text-gray-450">
                   <div className="flex justify-between">
                     <span>Due Balance:</span>
                     <span className="text-red-500 font-extrabold">Rs {selectedCustomer.pendingAmount.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Loyalty Points:</span>
-                    <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">
+                    <span className="text-indigo-650 dark:text-indigo-400 font-extrabold">
                       {((selectedCustomer as any).loyaltyPoints || 0) - redeemedPoints} pts
                     </span>
                   </div>
                 </div>
               </div>
             ) : (
-              // Premium card view for customer placeholder (Empty customer state)
-              <div className="border border-dashed border-gray-250 dark:border-gray-800 rounded-xl p-3.5 text-center bg-white dark:bg-gray-900 shadow-inner">
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-2">No Customer Profile Linked</p>
-                <p className="text-[10px] text-gray-400 mb-3 max-w-[280px] mx-auto">Link customer accounts to track customer history, reward loyalty points, and serve store credit purchases.</p>
+              <div className="flex items-center justify-between bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-2.5 shadow-sm">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-450">
+                    <User className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h6 className="text-xs font-bold text-gray-900 dark:text-white">Walk-In Customer</h6>
+                    <p className="text-[9px] text-gray-450 font-semibold">No client account linked</p>
+                  </div>
+                </div>
                 <button
                   onClick={() => setShowCustomerModal(true)}
-                  className="w-full py-2.5 px-4 bg-indigo-50 hover:bg-indigo-105 dark:bg-indigo-950/40 dark:hover:bg-indigo-950/80 border border-indigo-200/50 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-400 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all shadow-sm active:scale-[0.99]"
+                  className="py-1.5 px-3 bg-indigo-55 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-950/80 border border-indigo-200/50 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-400 rounded-lg text-xs font-black flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
                 >
-                  <User className="h-4 w-4 text-indigo-500" />
-                  <span>Link Client Account (F4)</span>
+                  <Plus className="h-3 w-3 text-indigo-500" />
+                  <span>Link Client (F4)</span>
                 </button>
               </div>
+            )}
+          </div>
+
+          {/* Cart items scroll block */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
+            {Object.keys(undoStack).map((productId) => (
+              <div key={productId} className="flex items-center justify-between bg-amber-50/70 border border-amber-200/50 rounded-xl p-2.5 text-xs animate-pulse">
+                <span className="font-semibold text-amber-900 dark:text-amber-300 truncate flex-1">
+                  Removed: {undoStack[productId].item.product.name}
+                </span>
+                <button onClick={() => handleUndoRemove(productId)} className="flex items-center gap-1 text-amber-950 font-black hover:underline ml-2 shrink-0">
+                  <Undo2 className="h-3.5 w-3.5" /> Undo
+                </button>
+              </div>
+            ))}
+
+            {cart.length === 0 ? (
+              // Empty state illustrator inside cart
+              <div className="flex flex-col items-center justify-center h-full py-16 text-center text-gray-400">
+                <div className="h-16 w-16 bg-gray-50 dark:bg-gray-950 rounded-full flex items-center justify-center text-gray-300 mb-3 border border-gray-100 dark:border-gray-800">
+                  <ShoppingCart className="h-8 w-8 stroke-[1.5]" />
+                </div>
+                <p className="text-xs font-black text-gray-700 dark:text-white uppercase tracking-wider">Cart Register Empty</p>
+                <p className="text-[10px] text-gray-400 mt-1 max-w-[200px]">Click products in grid or scan barcodes directly to register invoice lines.</p>
+              </div>
+            ) : (
+              cart.map((item) => {
+                const calculations = calculateItemDiscount(item);
+                return (
+                  <div key={item.product.id} className="flex items-center justify-between bg-gray-50/50 dark:bg-gray-850/20 border border-gray-150 dark:border-gray-800/80 rounded-xl p-3 gap-3 shadow-sm hover:border-gray-250 dark:hover:border-gray-700 transition-all animate-in fade-in slide-in-from-top-1.5 duration-100">
+                    <div className="flex-1 min-w-0">
+                      <button
+                        type="button"
+                        onClick={() => handleOpenItemEditDialog(item)}
+                        className="w-full text-left focus:outline-none"
+                        title="Customize Line Item (Notes / Line Discount)"
+                      >
+                        <h5 className="text-xs font-bold text-gray-950 dark:text-white truncate flex items-center gap-1.5">
+                          {item.product.name}
+                          {(item.notes || item.discountType) && (
+                            <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0 animate-ping" />
+                          )}
+                        </h5>
+                        <div className="flex flex-wrap items-baseline gap-x-2 mt-0.5 text-xs text-gray-450 font-bold">
+                          {item.discountType ? (
+                            <>
+                              <span className="line-through text-red-400">Rs {item.product.price.toLocaleString()}</span>
+                              <span className="text-indigo-650 dark:text-indigo-400 font-extrabold">
+                                Rs {calculations.finalPrice.toLocaleString()}
+                              </span>
+                            </>
+                          ) : (
+                            <span>Rs {item.product.price.toLocaleString()} each</span>
+                          )}
+                        </div>
+
+                        {/* Display Line Total */}
+                        <div className="text-xs font-extrabold text-indigo-650 dark:text-indigo-400 mt-1">
+                          Rs {(calculations.finalPrice * item.quantity).toLocaleString()}
+                        </div>
+
+                        {item.notes && (
+                          <p className="text-[10px] text-gray-500 dark:text-gray-400 italic mt-1 truncate bg-white dark:bg-gray-900 px-1.5 py-0.5 rounded border border-gray-100 dark:border-gray-800 w-fit">
+                            Note: {item.notes}
+                          </p>
+                        )}
+
+                        {item.discountType && (
+                          <p className="text-[10px] text-indigo-650 dark:text-indigo-455 font-bold mt-1 bg-indigo-55/55 dark:bg-indigo-950/40 px-1.5 py-0.5 rounded w-fit">
+                            Discount: {item.discountType === 'percentage' ? `${item.discountValue}%` : `Rs ${item.discountValue}`} off
+                            {item.discountReason ? ` (${item.discountReason})` : ''}
+                          </p>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Touch-Friendly compact quantities panel */}
+                    <div className="flex flex-col items-end gap-2 shrink-0 select-none">
+                      <div className="flex items-center bg-white dark:bg-gray-900 border border-gray-250 dark:border-gray-800 rounded-lg shadow-sm overflow-hidden">
+                        <button
+                          onClick={() => updateCartItemQuantity(item.product.id.toString(), item.quantity - 1)}
+                          className="p-2 px-2.5 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all"
+                          title="Decrease Quantity"
+                        >
+                          <Minus className="h-3 w-3" />
+                        </button>
+                        <span className="text-xs font-black text-gray-900 dark:text-white px-1.5 min-w-[20px] text-center">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateCartItemQuantity(item.product.id.toString(), item.quantity + 1)}
+                          className="p-2 px-2.5 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all"
+                          title="Increase Quantity"
+                        >
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                      <button
+                        onClick={() => handleSmartRemove(item)}
+                        className="p-1 text-gray-400 hover:text-red-500 rounded hover:bg-red-50 dark:hover:bg-red-950/20 transition-all"
+                        title="Remove Item"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
             )}
           </div>
 
@@ -1923,14 +1853,6 @@ const POS: React.FC = () => {
                         className="w-full text-right pl-6 pr-2.5 py-1.5 text-xs font-black bg-transparent border-b border-gray-250 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500"
                       />
                     </div>
-
-                    <input
-                      type="text"
-                      placeholder="Reference"
-                      value={p.reference || ''}
-                      onChange={(e) => handleUpdatePaymentValue(index, 'reference', e.target.value)}
-                      className="w-20 text-center text-[10px] bg-transparent border-b border-gray-250 dark:border-gray-700 text-gray-950 dark:text-white focus:outline-none focus:border-indigo-500"
-                    />
 
                     {payments.length > 1 && (
                       <button
@@ -2703,28 +2625,7 @@ const POS: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Inventory stock preview alerts */}
-                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 space-y-3">
-                  <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider block">Inventory Stock impact Preview</span>
-                  <div className="space-y-2 max-h-36 overflow-y-auto pr-1">
-                    {checkoutStockPreview.map(({ product, remainingStock, willBeOutOfStock, willBeLowStock }) => (
-                      <div key={product.id} className="flex justify-between items-center text-xs">
-                        <span className="font-semibold text-gray-650 dark:text-gray-400 truncate max-w-[160px]">{product.name}</span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] text-gray-400 font-bold">Qty: {product.stock} → {remainingStock}</span>
-                          {willBeOutOfStock ? (
-                            <span className="px-2 py-0.5 bg-red-105 text-red-700 dark:bg-red-950/60 dark:text-red-400 text-[8px] font-black uppercase rounded-md">Stock Out</span>
-                          ) : willBeLowStock ? (
-                            <span className="px-2 py-0.5 bg-amber-105 text-amber-755 dark:bg-amber-950/60 dark:text-amber-400 text-[8px] font-black uppercase rounded-md">Low Stock</span>
-                          ) : (
-                            <span className="px-2 py-0.5 bg-green-105 text-green-700 dark:bg-green-950/60 dark:text-green-400 text-[8px] font-black uppercase rounded-md">Safe</span>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
                 </div>
-              </div>
 
               {/* Right Side: Accounting details */}
               <div className="space-y-4 bg-gray-50/70 dark:bg-gray-855 border rounded-2xl p-4">
@@ -2778,10 +2679,12 @@ const POS: React.FC = () => {
                       Rs {absoluteChangeDue.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between pt-1 border-t border-gray-150 dark:border-gray-800">
-                    <span>Loyalty Points earned:</span>
-                    <span className="text-green-600 dark:text-green-400 font-extrabold">+{pointsEarned} pts</span>
-                  </div>
+                  {selectedCustomer && (
+                    <div className="flex justify-between pt-1 border-t border-gray-150 dark:border-gray-800">
+                      <span>Loyalty Points earned:</span>
+                      <span className="text-green-600 dark:text-green-400 font-extrabold">+{pointsEarned} pts</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -2844,37 +2747,31 @@ const POS: React.FC = () => {
             </div>
 
             {/* Quick receipts print block */}
-            <div className="grid grid-cols-2 gap-2 mb-6">
+            <div className={`grid mb-6 ${selectedCustomer ? 'grid-cols-3 gap-2' : 'grid-cols-2 gap-2'}`}>
               <button
-                onClick={() => generatePDFReceipt(completedSaleData.receiptData)}
-                className="py-2.5 px-3 bg-gray-150 hover:bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01]"
+                onClick={() => printPDFReceipt(completedSaleData.receiptData)}
+                className="py-2.5 px-3 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01] flex items-center justify-center gap-1"
               >
-                Print Receipt
+                🖨️ Print Receipt
               </button>
               <button
-                onClick={() => generateUrduPDFReceipt(completedSaleData.receiptData)}
-                className="py-2.5 px-3 bg-gray-150 hover:bg-gray-200 dark:bg-gray-800 text-gray-850 dark:text-gray-200 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01]"
+                onClick={() => downloadPDFReceipt(completedSaleData.receiptData)}
+                className="py-2.5 px-3 bg-gray-150 hover:bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01] flex items-center justify-center gap-1"
               >
-                Urdu Receipt
+                ⬇️ Download Receipt
               </button>
-              <button
-                onClick={() => {
-                  const num = selectedCustomer?.phone || '';
-                  const text = encodeURIComponent(`Thank you for shopping! Your Invoice #${completedSaleData.invoiceNumber} amount is Rs ${completedSaleData.totalAmount.toLocaleString()}.`);
-                  window.open(`https://wa.me/${num}?text=${text}`, '_blank');
-                }}
-                className="py-2.5 px-3 bg-green-50 hover:bg-green-100 dark:bg-green-950/40 text-green-755 dark:text-green-400 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01] flex items-center justify-center gap-1"
-              >
-                <span>WhatsApp Share</span>
-              </button>
-              <button
-                onClick={() => {
-                  showToast('Email invoice service integration in progress.', 'info');
-                }}
-                className="py-2.5 px-3 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 text-indigo-755 dark:text-indigo-400 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01]"
-              >
-                Email Invoice
-              </button>
+              {selectedCustomer && (
+                <button
+                  onClick={() => {
+                    const num = selectedCustomer?.phone || '';
+                    const text = encodeURIComponent(`Thank you for shopping! Your Invoice #${completedSaleData.invoiceNumber} amount is Rs ${completedSaleData.totalAmount.toLocaleString()}.`);
+                    window.open(`https://wa.me/${num}?text=${text}`, '_blank');
+                  }}
+                  className="py-2.5 px-3 bg-green-50 hover:bg-green-100 dark:bg-green-950/40 text-green-755 dark:text-green-400 rounded-xl font-black text-xs uppercase tracking-wide transition-all hover:scale-[1.01] flex items-center justify-center gap-1"
+                >
+                  <span>WhatsApp Share</span>
+                </button>
+              )}
             </div>
 
             <button

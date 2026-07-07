@@ -21,6 +21,7 @@ import KpiCard from '../components/KpiCard';
 import ContentCard from '../components/ContentCard';
 import EmptyState from '../components/EmptyState';
 import DetailPageLayout from '../components/DetailPageLayout';
+import LoadingButton from '../components/LoadingButton';
 
 const Customers: React.FC = () => {
   const { t } = useTranslation();
@@ -95,6 +96,9 @@ const Customers: React.FC = () => {
   const [customerLoyalty, setCustomerLoyalty] = useState<CustomerLoyaltyHistory[]>([]);
   const [profileNotes, setProfileNotes] = useState('');
   const [isSavingNotes, setIsSavingNotes] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSavingPayment, setIsSavingPayment] = useState(false);
+  const [isSavingRedeem, setIsSavingRedeem] = useState(false);
 
   // Loyalty Config Rule State
   const [loyaltyConfig, setLoyaltyConfig] = useState(() => {
@@ -432,27 +436,35 @@ const Customers: React.FC = () => {
       loyaltyPoints: Number(formData.loyaltyPoints)
     };
 
-    if (editingCustomer) {
-      await updateCustomer(editingCustomer.id, preparedData);
-      setEditingCustomer(null);
-    } else {
-      await addCustomer(preparedData);
-    }
+    setIsSaving(true);
+    try {
+      if (editingCustomer) {
+        await updateCustomer(editingCustomer.id, preparedData);
+        setEditingCustomer(null);
+      } else {
+        await addCustomer(preparedData);
+      }
 
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      address: '',
-      billingAddress: '',
-      shippingAddress: '',
-      customerType: 'Regular',
-      status: 'Active',
-      notes: '',
-      pendingAmount: 0,
-      loyaltyPoints: 0
-    });
-    setShowAddModal(false);
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        address: '',
+        billingAddress: '',
+        shippingAddress: '',
+        customerType: 'Regular',
+        status: 'Active',
+        notes: '',
+        pendingAmount: 0,
+        loyaltyPoints: 0
+      });
+      setShowAddModal(false);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save customer.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleEdit = (customer: Customer) => {
@@ -494,6 +506,7 @@ const Customers: React.FC = () => {
       return;
     }
 
+    setIsSavingPayment(true);
     try {
       await addCustomerPayment({
         customerId: selectedCustomerId,
@@ -511,6 +524,8 @@ const Customers: React.FC = () => {
       setCustomerPayments(updatedP);
     } catch (e) {
       alert('Failed to record payment.');
+    } finally {
+      setIsSavingPayment(false);
     }
   };
 
@@ -531,6 +546,7 @@ const Customers: React.FC = () => {
       return;
     }
 
+    setIsSavingRedeem(true);
     try {
       await addCustomerLoyaltyHistory({
         customerId: selectedCustomerId,
@@ -548,6 +564,8 @@ const Customers: React.FC = () => {
       setCustomerLoyalty(updatedL);
     } catch (e) {
       alert('Failed to redeem points.');
+    } finally {
+      setIsSavingRedeem(false);
     }
   };
 
@@ -2611,12 +2629,14 @@ const Customers: React.FC = () => {
                 >
                   Cancel
                 </button>
-                <button
+                <LoadingButton
                   type="submit"
+                  isLoading={isSaving}
+                  loadingText="Saving..."
                   className="bg-blue-600 hover:bg-blue-750 text-white py-2.5 px-8 rounded-lg text-sm font-semibold shadow-sm animate-transition"
                 >
                   {editingCustomer ? 'Update Profile' : 'Save Customer'}
-                </button>
+                </LoadingButton>
               </div>
             </form>
           </div>
@@ -2692,7 +2712,7 @@ const Customers: React.FC = () => {
 
               <div className="flex space-x-3 pt-4 border-t border-gray-150 dark:border-gray-700 justify-end">
                 <button type="button" onClick={() => setShowPaymentModal(false)} className="bg-gray-100 hover:bg-gray-250 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2.5 px-6 rounded-lg text-sm font-semibold">Cancel</button>
-                <button type="submit" className="bg-green-600 hover:bg-green-700 text-white py-2.5 px-8 rounded-lg text-sm font-semibold shadow-sm">Confirm Repayment</button>
+                <LoadingButton type="submit" isLoading={isSavingPayment} loadingText="Saving..." className="bg-green-600 hover:bg-green-700 text-white py-2.5 px-8 rounded-lg text-sm font-semibold shadow-sm">Confirm Repayment</LoadingButton>
               </div>
             </form>
           </div>
@@ -2759,7 +2779,7 @@ const Customers: React.FC = () => {
 
               <div className="flex space-x-3 pt-4 border-t border-gray-150 dark:border-gray-700 justify-end">
                 <button type="button" onClick={() => setShowRedeemModal(false)} className="bg-gray-100 hover:bg-gray-250 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2.5 px-6 rounded-lg text-sm font-semibold">Cancel</button>
-                <button type="submit" className="bg-amber-600 hover:bg-amber-700 text-white py-2.5 px-8 rounded-lg text-sm font-semibold shadow-sm">Confirm Redemption</button>
+                <LoadingButton type="submit" isLoading={isSavingRedeem} loadingText="Redeeming..." className="bg-amber-600 hover:bg-amber-700 text-white py-2.5 px-8 rounded-lg text-sm font-semibold shadow-sm">Confirm Redemption</LoadingButton>
               </div>
             </form>
           </div>

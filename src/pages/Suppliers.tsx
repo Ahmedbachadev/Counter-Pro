@@ -19,6 +19,7 @@ import KpiCard from '../components/KpiCard';
 import ContentCard from '../components/ContentCard';
 import EmptyState from '../components/EmptyState';
 import DetailPageLayout from '../components/DetailPageLayout';
+import LoadingButton from '../components/LoadingButton';
 
 const DEFAULT_CATEGORIES = [
   'Distributor',
@@ -88,6 +89,9 @@ const Suppliers: React.FC = () => {
   const [editingSupplier, setEditingSupplier] = useState<Supplier | null>(null);
   const [showImportModal, setShowImportModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSavingPayment, setIsSavingPayment] = useState(false);
+  const [isSavingDocument, setIsSavingDocument] = useState(false);
   
   // Payment Form State
   const [payFormSupplierId, setPayFormSupplierId] = useState<number | ''>('');
@@ -331,53 +335,61 @@ const Suppliers: React.FC = () => {
       discountRate: Number(formData.discountRate || 0),
     };
 
-    if (editingSupplier) {
-      await updateSupplier(editingSupplier.id, dataToSave);
-      
-      let currentLogs: ActivityItem[] = [];
-      try {
-        currentLogs = editingSupplier.activityLog ? JSON.parse(editingSupplier.activityLog) : [];
-      } catch (e) {}
-      await addActivityLog(editingSupplier.id, currentLogs, 'Supplier profile details updated');
-      
-      setEditingSupplier(null);
-    } else {
-      const initialLog: ActivityItem = {
-        id: `act-${Date.now()}`,
-        action: 'Supplier profile created',
-        date: new Date().toISOString(),
-        user: 'Admin'
-      };
-      
-      const newSupData = {
-        ...dataToSave,
-        outstandingBalance: 0,
-        totalPurchases: 0,
-        documents: '[]',
-        activityLog: JSON.stringify([initialLog])
-      };
-      
-      await addSupplier(newSupData);
-    }
+    setIsSaving(true);
+    try {
+      if (editingSupplier) {
+        await updateSupplier(editingSupplier.id, dataToSave);
+        
+        let currentLogs: ActivityItem[] = [];
+        try {
+          currentLogs = editingSupplier.activityLog ? JSON.parse(editingSupplier.activityLog) : [];
+        } catch (e) {}
+        await addActivityLog(editingSupplier.id, currentLogs, 'Supplier profile details updated');
+        
+        setEditingSupplier(null);
+      } else {
+        const initialLog: ActivityItem = {
+          id: `act-${Date.now()}`,
+          action: 'Supplier profile created',
+          date: new Date().toISOString(),
+          user: 'Admin'
+        };
+        
+        const newSupData = {
+          ...dataToSave,
+          outstandingBalance: 0,
+          totalPurchases: 0,
+          documents: '[]',
+          activityLog: JSON.stringify([initialLog])
+        };
+        
+        await addSupplier(newSupData);
+      }
 
-    setFormData({
-      name: '',
-      contactPerson: '',
-      phone: '',
-      email: '',
-      address: '',
-      notes: '',
-      logo: '',
-      category: 'Wholesaler',
-      status: 'Active',
-      taxId: '',
-      bankName: '',
-      bankAccount: '',
-      paymentTerms: '',
-      specialties: '',
-      discountRate: 0
-    });
-    setShowAddModal(false);
+      setFormData({
+        name: '',
+        contactPerson: '',
+        phone: '',
+        email: '',
+        address: '',
+        notes: '',
+        logo: '',
+        category: 'Wholesaler',
+        status: 'Active',
+        taxId: '',
+        bankName: '',
+        bankAccount: '',
+        paymentTerms: '',
+        specialties: '',
+        discountRate: 0
+      });
+      setShowAddModal(false);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save supplier.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Edit action
@@ -441,12 +453,18 @@ const Suppliers: React.FC = () => {
       size: `${(Math.random() * 5 + 0.5).toFixed(1)} MB`
     };
 
-    const updatedDocs = [...documents, newDoc];
-    setDocuments(updatedDocs);
-    await updateSupplier(selectedSupplier.id, { documents: JSON.stringify(updatedDocs) });
-    await addActivityLog(selectedSupplier.id, timelineItems, `Added new document: ${newDoc.name} (${newDoc.type})`);
-    
-    setNewDocName('');
+    setIsSavingDocument(true);
+    try {
+      const updatedDocs = [...documents, newDoc];
+      setDocuments(updatedDocs);
+      await updateSupplier(selectedSupplier.id, { documents: JSON.stringify(updatedDocs) });
+      await addActivityLog(selectedSupplier.id, timelineItems, `Added new document: ${newDoc.name} (${newDoc.type})`);
+      setNewDocName('');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSavingDocument(false);
+    }
   };
 
   // Delete document
@@ -1126,6 +1144,7 @@ const Suppliers: React.FC = () => {
       return;
     }
 
+    setIsSavingPayment(true);
     try {
       await recordPayment(Number(payFormOrderId), {
         date: new Date().toISOString(),
@@ -1142,6 +1161,8 @@ const Suppliers: React.FC = () => {
     } catch (err) {
       console.error(err);
       alert(t('Failed to record payment. Please try again.'));
+    } finally {
+      setIsSavingPayment(false);
     }
   };
 
@@ -2938,13 +2959,15 @@ const Suppliers: React.FC = () => {
                         <option value="Agreement">{t('Agreements')}</option>
                       </select>
                     </div>
-                    <button
+                    <LoadingButton
                       type="submit"
+                      isLoading={isSavingDocument}
+                      loadingText="Linking..."
                       className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm"
                     >
                       <Plus className="h-4 w-4" />
                       <span>{t('Link Document')}</span>
-                    </button>
+                    </LoadingButton>
                   </form>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
@@ -3197,12 +3220,14 @@ const Suppliers: React.FC = () => {
                 </div>
 
                 <div className="flex space-x-3 pt-6 border-t border-gray-100 dark:border-gray-700">
-                  <button
+                  <LoadingButton
                     type="submit"
+                    isLoading={isSaving}
+                    loadingText="Saving..."
                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-xl font-bold transition-all shadow-md"
                   >
                     {editingSupplier ? t('Update Profile') : t('Create Supplier')}
-                  </button>
+                  </LoadingButton>
                   
                   <button
                     type="button"
@@ -3466,13 +3491,15 @@ const Suppliers: React.FC = () => {
                 </div>
 
                 <div className="flex space-x-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-                  <button
+                  <LoadingButton
                     type="submit"
+                    isLoading={isSavingPayment}
+                    loadingText="Processing..."
                     disabled={!payFormOrderId || !payFormAmount}
                     className="flex-1 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:text-gray-450 text-white py-2.5 px-4 rounded-xl font-bold transition-all shadow-md"
                   >
                     {t('Submit Payment')}
-                  </button>
+                  </LoadingButton>
                   <button
                     type="button"
                     onClick={() => setShowPaymentModal(false)}

@@ -183,7 +183,7 @@ const Dashboard: React.FC = () => {
     const aggregations: Record<number, { quantity: number; revenue: number }> = {};
 
     sales.forEach(sale => {
-      sale.items.forEach(item => {
+      sale.items?.forEach(item => {
         if (!item.product || !item.product.id) return;
         const pid = item.product.id;
         if (!aggregations[pid]) {
@@ -228,17 +228,17 @@ const Dashboard: React.FC = () => {
 
     // Parse completed checkout sales
     sales.forEach(sale => {
-      list.push({
-        id: `sale-${sale.id}`,
-        type: 'sale',
-        title: `Sale Completed (#${sale.id})`,
-        description: `Order processed with ${sale.items.length} items totaling Rs. ${sale.finalAmount.toLocaleString()}`,
-        timestamp: new Date(sale.createdAt),
-        icon: ShoppingCart,
-        colorClass: 'text-emerald-600 dark:text-emerald-400',
-        bgClass: 'bg-emerald-50 dark:bg-emerald-950/40'
-      });
-    });
+       list.push({
+         id: `sale-${sale.id}`,
+         type: 'sale',
+         title: `Sale Completed (#${sale.id})`,
+         description: `Order processed with ${sale.items?.length || 0} items totaling Rs. ${sale.finalAmount.toLocaleString()}`,
+         timestamp: new Date(sale.createdAt),
+         icon: ShoppingCart,
+         colorClass: 'text-emerald-600 dark:text-emerald-400',
+         bgClass: 'bg-emerald-50 dark:bg-emerald-950/40'
+       });
+     });
 
     // Parse product catalogue creations and edits
     products.forEach(prod => {

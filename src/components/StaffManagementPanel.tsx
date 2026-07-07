@@ -5,6 +5,7 @@ import {
   Users, Check, Trash2, Settings, Plus, X 
 } from 'lucide-react';
 import ContentCard from './ContentCard';
+import LoadingButton from './LoadingButton';
 
 export const StaffManagementPanel: React.FC = () => {
   const { user } = useAuthStore();
@@ -31,6 +32,7 @@ export const StaffManagementPanel: React.FC = () => {
     notifications: true,
     settings: false,
   });
+  const [isSaving, setIsSaving] = useState(false);
 
   const moduleLabels: Record<string, string> = {
     dashboard: 'Dashboard Summary',
@@ -62,6 +64,7 @@ export const StaffManagementPanel: React.FC = () => {
 
   const handleSaveStaff = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSaving(true);
     try {
       if (selectedStaff) {
         // Update user
@@ -102,6 +105,8 @@ export const StaffManagementPanel: React.FC = () => {
       await refreshUsers();
     } catch (err: any) {
       alert(err.message || 'Failed to save staff member details');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -336,13 +341,15 @@ export const StaffManagementPanel: React.FC = () => {
                   Cancel
                 </button>
               )}
-              <button
+              <LoadingButton
                 type="submit"
+                isLoading={isSaving}
+                loadingText="Saving..."
                 className="px-4 py-2 text-xs font-bold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1.5 transition"
               >
                 <Check className="h-3.5 w-3.5" />
                 {selectedStaff ? 'Save Changes' : 'Create Account'}
-              </button>
+              </LoadingButton>
             </div>
           </form>
         </ContentCard>

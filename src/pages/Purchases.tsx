@@ -43,6 +43,7 @@ import KpiCard from '../components/KpiCard';
 import ContentCard from '../components/ContentCard';
 import EmptyState from '../components/EmptyState';
 import DetailPageLayout from '../components/DetailPageLayout';
+import LoadingButton from '../components/LoadingButton';
 
 import {
   usePurchaseStore,
@@ -131,6 +132,8 @@ const Purchases: React.FC = () => {
   const [payReference, setPayReference] = useState('');
   const [payDate, setPayDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [payNotes, setPayNotes] = useState('');
+  const [isSavingOrder, setIsSavingOrder] = useState(false);
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
 
   // Return Modal State
   const [showReturnModal, setShowReturnModal] = useState(false);
@@ -587,15 +590,25 @@ const Purchases: React.FC = () => {
       remainingBalance: formRemainingBalance
     };
 
-    if (viewState === 'create') {
-      const newPO = await addPurchaseOrder(orderPayload);
-      alert(`Purchase Order ${newPO.purchaseNumber} created as ${status}!`);
-    } else if (viewState === 'edit' && selectedOrderId) {
-      await updatePurchaseOrder(selectedOrderId, orderPayload);
-      alert(`Purchase Order updated successfully!`);
-    }
+    if (status === 'Ordered') setIsSavingOrder(true);
+    else setIsSavingDraft(true);
 
-    setViewState('list');
+    try {
+      if (viewState === 'create') {
+        const newPO = await addPurchaseOrder(orderPayload);
+        alert(`Purchase Order ${newPO.purchaseNumber} created as ${status}!`);
+      } else if (viewState === 'edit' && selectedOrderId) {
+        await updatePurchaseOrder(selectedOrderId, orderPayload);
+        alert(`Purchase Order updated successfully!`);
+      }
+      setViewState('list');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save purchase order.');
+    } finally {
+      setIsSavingOrder(false);
+      setIsSavingDraft(false);
+    }
   };
 
   const handleAddProductToPO = (product: Product) => {
@@ -2217,20 +2230,24 @@ const Purchases: React.FC = () => {
 
               {/* Actions card */}
               <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-slate-200/80 dark:border-gray-700 shadow-sm space-y-3">
-                <button
+                <LoadingButton
                   onClick={() => handleSavePO('Ordered')}
+                  isLoading={isSavingOrder}
+                  loadingText="Placing Order..."
                   className="w-full bg-blue-600 hover:bg-blue-705 text-white py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center space-x-2 shadow-sm"
                 >
                   <Truck className="w-4.5 h-4.5" />
                   <span>Save &amp; Place Order</span>
-                </button>
+                </LoadingButton>
 
-                <button
+                <LoadingButton
                   onClick={() => handleSavePO('Draft')}
+                  isLoading={isSavingDraft}
+                  loadingText="Saving Draft..."
                   className="w-full bg-slate-100 dark:bg-gray-700 hover:bg-slate-200 dark:hover:bg-gray-600 text-slate-700 dark:text-slate-200 py-2.5 rounded-lg text-sm font-semibold transition-colors"
                 >
                   Save as Draft
-                </button>
+                </LoadingButton>
 
                 <button
                   onClick={() => setViewState('list')}

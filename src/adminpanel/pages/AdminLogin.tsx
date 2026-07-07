@@ -20,6 +20,8 @@ const AdminLogin: React.FC = () => {
     // If arriving already authenticated as admin, go to admin panel.
     if (isAuthenticated && appType === 'admin' && !loading) {
       navigate('/adminpanel', { replace: true });
+    } else if (isAuthenticated && appType === 'business' && !loading) {
+      navigate('/', { replace: true });
     }
   }, [isAuthenticated, appType, loading, navigate]);
 

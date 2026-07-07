@@ -54,6 +54,7 @@ import ContentCard from '../components/ContentCard';
 import EmptyState from '../components/EmptyState';
 import DetailPageLayout from '../components/DetailPageLayout';
 import { StaffManagementPanel } from '../components/StaffManagementPanel';
+import LoadingButton from '../components/LoadingButton';
 
 const AccountCenter: React.FC = () => {
   const { t } = useTranslation();
@@ -75,6 +76,7 @@ const AccountCenter: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState('');
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
   
   // Edit Form Fields
   const [editName, setEditName] = useState(user?.name || '');
@@ -256,6 +258,7 @@ const AccountCenter: React.FC = () => {
     e.preventDefault();
     setSaveError('');
     setSaveSuccess(false);
+    setIsSavingProfile(true);
     try {
       await updateUserProfile({
         name: editName,
@@ -271,6 +274,8 @@ const AccountCenter: React.FC = () => {
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch (err: any) {
       setSaveError(err.message || 'Failed to update personal information');
+    } finally {
+      setIsSavingProfile(false);
     }
   };
 
@@ -501,13 +506,15 @@ const AccountCenter: React.FC = () => {
                   >
                     Cancel
                   </button>
-                  <button
+                  <LoadingButton
                     type="submit"
+                    isLoading={isSavingProfile}
+                    loadingText="Saving..."
                     className="px-4 py-2 text-xs font-bold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1.5 transition"
                   >
                     <Check className="h-3.5 w-3.5" />
                     Save Details
-                  </button>
+                  </LoadingButton>
                 </div>
               </form>
             </ContentCard>

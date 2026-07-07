@@ -38,6 +38,18 @@ export class SupabaseProvider implements DataProvider {
     return data.id;
   }
 
+  private async getCurrentUserId(workspaceId: string): Promise<string | null> {
+    const client = this.getClient();
+    let userId = (await client.auth.getUser()).data.user?.id;
+    if (!userId) {
+      const { data: users } = await client.from('users').select('id').eq('workspace_id', workspaceId).limit(1);
+      if (users && users.length > 0) {
+        userId = users[0].id;
+      }
+    }
+    return userId || null;
+  }
+
   async getCategories(): Promise<Category[]> {
     const client = this.getClient();
     const workspaceId = await this.getWorkspaceId();
@@ -55,11 +67,14 @@ export class SupabaseProvider implements DataProvider {
   async addCategory(category: Omit<Category, 'id' | 'createdAt'>): Promise<Category> {
     const client = this.getClient();
     const workspaceId = await this.getWorkspaceId();
+    const userId = await this.getCurrentUserId(workspaceId);
     const { data, error } = await client.from('categories').insert({
       workspace_id: workspaceId,
       name: category.name,
-      name_urdu: category.nameUrdu,
-      description: category.description
+      name_urdu: category.nameUrdu || null,
+      description: category.description || null,
+      created_by: userId ?? null,
+      updated_by: userId ?? null
     }).select().single();
     if (error) throw error;
     return {
@@ -116,6 +131,7 @@ export class SupabaseProvider implements DataProvider {
 
   async addSupplier(supplier: Omit<Supplier, 'id' | 'createdAt' | 'updatedAt'>): Promise<Supplier> {
     const workspaceId = await this.getWorkspaceId();
+    const userId = await this.getCurrentUserId(workspaceId);
     const { data, error } = await this.getClient().from('suppliers').insert({
       workspace_id: workspaceId,
       name: supplier.name,
@@ -131,7 +147,9 @@ export class SupabaseProvider implements DataProvider {
       outstanding_balance: supplier.outstandingBalance || 0,
       total_purchases: supplier.totalPurchases || 0,
       last_purchase_date: supplier.lastPurchaseDate,
-      notes: supplier.notes
+      notes: supplier.notes,
+      created_by: userId,
+      updated_by: userId
     }).select().single();
     if (error) throw error;
     return {
@@ -258,22 +276,25 @@ export class SupabaseProvider implements DataProvider {
 
   async addProduct(product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<Product> {
     const workspaceId = await this.getWorkspaceId();
-    const payload = {
+    const userId = await this.getCurrentUserId(workspaceId);
+    const payload: any = {
       workspace_id: workspaceId,
       name: product.name,
-      name_urdu: product.nameUrdu,
-      category_id: typeof product.categoryId === 'string' ? product.categoryId : null,
-      supplier_id: typeof product.supplierId === 'string' ? product.supplierId : null,
-      barcode: product.barcode,
-      sku: product.sku,
+      name_urdu: product.nameUrdu || null,
+      category_id: product.categoryId && String(product.categoryId).trim() !== '' && String(product.categoryId) !== 'NaN' ? product.categoryId : null,
+      supplier_id: product.supplierId && String(product.supplierId).trim() !== '' && String(product.supplierId) !== 'NaN' ? product.supplierId : null,
+      barcode: product.barcode || null,
+      sku: product.sku || null,
       price: product.price,
       cost: product.cost,
       stock: product.stock,
       initial_stock: product.initialStock || product.stock,
       min_stock: product.minStock || 0,
-      description: product.description,
-      primary_image_url: product.image,
-      status: product.status || 'Active'
+      description: product.description || null,
+      primary_image_url: product.image || null,
+      status: product.status || 'Active',
+      created_by: userId ?? null,
+      updated_by: userId ?? null
     };
     
     // Upload image if it's base64
@@ -307,8 +328,8 @@ export class SupabaseProvider implements DataProvider {
     const payload: any = {};
     if (updates.name !== undefined) payload.name = updates.name;
     if (updates.nameUrdu !== undefined) payload.name_urdu = updates.nameUrdu;
-    if (updates.categoryId !== undefined) payload.category_id = typeof updates.categoryId === 'string' ? updates.categoryId : null;
-    if (updates.supplierId !== undefined) payload.supplier_id = typeof updates.supplierId === 'string' ? updates.supplierId : null;
+    if (updates.categoryId !== undefined) payload.category_id = updates.categoryId && String(updates.categoryId).trim() !== '' ? updates.categoryId : null;
+    if (updates.supplierId !== undefined) payload.supplier_id = updates.supplierId && String(updates.supplierId).trim() !== '' ? updates.supplierId : null;
     if (updates.barcode !== undefined) payload.barcode = updates.barcode;
     if (updates.sku !== undefined) payload.sku = updates.sku;
     if (updates.price !== undefined) payload.price = updates.price;
@@ -459,28 +480,7 @@ export class SupabaseProvider implements DataProvider {
   async updateCustomerLoyaltyPoints(id: number | string, pointsChange: number): Promise<void> {}
 
   async getSales(): Promise<Sale[]> {
-    const workspaceId = await this.getWorkspaceId();
-    const { data, error } = await this.getClient().from('sales').select('*').eq('workspace_id', workspaceId).order('created_at', { ascending: false });
-    if (error) throw error;
-    return data.map(s => ({
-      id: s.id,
-      total: Number(s.total),
-      tax: Number(s.tax),
-      discount: Number(s.discount),
-      finalAmount: Number(s.final_amount),
-      amountPaid: Number(s.amount_paid),
-      change: Number(s.change),
-      dueAmount: Number(s.due_amount),
-      paymentMethod: 'cash', // Fallback as payment_method_id is UUID now
-      paymentStatus: s.payment_status,
-      customerId: s.customer_id,
-      cashierId: s.cashier_id,
-      createdAt: s.created_at as any,
-      discountType: s.discount_type,
-      discountValue: Number(s.discount_value),
-      discountReason: s.discount_reason,
-      notes: s.notes
-    }));
+    return this.getSalesWithItems() as any;
   }
 
   async getSalesWithItems(): Promise<(Sale & { items: any[] })[]> {
@@ -523,10 +523,30 @@ export class SupabaseProvider implements DataProvider {
 
   async addSale(sale: Omit<Sale, 'id' | 'createdAt'>, items: any[]): Promise<Sale> {
     const workspaceId = await this.getWorkspaceId();
+
+    const isUUID = (val: any): boolean => 
+      typeof val === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+
+    let cashierUuid: string | null = null;
+    if (isUUID(sale.cashierId)) {
+      cashierUuid = sale.cashierId;
+    } else {
+      try {
+        const { data: { user } } = await this.getClient().auth.getUser();
+        if (user && isUUID(user.id)) {
+          cashierUuid = user.id;
+        }
+      } catch (err) {
+        console.error('Failed to get authenticated user for cashier_id:', err);
+      }
+    }
+
+    const customerUuid = isUUID(sale.customerId) ? sale.customerId : null;
+
     const { data, error } = await this.getClient().from('sales').insert({
       workspace_id: workspaceId,
-      customer_id: typeof sale.customerId === 'string' ? sale.customerId : null,
-      cashier_id: typeof sale.cashierId === 'string' ? sale.cashierId : null,
+      customer_id: customerUuid,
+      cashier_id: cashierUuid,
       total: sale.total,
       tax: sale.tax,
       discount: sale.discount,
@@ -545,7 +565,7 @@ export class SupabaseProvider implements DataProvider {
     if (items && items.length > 0) {
       const insertItems = items.map(item => ({
         sale_id: data.id,
-        product_id: typeof item.product.id === 'string' ? item.product.id : null,
+        product_id: isUUID(item.product.id) ? item.product.id : null,
         product_name: item.product.name,
         product_price: item.product.price,
         quantity: item.quantity,
@@ -800,7 +820,9 @@ export class SupabaseProvider implements DataProvider {
 
   async addStockAdjustment(adj: Omit<StockAdjustment, 'id' | 'createdAt'>): Promise<StockAdjustment> {
     const workspaceId = await this.getWorkspaceId();
-    const { data } = await this.getClient().from('stock_adjustments').insert({
+    const client = this.getClient();
+
+    const { data, error } = await client.from('stock_adjustments').insert({
       workspace_id: workspaceId,
       product_id: typeof adj.productId === 'string' ? adj.productId : null,
       quantity: adj.quantity,
@@ -808,6 +830,15 @@ export class SupabaseProvider implements DataProvider {
       reason: adj.reason,
       notes: adj.notes
     }).select().single();
+    if (error) throw error;
+
+    // Fetch current stock then update with signed quantity change
+    const { data: prod } = await client.from('products').select('stock').eq('id', adj.productId).single();
+    if (prod) {
+      const newStock = Math.max(0, prod.stock + adj.quantity);
+      await client.from('products').update({ stock: newStock }).eq('id', adj.productId);
+    }
+
     return { ...adj, id: data.id, createdAt: data.created_at };
   }
 
@@ -830,7 +861,10 @@ export class SupabaseProvider implements DataProvider {
 
   async addPurchaseEntry(entry: Omit<PurchaseEntry, 'id' | 'createdAt' | 'items'>, items: Omit<PurchaseEntryItem, 'id' | 'purchaseEntryId'>[]): Promise<PurchaseEntry> {
     const workspaceId = await this.getWorkspaceId();
-    const { data } = await this.getClient().from('purchase_orders').insert({
+    const client = this.getClient();
+
+    // Insert the purchase order as Completed so the DB trigger auto-updates stock
+    const { data, error } = await client.from('purchase_orders').insert({
       workspace_id: workspaceId,
       supplier_id: typeof entry.supplierId === 'string' ? entry.supplierId : null,
       order_date: entry.purchaseDate,
@@ -838,10 +872,60 @@ export class SupabaseProvider implements DataProvider {
       taxes: entry.taxes,
       discounts: entry.discounts,
       total_amount: entry.totalAmount,
-      notes: entry.notes
+      notes: entry.notes,
+      status: 'Completed'
     }).select().single();
-    
-    // items insertion omitted for brevity, handles similar to sales
+    if (error) throw error;
+
+    // Insert all purchase items — the DB trigger on purchase_order_items updates product stock
+    if (items.length > 0) {
+      const itemRows = items.map(item => ({
+        purchase_order_id: data.id,
+        product_id: typeof item.productId === 'string' ? item.productId : null,
+        product_name: item.productName,
+        quantity: item.quantity,
+        cost_price: item.costPrice,
+        subtotal: item.subtotal
+      }));
+
+      const { error: itemError } = await client.from('purchase_order_items').insert(itemRows);
+      if (itemError) throw itemError;
+
+      // Update each product's cost price using Weighted Average Costing (WAC):
+      // New WAC = (existing_stock × old_cost + new_qty × new_cost) / (existing_stock + new_qty)
+      await Promise.all(
+        items
+          .filter(item => item.productId && item.costPrice > 0)
+          .map(async item => {
+            const { data: prod } = await client
+              .from('products')
+              .select('stock, cost')
+              .eq('id', item.productId)
+              .single();
+
+            if (prod) {
+              const existingStock = Number(prod.stock) || 0;
+              const existingCost = Number(prod.cost) || 0;
+              const newQty = item.quantity;
+              const newCost = item.costPrice;
+
+              // stock has already been incremented by the DB trigger, so back-calculate pre-purchase stock
+              const prePurchaseStock = Math.max(0, existingStock - newQty);
+              const totalUnits = prePurchaseStock + newQty;
+
+              const weightedAvgCost = totalUnits > 0
+                ? (prePurchaseStock * existingCost + newQty * newCost) / totalUnits
+                : newCost;
+
+              await client
+                .from('products')
+                .update({ cost: Math.round(weightedAvgCost * 100) / 100 })
+                .eq('id', item.productId);
+            }
+          })
+      );
+    }
+
     return { ...entry, id: data.id, createdAt: data.created_at };
   }
 

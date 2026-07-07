@@ -42,6 +42,7 @@ export const useSupplierStore = create<SupplierStore>((set, get) => ({
       }));
     } catch (error) {
       console.error('Failed to add supplier:', error);
+      throw error;
     }
   },
 

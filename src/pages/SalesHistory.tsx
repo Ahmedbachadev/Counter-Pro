@@ -6,7 +6,8 @@ import {
   CreditCard as Edit2, Trash2, ArrowLeft, AlertCircle, CheckCircle2, 
   TrendingUp, BarChart3, Clock, Settings, Coins, Users, ShoppingBag, Award, 
   ShieldAlert, Sparkles, History, ChevronLeft, ChevronRight, X, Phone, Check, RefreshCw,
-  TrendingDown, Percent, ArrowUpRight, FileText, ShoppingCart, Undo2, RotateCcw
+  TrendingDown, Percent, ArrowUpRight, FileText, ShoppingCart, Undo2, RotateCcw,
+  Minus, Plus
 } from 'lucide-react';
 import { usePOSStore, Sale, SaleItem, PaymentMethod } from '../stores/posStore';
 import { useCustomerStore } from '../stores/customersStore';

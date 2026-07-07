@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { 
   Search, Receipt, ArrowRight, RotateCcw, Check, Calendar, User, 
   DollarSign, FileText, AlertCircle, HelpCircle, Eye, Printer, 
-  Sparkles, RefreshCw, ShoppingBag, Undo2, ArrowUpRight, BarChart3, Download, Filter, Coins, X
+  Sparkles, RefreshCw, ShoppingBag, Undo2, ArrowUpRight, BarChart3, Download, Filter, Coins, X, History
 } from 'lucide-react';
 import { usePOSStore, Sale } from '../stores/posStore';
 import { useInventoryStore } from '../stores/inventoryStore';

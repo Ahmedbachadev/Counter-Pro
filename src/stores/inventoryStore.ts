@@ -81,30 +81,33 @@ export const useInventoryStore = create<InventoryState>((set, get) => ({
       }));
     } catch (error) {
       console.error('Failed to add category:', error);
+      throw error;
     }
   },
 
   updateCategory: async (id, updates) => {
     try {
-      await inventoryService.updateCategory(parseInt(id), updates);
+      await inventoryService.updateCategory(id as any, updates);
       set(state => ({
         categories: state.categories.map(c =>
-          c.id === parseInt(id) ? { ...c, ...updates } : c
+          c.id.toString() === id.toString() ? { ...c, ...updates } : c
         )
       }));
     } catch (error) {
       console.error('Failed to update category:', error);
+      throw error;
     }
   },
 
   deleteCategory: async (id) => {
     try {
-      await inventoryService.deleteCategory(parseInt(id));
+      await inventoryService.deleteCategory(id as any);
       set(state => ({
-        categories: state.categories.filter(c => c.id !== parseInt(id))
+        categories: state.categories.filter(c => c.id.toString() !== id.toString())
       }));
     } catch (error) {
       console.error('Failed to delete category:', error);
+      throw error;
     }
   },
 
