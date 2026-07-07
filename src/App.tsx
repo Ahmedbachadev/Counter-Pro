@@ -32,22 +32,7 @@ import AdminRoutes from './adminpanel/routes/AdminRoutes';
 import AdminLogin from './adminpanel/pages/AdminLogin';
 import './i18n/config';
 
-// Layout wrapper for authenticated pages
-const LayoutWrapper = () => {
-  return (
-    <Layout>
-      {/* Data Export Warning Banner */}
-      <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-3 mb-4">
-        <div className="flex">
-          <div className="ml-3">
-            <p className="text-sm text-yellow-700 dark:text-yellow-300">
-              <marquee behavior="scroll" direction="left" scrollamount="3">
-                📊 Export your data daily from Settings → Data Backup. We are not responsible for data loss. Keep regular backups!
-              </marquee>
-            </p>
-          </div>
-        </div>
-      </div>
+
 
       <Routes>
         <Route path="/" element={<Dashboard />} />
