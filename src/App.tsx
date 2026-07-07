@@ -32,8 +32,10 @@ import AdminRoutes from './adminpanel/routes/AdminRoutes';
 import AdminLogin from './adminpanel/pages/AdminLogin';
 import './i18n/config';
 
-
-
+// Fixed: Reconstructed the missing LayoutWrapper function definition
+const LayoutWrapper = () => {
+  return (
+    <Layout>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/inventory" element={<Inventory />} />
@@ -129,6 +131,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Route */}
         {/* Public Route */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/expired" element={<WorkspaceExpired />} />
