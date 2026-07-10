@@ -328,8 +328,8 @@ export class SupabaseProvider implements DataProvider {
     const payload: any = {};
     if (updates.name !== undefined) payload.name = updates.name;
     if (updates.nameUrdu !== undefined) payload.name_urdu = updates.nameUrdu;
-    if (updates.categoryId !== undefined) payload.category_id = updates.categoryId && String(updates.categoryId).trim() !== '' ? updates.categoryId : null;
-    if (updates.supplierId !== undefined) payload.supplier_id = updates.supplierId && String(updates.supplierId).trim() !== '' ? updates.supplierId : null;
+    if (updates.categoryId !== undefined) payload.category_id = updates.categoryId && String(updates.categoryId).trim() !== '' && String(updates.categoryId) !== 'NaN' ? updates.categoryId : null;
+    if (updates.supplierId !== undefined) payload.supplier_id = updates.supplierId && String(updates.supplierId).trim() !== '' && String(updates.supplierId) !== 'NaN' ? updates.supplierId : null;
     if (updates.barcode !== undefined) payload.barcode = updates.barcode;
     if (updates.sku !== undefined) payload.sku = updates.sku;
     if (updates.price !== undefined) payload.price = updates.price;

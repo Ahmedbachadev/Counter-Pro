@@ -165,11 +165,51 @@ export interface ShopSettings {
   showBarcodeReceipt?: boolean;
   printAutomatically?: boolean;
 
-  // Barcode Settings
+  // SKU & Barcode Settings (Enterprise Module)
+  autoSkuGeneration?: boolean;
+  skuFormat?: string;
+  skuWorkspacePrefix?: string;
+  skuStorePrefix?: string;
+  skuCategoryPrefix?: string;
+  skuBrandPrefix?: string;
+  skuPrefixSeparator?: string;
+  skuStartingNumber?: number;
+  skuNumberLength?: number;
+  skuIncrementBy?: number;
+
+  autoBarcodeGeneration?: boolean;
   barcodeType?: string;
   barcodePrefix?: string;
+  barcodeStartingNumber?: number;
   barcodeLength?: number;
-  autoBarcodeGen?: boolean;
+  barcodeIncrementBy?: number;
+
+  skuCounter?: number;
+  barcodeCounter?: number;
+
+  preventDuplicateSku?: boolean;
+  preventDuplicateBarcode?: boolean;
+  validateDuringImport?: boolean;
+  autoDetectConflicts?: boolean;
+  autoSuggestNextAvailableNumber?: boolean;
+  highlightDuplicateIds?: boolean;
+
+  allowManualSku?: boolean;
+  allowManualBarcode?: boolean;
+
+  defaultLabelSize?: string;
+  labelOrientation?: string;
+  includeProductNameLabel?: boolean;
+  includePriceLabel?: boolean;
+  includeSkuLabel?: boolean;
+  includeBarcodeLabel?: boolean;
+  includeBrandLabel?: boolean;
+  includeCategoryLabel?: boolean;
+  includeLogoLabel?: boolean;
+  printQuantityDefault?: number;
+  defaultBarcodeFontSize?: string;
+
+  scannerOptimization?: string;
 
   // Inventory Defaults
   lowStockThreshold?: number;

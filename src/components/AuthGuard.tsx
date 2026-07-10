@@ -93,21 +93,21 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
     
     const perms = permissionService.getPermissions(user);
     if (perms.dashboard) {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/dashboard" replace />;
     }
     
     const routeMap: Record<string, string> = {
-      pos: '/pos',
-      inventory: '/inventory',
-      customers: '/customers',
-      sales: '/sales-history',
-      returns: '/returns',
-      purchases: '/purchases',
-      suppliers: '/suppliers',
-      expenses: '/expenses',
-      reports: '/reports',
-      notifications: '/notifications',
-      settings: '/settings'
+      pos: '/dashboard/pos',
+      inventory: '/dashboard/inventory',
+      customers: '/dashboard/customers',
+      sales: '/dashboard/sales-history',
+      returns: '/dashboard/returns',
+      purchases: '/dashboard/purchases',
+      suppliers: '/dashboard/suppliers',
+      expenses: '/dashboard/expenses',
+      reports: '/dashboard/reports',
+      notifications: '/dashboard/notifications',
+      settings: '/dashboard/settings'
     };
 
     const firstAllowedModule = Object.keys(perms).find(

@@ -10,7 +10,15 @@ let db;
 /* -------------------------
    Database initialization
    ------------------------- */
-function initializeDatabase() { console.log('Database runs on Supabase now.'); }
+async function initializeDatabase() {
+  try {
+    const { dbManager } = require('./localdb.cjs');
+    dbManager.initialize(app.getPath('userData'));
+    db = dbManager.db;
+  } catch (err) {
+    console.error('Failed to initialize local database:', err);
+  }
+}
 
 /* -------------------------
    Table creation
@@ -99,6 +107,33 @@ async function withTimeout(promise, timeoutMs = 5000) {
     ),
   ]);
 }
+
+ipcMain.handle('repo-call', async (event, repoName, methodName, ...args) => {
+  try {
+    ensureDB();
+    const { dbManager } = require('./localdb.cjs');
+    const repo = dbManager[repoName];
+    if (!repo) {
+      throw new Error(`Repository not found: ${repoName}`);
+    }
+    if (typeof repo[methodName] !== 'function') {
+      throw new Error(`Method ${methodName} not found on ${repoName}`);
+    }
+    const result = await repo[methodName](...args);
+    return { success: true, data: result };
+  } catch (error) {
+    console.error(`Error in repo-call ${repoName}.${methodName}:`, error);
+    return { success: false, error: error.message || String(error) };
+  }
+});
+
+ipcMain.handle('network-status-change', async (event, status) => {
+  console.log(`[Network] Application is now ${status}`);
+  if (dbManager?.syncScheduler) {
+    dbManager.syncScheduler.setNetworkStatus(status === 'online');
+  }
+  return { success: true };
+});
 
 ipcMain.handle('db-query', async (event, sql, params = []) => {
   try {

@@ -1,22 +1,27 @@
-import { getProvider } from '../providers';
+import { FrontendBaseRepository } from './FrontendBaseRepository';
 import type { Expense } from '../types';
 
-export const expenseRepository = {
-  async getExpenses(): Promise<Expense[]> {
-    return getProvider().getExpenses();
-  },
-
-  async addExpense(expense: Omit<Expense, 'id' | 'createdAt'>): Promise<Expense> {
-    return getProvider().addExpense(expense);
-  },
-
-  async updateExpense(id: number, updates: Partial<Expense>): Promise<void> {
-    return getProvider().updateExpense(id, updates);
-  },
-
-  async deleteExpense(id: number): Promise<void> {
-    return getProvider().deleteExpense(id);
+class ExpenseRepositoryProxy extends FrontendBaseRepository<Expense> {
+  constructor() {
+    super('expenses');
   }
-};
 
+  public async getExpenses(): Promise<Expense[]> {
+    return this.findAll();
+  }
+
+  public async addExpense(expense: Omit<Expense, 'id' | 'createdAt'>): Promise<Expense> {
+    return this.create(expense);
+  }
+
+  public async updateExpense(id: number | string, updates: Partial<Expense>): Promise<void> {
+    await this.update(id, updates);
+  }
+
+  public async deleteExpense(id: number | string): Promise<void> {
+    await this.delete(id);
+  }
+}
+
+export const expenseRepository = new ExpenseRepositoryProxy();
 export default expenseRepository;

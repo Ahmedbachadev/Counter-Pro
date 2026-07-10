@@ -44,6 +44,7 @@ import {
 import { useInventoryStore, Product, Category, ProductVariant } from '../stores/inventoryStore';
 import { useSupplierStore } from '../stores/supplierStore';
 import { usePOSStore } from '../stores/posStore';
+import { useSettingsStore } from '../stores/settingsStore';
 import inventoryService from '../services/inventoryService';
 import supplierService from '../services/supplierService';
 import {
@@ -953,11 +954,44 @@ const Inventory: React.FC = () => {
   const handleProductSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const settingsStore = useSettingsStore.getState();
+    const settings = settingsStore.settings;
+
+    let finalSku = productForm.sku || undefined;
+    let finalBarcode = productForm.barcode || undefined;
+    
+    // Auto Generate SKU
+    if (!editingProduct && !finalSku && settings.autoSkuGeneration) {
+      const numStr = (settings.skuCounter || 100000).toString().padStart(settings.skuNumberLength || 6, '0');
+      if (settings.skuFormat === 'PREFIX-NUMBER') {
+        finalSku = `${settings.skuWorkspacePrefix}${settings.skuPrefixSeparator}${numStr}`;
+      } else if (settings.skuFormat === 'PREFIXNUMBER') {
+        finalSku = `${settings.skuWorkspacePrefix}${numStr}`;
+      } else if (settings.skuFormat === 'NUMBER') {
+        finalSku = `${numStr}`;
+      } else if (settings.skuFormat === 'CATEGORY-NUMBER') {
+        finalSku = `CAT${settings.skuPrefixSeparator}${numStr}`;
+      } else if (settings.skuFormat === 'CATEGORY-BRAND-NUMBER') {
+        finalSku = `CAT${settings.skuPrefixSeparator}BRND${settings.skuPrefixSeparator}${numStr}`;
+      } else {
+        finalSku = `${settings.skuWorkspacePrefix || 'CP'}-${numStr}`;
+      }
+      // increment counter
+      settingsStore.updateShopSettings({ ...settings, skuCounter: (settings.skuCounter || 100000) + (settings.skuIncrementBy || 1) });
+    }
+
+    // Auto Generate Barcode
+    if (!editingProduct && !finalBarcode && settings.autoBarcodeGeneration) {
+      finalBarcode = `${settings.barcodePrefix || ''}${settings.barcodeCounter || 200000000001}`;
+      // increment counter
+      settingsStore.updateShopSettings({ ...settings, barcodeCounter: (settings.barcodeCounter || 200000000001) + (settings.barcodeIncrementBy || 1) });
+    }
+
     const productData = {
       name: productForm.name,
       nameUrdu: productForm.nameUrdu || '',
-      barcode: productForm.barcode || undefined,
-      sku: productForm.sku || undefined,
+      barcode: finalBarcode,
+      sku: finalSku,
       brand: productForm.brand || undefined,
       categoryId: productForm.categoryId as any,
       supplierId: productForm.supplierId ? (productForm.supplierId as any) : undefined,
@@ -1413,12 +1447,46 @@ const Inventory: React.FC = () => {
     const validRows = importSummary.rows.filter(r => r.isValid);
     let successCount = 0;
 
+    const settingsStore = useSettingsStore.getState();
+    const settings = settingsStore.settings;
+    let currentSkuCounter = settings.skuCounter || 100000;
+    let currentBarcodeCounter = settings.barcodeCounter || 200000000001;
+    let settingsUpdated = false;
+
     for (const row of validRows) {
       try {
+        let finalSku = row.sku !== '—' ? row.sku : undefined;
+        let finalBarcode = row.barcode !== '—' ? row.barcode : undefined;
+
+        if (!finalSku && settings.autoSkuGeneration) {
+          const numStr = currentSkuCounter.toString().padStart(settings.skuNumberLength || 6, '0');
+          if (settings.skuFormat === 'PREFIX-NUMBER') {
+            finalSku = `${settings.skuWorkspacePrefix}${settings.skuPrefixSeparator}${numStr}`;
+          } else if (settings.skuFormat === 'PREFIXNUMBER') {
+            finalSku = `${settings.skuWorkspacePrefix}${numStr}`;
+          } else if (settings.skuFormat === 'NUMBER') {
+            finalSku = `${numStr}`;
+          } else if (settings.skuFormat === 'CATEGORY-NUMBER') {
+            finalSku = `CAT${settings.skuPrefixSeparator}${numStr}`;
+          } else if (settings.skuFormat === 'CATEGORY-BRAND-NUMBER') {
+            finalSku = `CAT${settings.skuPrefixSeparator}BRND${settings.skuPrefixSeparator}${numStr}`;
+          } else {
+            finalSku = `${settings.skuWorkspacePrefix || 'CP'}-${numStr}`;
+          }
+          currentSkuCounter += (settings.skuIncrementBy || 1);
+          settingsUpdated = true;
+        }
+
+        if (!finalBarcode && settings.autoBarcodeGeneration) {
+          finalBarcode = `${settings.barcodePrefix || ''}${currentBarcodeCounter}`;
+          currentBarcodeCounter += (settings.barcodeIncrementBy || 1);
+          settingsUpdated = true;
+        }
+
         await addProduct({
           name: row.name,
-          sku: row.sku !== '—' ? row.sku : undefined,
-          barcode: row.barcode !== '—' ? row.barcode : undefined,
+          sku: finalSku,
+          barcode: finalBarcode,
           price: row.price,
           cost: row.cost,
           stock: row.stock,
@@ -1433,6 +1501,14 @@ const Inventory: React.FC = () => {
       } catch (err) {
         console.error(err);
       }
+    }
+
+    if (settingsUpdated) {
+      settingsStore.updateShopSettings({
+        ...settings,
+        skuCounter: currentSkuCounter,
+        barcodeCounter: currentBarcodeCounter
+      });
     }
 
     alert(`Successfully imported ${successCount} products into catalog!`);
@@ -2947,6 +3023,34 @@ const Inventory: React.FC = () => {
                   </div>
                 );
               })}
+            </div>
+          )}
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 mt-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 rounded-b-2xl gap-4">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Showing <span className="font-semibold text-gray-900 dark:text-white">{(currentPage - 1) * pageSize + 1}</span> to <span className="font-semibold text-gray-900 dark:text-white">{Math.min(currentPage * pageSize, filteredProducts.length)}</span> of <span className="font-semibold text-gray-900 dark:text-white">{filteredProducts.length}</span> products
+              </div>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium shadow-sm"
+                >
+                  Previous
+                </button>
+                <div className="text-sm font-medium text-gray-700 dark:text-gray-300 px-3">
+                  Page {currentPage} of {totalPages}
+                </div>
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium shadow-sm"
+                >
+                  Next
+                </button>
+              </div>
             </div>
           )}
         </div>

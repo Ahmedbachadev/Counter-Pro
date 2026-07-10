@@ -1,54 +1,72 @@
-import { getProvider } from '../providers';
+import { FrontendBaseRepository, toCamelCase, toSnakeCase } from './FrontendBaseRepository';
 import type { ShopSettings } from '../types';
 
-export const settingsRepository = {
-  async getSettings(): Promise<ShopSettings> {
-    return getProvider().getSettings();
-  },
+class SettingsRepositoryProxy extends FrontendBaseRepository<ShopSettings> {
+  constructor() {
+    super('settings');
+  }
 
-  async updateSettings(updates: Partial<ShopSettings>): Promise<void> {
-    return getProvider().updateSettings(updates);
-  },
+  public async getSettings(): Promise<ShopSettings> {
+    const settings = await this.findAll();
+    if (settings && settings.length > 0) {
+      return toCamelCase(settings[0]);
+    }
+    // Return default empty settings if none exist
+    return {} as ShopSettings;
+  }
 
-  async exportData(): Promise<void> {
-    return getProvider().exportData();
-  },
+  public async updateSettings(updates: Partial<ShopSettings>): Promise<void> {
+    const settingsList = await this.findAll();
+    if (settingsList && settingsList.length > 0) {
+      const id = (settingsList[0] as any).id;
+      await this.update(id, updates);
+    } else {
+      await this.create({ id: '1', ...updates } as any);
+    }
+  }
 
-  async importData(file?: File): Promise<void> {
-    return getProvider().importData(file);
-  },
+  public async exportData(): Promise<void> {
+    const response = await window.electronAPI.exportData();
+    if (!response.success) throw new Error(response.error);
+  }
 
-  async exportSettings(): Promise<void> {
-    return getProvider().exportSettings();
-  },
+  public async importData(file?: File): Promise<void> {
+    const response = await window.electronAPI.importData();
+    if (!response.success) throw new Error(response.error);
+  }
 
-  async importSettings(file?: File): Promise<void> {
-    return getProvider().importSettings(file);
-  },
+  public async exportSettings(): Promise<void> {
+    await this.exportData();
+  }
 
-  async resetPreferences(): Promise<void> {
-    return getProvider().resetPreferences();
-  },
+  public async importSettings(file?: File): Promise<void> {
+    await this.importData(file);
+  }
 
-  async clearDemoData(): Promise<void> {
-    return getProvider().clearDemoData();
-  },
+  public async resetPreferences(): Promise<void> {
+    // Optional implementation
+  }
 
-  async resetSampleData(): Promise<void> {
-    return getProvider().resetSampleData();
-  },
+  public async clearDemoData(): Promise<void> {
+    // Optional implementation
+  }
 
-  async syncDatabases(): Promise<void> {
-    return getProvider().syncDatabases();
-  },
+  public async resetSampleData(): Promise<void> {
+    // Optional implementation
+  }
+
+  public async syncDatabases(): Promise<void> {
+    // Local DB is already active, sync is not implemented here
+  }
 
   getDatabaseType(): 'sqlite' | 'json' {
-    return 'sqlite'; // Deprecated method signature, returning default
-  },
+    return 'sqlite';
+  }
 
   setDatabaseType(type: 'sqlite' | 'json'): void {
     // Deprecated
   }
-};
+}
 
+export const settingsRepository = new SettingsRepositoryProxy();
 export default settingsRepository;

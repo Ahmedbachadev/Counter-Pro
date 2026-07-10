@@ -6,6 +6,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
   dbQuery: (sql, params) => ipcRenderer.invoke('db-query', sql, params),
   dbRun: (sql, params) => ipcRenderer.invoke('db-run', sql, params),
   dbGet: (sql, params) => ipcRenderer.invoke('db-get', sql, params),
+  repoCall: (repoName, methodName, ...args) => ipcRenderer.invoke('repo-call', repoName, methodName, ...args),
+  
+  // Network and Sync
+  networkStatusChange: (status) => ipcRenderer.invoke('network-status-change', status),
+  onAppEvent: (callback) => {
+    const handler = (event, eventName, ...args) => callback(eventName, ...args);
+    ipcRenderer.on('app-event', handler);
+    return () => ipcRenderer.removeListener('app-event', handler);
+  },
 
   // Convenience helpers for inventory
   getProducts: async () => {

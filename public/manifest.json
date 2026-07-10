@@ -1,0 +1,21 @@
+{
+  "name": "Counter Pro",
+  "short_name": "Counter Pro",
+  "description": "Modern cloud-based Point of Sale platform for retail stores, restaurants, pharmacies, and growing businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/appicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -771,28 +771,28 @@ const AccountCenter: React.FC = () => {
             {/* Quick navigation to related modules */}
             <div className="pt-3 border-t border-slate-200/60 dark:border-gray-800 grid grid-cols-2 gap-2 text-xxs font-bold">
               <Link
-                to="/inventory"
+                to="/dashboard/inventory"
                 className="flex items-center justify-between p-2.5 bg-white dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 rounded-xl hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/20 transition-all text-slate-700 dark:text-slate-300"
               >
                 <span>Products</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
-                to="/pos"
+                to="/dashboard/pos"
                 className="flex items-center justify-between p-2.5 bg-white dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 rounded-xl hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/20 transition-all text-slate-700 dark:text-slate-300"
               >
                 <span>POS Sale</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
-                to="/customers"
+                to="/dashboard/customers"
                 className="flex items-center justify-between p-2.5 bg-white dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 rounded-xl hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/20 transition-all text-slate-700 dark:text-slate-300"
               >
                 <span>Customers</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
-                to="/sales-history"
+                to="/dashboard/sales-history"
                 className="flex items-center justify-between p-2.5 bg-white dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 rounded-xl hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/20 transition-all text-slate-700 dark:text-slate-300"
               >
                 <span>History</span>

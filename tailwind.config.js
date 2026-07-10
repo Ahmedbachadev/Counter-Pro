@@ -19,6 +19,30 @@ export default {
         md: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
         lg: '0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
       },
+      keyframes: {
+        'lp-fade-up': {
+          from: { opacity: '0', transform: 'translateY(24px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'lp-fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'lp-scale-in': {
+          from: { opacity: '0', transform: 'scale(0.95)' },
+          to: { opacity: '1', transform: 'scale(1)' },
+        },
+        'lp-float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+      },
+      animation: {
+        'lp-fade-up': 'lp-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'lp-fade-in': 'lp-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'lp-scale-in': 'lp-scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'lp-float': 'lp-float 6s ease-in-out infinite',
+      },
       colors: {
         primary: {
           50: '#EFF6FF',

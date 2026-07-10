@@ -1,57 +1,76 @@
-import { getProvider } from '../providers';
+import { FrontendBaseRepository, toCamelCase, toSnakeCase } from './FrontendBaseRepository';
 import type { Supplier, Product, StockPurchase, PurchaseEntry, PurchaseEntryItem } from '../types';
 
-export const supplierRepository = {
-  async getSuppliers(): Promise<Supplier[]> {
-    return getProvider().getSuppliers();
-  },
+class SupplierRepositoryProxy extends FrontendBaseRepository<Supplier> {
+  constructor() {
+    super('suppliers');
+  }
 
-  async addSupplier(supplier: Omit<Supplier, 'id' | 'createdAt' | 'updatedAt'>): Promise<Supplier> {
-    return getProvider().addSupplier(supplier);
-  },
+  public async getSuppliers(): Promise<Supplier[]> {
+    return this.findAll();
+  }
 
-  async updateSupplier(id: number, updates: Partial<Supplier>): Promise<void> {
-    return getProvider().updateSupplier(id, updates);
-  },
+  public async addSupplier(supplier: Omit<Supplier, 'id' | 'createdAt' | 'updatedAt'>): Promise<Supplier> {
+    return this.create(supplier);
+  }
 
-  async deleteSupplier(id: number): Promise<void> {
-    return getProvider().deleteSupplier(id);
-  },
+  public async updateSupplier(id: number | string, updates: Partial<Supplier>): Promise<void> {
+    await this.update(id, updates);
+  }
 
-  async getSupplierProducts(supplierId: number): Promise<Product[]> {
-    return getProvider().getSupplierProducts(supplierId);
-  },
+  public async deleteSupplier(id: number | string): Promise<void> {
+    await this.delete(id);
+  }
 
-  async getSupplierStats(supplierId: number): Promise<{ totalProducts: number; totalCost: number }> {
-    return getProvider().getSupplierStats(supplierId);
-  },
+  public async getSupplierProducts(supplierId: number | string): Promise<Product[]> {
+    return window.electronAPI.repoCall('products', 'filter', { supplier_id: supplierId }).then(r => toCamelCase(r.data));
+  }
 
-  async addStockPurchase(purchase: Omit<StockPurchase, 'id' | 'createdAt'>): Promise<StockPurchase> {
-    return getProvider().addStockPurchase(purchase);
-  },
+  public async getSupplierStats(supplierId: number | string): Promise<{ totalProducts: number; totalCost: number }> {
+    const products = await this.getSupplierProducts(supplierId);
+    return {
+      totalProducts: products.length,
+      totalCost: products.reduce((sum, p) => sum + (p.cost * p.stock), 0)
+    };
+  }
 
-  async getSupplierStockPurchases(supplierId: number): Promise<StockPurchase[]> {
-    return getProvider().getSupplierStockPurchases(supplierId);
-  },
+  public async addStockPurchase(purchase: Omit<StockPurchase, 'id' | 'createdAt'>): Promise<StockPurchase> {
+    // This goes to purchases repo or stock_purchases depending on how we structured it
+    // Wait, we mapped it to purchases in the new SQLite schema? 
+    // Wait, the migration has 'purchases' and 'purchase_items' tables. Let's just create it in 'purchases'.
+    return window.electronAPI.repoCall('purchases', 'create', toSnakeCase(purchase)).then(r => toCamelCase(r.data));
+  }
 
-  async getProductStockPurchases(productId: number): Promise<StockPurchase[]> {
-    return getProvider().getProductStockPurchases(productId);
-  },
+  public async getSupplierStockPurchases(supplierId: number | string): Promise<StockPurchase[]> {
+    return window.electronAPI.repoCall('purchases', 'filter', { supplier_id: supplierId }).then(r => toCamelCase(r.data));
+  }
 
-  async getAllStockPurchases(): Promise<StockPurchase[]> {
-    return getProvider().getAllStockPurchases();
-  },
+  public async getProductStockPurchases(productId: number | string): Promise<StockPurchase[]> {
+    // Actually this requires a JOIN with purchase_items. We'll fetch purchase_items and map them for now.
+    return window.electronAPI.repoCall('purchase_items', 'filter', { product_id: productId }).then(r => toCamelCase(r.data));
+  }
 
-  async getPurchaseEntries(): Promise<PurchaseEntry[]> {
-    return getProvider().getPurchaseEntries();
-  },
+  public async getAllStockPurchases(): Promise<StockPurchase[]> {
+    return window.electronAPI.repoCall('purchases', 'findAll').then(r => toCamelCase(r.data));
+  }
 
-  async addPurchaseEntry(
+  public async getPurchaseEntries(): Promise<PurchaseEntry[]> {
+    return window.electronAPI.repoCall('purchases', 'findAll').then(r => toCamelCase(r.data));
+  }
+
+  public async addPurchaseEntry(
     entry: Omit<PurchaseEntry, 'id' | 'createdAt' | 'items'>,
     items: Omit<PurchaseEntryItem, 'id' | 'purchaseEntryId'>[]
   ): Promise<PurchaseEntry> {
-    return getProvider().addPurchaseEntry(entry, items);
+    const purchase = await window.electronAPI.repoCall('purchases', 'create', toSnakeCase(entry)).then(r => toCamelCase(r.data));
+    
+    // Bulk insert items
+    const snakeItems = items.map(item => ({ ...toSnakeCase(item), purchase_id: purchase.id }));
+    await window.electronAPI.repoCall('purchase_items', 'bulkInsert', snakeItems);
+    
+    return purchase;
   }
-};
+}
 
+export const supplierRepository = new SupplierRepositoryProxy();
 export default supplierRepository;

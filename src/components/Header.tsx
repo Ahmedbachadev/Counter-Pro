@@ -35,6 +35,7 @@ import { usePOSStore } from '../stores/posStore';
 import { usePurchaseStore } from '../stores/purchaseStore';
 import { useSupplierStore } from '../stores/supplierStore';
 import { useExpensesStore } from '../stores/expensesStore';
+import SyncIndicator from './sync/SyncIndicator';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -116,13 +117,13 @@ const Header: React.FC = () => {
     
     if (!notif.actionType) return;
     switch (notif.actionType) {
-      case 'view_product': navigate('/inventory'); break;
-      case 'view_customer': navigate('/customers'); break;
-      case 'view_supplier': navigate('/suppliers'); break;
-      case 'view_sale': navigate('/sales-history'); break;
-      case 'view_purchase': navigate('/purchases'); break;
-      case 'view_expense': navigate('/expenses'); break;
-      case 'view_settings': navigate('/settings'); break;
+      case 'view_product': navigate('/dashboard/inventory'); break;
+      case 'view_customer': navigate('/dashboard/customers'); break;
+      case 'view_supplier': navigate('/dashboard/suppliers'); break;
+      case 'view_sale': navigate('/dashboard/sales-history'); break;
+      case 'view_purchase': navigate('/dashboard/purchases'); break;
+      case 'view_expense': navigate('/dashboard/expenses'); break;
+      case 'view_settings': navigate('/dashboard/settings'); break;
     }
   };
 
@@ -134,7 +135,7 @@ const Header: React.FC = () => {
   // Breadcrumbs generation
   const breadcrumbs = useMemo(() => {
     const paths = location.pathname.split('/').filter(Boolean);
-    const list = [{ label: 'Dashboard', to: '/' }];
+    const list = [{ label: 'Dashboard', to: '/dashboard' }];
     
     paths.forEach((path, idx) => {
       const to = `/${paths.slice(0, idx + 1).join('/')}`;
@@ -171,7 +172,7 @@ const Header: React.FC = () => {
           title: p.name,
           subtitle: `SKU: ${p.sku || 'N/A'} • Price: Rs. ${p.price}`,
           icon: Package,
-          action: () => { navigate('/inventory'); setSearchModalOpen(false); }
+          action: () => { navigate('/dashboard/inventory'); setSearchModalOpen(false); }
         });
       }
     });
@@ -184,7 +185,7 @@ const Header: React.FC = () => {
           title: c.name,
           subtitle: `Phone: ${c.phone || 'N/A'} • Balance: Rs. ${c.pendingAmount}`,
           icon: Users,
-          action: () => { navigate(`/customers?id=${c.id}`); setSearchModalOpen(false); }
+          action: () => { navigate(`/dashboard/customers?id=${c.id}`); setSearchModalOpen(false); }
         });
       }
     });
@@ -197,7 +198,7 @@ const Header: React.FC = () => {
           title: s.name,
           subtitle: `Phone: ${s.phone || 'N/A'} • Company: ${s.companyName || 'N/A'}`,
           icon: Truck,
-          action: () => { navigate('/suppliers'); setSearchModalOpen(false); }
+          action: () => { navigate('/dashboard/suppliers'); setSearchModalOpen(false); }
         });
       }
     });
@@ -211,7 +212,7 @@ const Header: React.FC = () => {
           title: `Invoice #${sale.id}`,
           subtitle: `Customer: ${sale.customerName || 'Walk-in'} • Amount: Rs. ${sale.finalAmount}`,
           icon: Receipt,
-          action: () => { navigate('/sales-history'); setSearchModalOpen(false); }
+          action: () => { navigate('/dashboard/sales-history'); setSearchModalOpen(false); }
         });
       }
     });
@@ -225,7 +226,7 @@ const Header: React.FC = () => {
           title: `Purchase Bill #${p.id}`,
           subtitle: `Supplier: ${p.supplierName || 'N/A'} • Total: Rs. ${p.finalAmount}`,
           icon: ShoppingBag,
-          action: () => { navigate('/purchases'); setSearchModalOpen(false); }
+          action: () => { navigate('/dashboard/purchases'); setSearchModalOpen(false); }
         });
       }
     });
@@ -238,16 +239,16 @@ const Header: React.FC = () => {
           title: e.description,
           subtitle: `Category: ${e.category} • Amount: Rs. ${e.amount}`,
           icon: CreditCard,
-          action: () => { navigate('/expenses'); setSearchModalOpen(false); }
+          action: () => { navigate('/dashboard/expenses'); setSearchModalOpen(false); }
         });
       }
     });
 
     // Reports Options
     const reportOptions = [
-      { title: 'Sales Report', subtitle: 'Detailed sales summaries and charts', action: () => navigate('/reports') },
-      { title: 'Inventory Report', subtitle: 'Valuation and low stock listings', action: () => navigate('/reports') },
-      { title: 'Expense Analysis', subtitle: 'Breakdown of expense categories', action: () => navigate('/reports') },
+      { title: 'Sales Report', subtitle: 'Detailed sales summaries and charts', action: () => navigate('/dashboard/reports') },
+      { title: 'Inventory Report', subtitle: 'Valuation and low stock listings', action: () => navigate('/dashboard/reports') },
+      { title: 'Expense Analysis', subtitle: 'Breakdown of expense categories', action: () => navigate('/dashboard/reports') },
     ];
     reportOptions.forEach(rep => {
       if (rep.title.toLowerCase().includes(query)) {
@@ -341,17 +342,20 @@ const Header: React.FC = () => {
               {quickAddOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-950 border border-slate-200 dark:border-gray-800 rounded-xl shadow-lg z-50 overflow-hidden divide-y divide-slate-100 dark:divide-gray-900 transition-all">
                   <div className="py-1">
-                    <button onClick={() => { navigate('/pos'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">New Sale</button>
-                    <button onClick={() => { navigate('/inventory'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Product</button>
+                    <button onClick={() => { navigate('/dashboard/pos'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">New Sale</button>
+                    <button onClick={() => { navigate('/dashboard/inventory'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Product</button>
                   </div>
                   <div className="py-1">
-                    <button onClick={() => { navigate('/customers'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Customer</button>
-                    <button onClick={() => { navigate('/suppliers'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Supplier</button>
-                    <button onClick={() => { navigate('/expenses'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Expense</button>
+                    <button onClick={() => { navigate('/dashboard/customers'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Customer</button>
+                    <button onClick={() => { navigate('/dashboard/suppliers'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Supplier</button>
+                    <button onClick={() => { navigate('/dashboard/expenses'); setQuickAddOpen(false); }} className="w-full text-left px-4 py-2 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">Add Expense</button>
                   </div>
                 </div>
               )}
             </div>
+
+            {/* Sync Indicator */}
+            <SyncIndicator />
 
             {/* Notification Bell */}
             <div className="relative" ref={dropdownRef}>
@@ -405,7 +409,7 @@ const Header: React.FC = () => {
                     )}
                   </div>
                   <div className="p-3 text-center bg-slate-50/50 dark:bg-gray-900/50">
-                    <Link to="/notifications" onClick={() => setDropdownOpen(false)} className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline inline-flex items-center">
+                    <Link to="/dashboard/notifications" onClick={() => setDropdownOpen(false)} className="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline inline-flex items-center">
                       <span>Open Notification Center</span>
                       <ExternalLink className="h-3 w-3 ml-1" />
                     </Link>
@@ -437,15 +441,15 @@ const Header: React.FC = () => {
                     <p className="text-[10px] text-indigo-500 dark:text-indigo-400 font-bold truncate mt-1">Workspace: {user?.workspaceName || 'Swat Retail'}</p>
                   </div>
                   <div className="py-1">
-                    <Link to="/account-center" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2.5 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">
+                    <Link to="/dashboard/account-center" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2.5 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">
                       <User className="h-4 w-4 mr-2.5 text-slate-400" />
                       Account Center
                     </Link>
-                    <Link to="/settings" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2.5 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">
+                    <Link to="/dashboard/settings" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2.5 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">
                       <SettingsIcon className="h-4 w-4 mr-2.5 text-slate-400" />
                       Settings
                     </Link>
-                    <Link to="/notifications" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2.5 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">
+                    <Link to="/dashboard/notifications" onClick={() => setUserMenuOpen(false)} className="flex items-center px-4 py-2.5 text-xs text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-850 font-medium">
                       <Bell className="h-4 w-4 mr-2.5 text-slate-400" />
                       Notifications
                     </Link>

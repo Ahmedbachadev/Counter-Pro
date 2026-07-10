@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { 
   Building2, Palette, Globe, Percent, Printer, Barcode, 
@@ -10,6 +11,7 @@ import {
 import { useThemeStore } from '../stores/themeStore';
 import { useAuthStore } from '../stores/authStore';
 import { StaffManagementPanel } from '../components/StaffManagementPanel';
+import { SkuBarcodeSettingsPanel } from '../components/SkuBarcodeSettingsPanel';
 import { useSettingsStore, defaultSettings } from '../stores/settingsStore';
 import { useNotificationsStore } from '../stores/notificationsStore';
 import settingsService from '../services/settingsService';
@@ -29,11 +31,12 @@ interface TaxRateItem {
 
 const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useThemeStore();
   const { shopSettings, updateShopSettings, initializeFromDatabase } = useSettingsStore();
   const { user } = useAuthStore();
 
-  const [activeTab, setActiveTab] = useState<'profile' | 'branding' | 'localization' | 'tax' | 'receipt' | 'barcode' | 'inventory' | 'pos' | 'backup' | 'data' | 'actions' | 'database' | 'notifications' | 'staff'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'branding' | 'localization' | 'tax' | 'barcode' | 'inventory' | 'pos' | 'backup' | 'data' | 'actions' | 'database' | 'notifications' | 'staff'>('profile');
   
   // Local Form State
   const [formState, setFormState] = useState(shopSettings);
@@ -326,7 +329,7 @@ const Settings: React.FC = () => {
     { id: 'localization', label: 'Localization', icon: Globe },
     { id: 'tax', label: 'Tax Settings', icon: Percent },
     { id: 'receipt', label: 'Receipt Settings', icon: Printer },
-    { id: 'barcode', label: 'Barcode Settings', icon: Barcode },
+    { id: 'barcode', label: 'SKU & Barcode Settings', icon: Barcode },
     { id: 'inventory', label: 'Inventory Defaults', icon: Sliders },
     { id: 'staff', label: 'Staff Management', icon: Users },
     { id: 'notifications', label: 'Notifications Preferences', icon: Bell },
@@ -403,7 +406,13 @@ const Settings: React.FC = () => {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  if (item.id === 'receipt') {
+                    navigate('/dashboard/settings/receipt');
+                  } else {
+                    setActiveTab(item.id as any);
+                  }
+                }}
                 className={`flex items-center space-x-3 w-full px-3.5 py-2.5 rounded-xl text-left text-sm font-semibold transition-all duration-200 ${
                   isActive 
                     ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-sm'
@@ -908,77 +917,23 @@ const Settings: React.FC = () => {
 
             {/* 6. Barcode Settings */}
             {activeTab === 'barcode' && (
-              <div className="space-y-6">
-                <div className="border-b border-slate-100 dark:border-gray-700/60 pb-4">
-                  <h2 className="text-xl font-bold text-slate-950 dark:text-white flex items-center gap-2">
-                    <Barcode className="h-5 w-5 text-indigo-500" />
-                    Barcode & Label Settings
-                  </h2>
-                  <p className="text-slate-500 dark:text-gray-400 text-xs mt-1">
-                    Define default code layouts, automatically generated serial numbers, and constraints.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
-                      Barcode Symbology
-                    </label>
-                    <select
-                      value={formState.barcodeType || 'CODE128'}
-                      onChange={(e) => handleInputChange('barcodeType', e.target.value)}
-                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
-                    >
-                      <option value="CODE128">CODE 128 (Alpha-numeric, highly compact)</option>
-                      <option value="EAN13">EAN 13 (Standard retail numbers only)</option>
-                      <option value="UPCA">UPC-A (Standard North America retail)</option>
-                      <option value="CODE39">CODE 39 (Widespread legacy symbology)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
-                      Barcode Prefix
-                    </label>
-                    <input
-                      type="text"
-                      value={formState.barcodePrefix || 'CP'}
-                      onChange={(e) => handleInputChange('barcodePrefix', e.target.value)}
-                      placeholder="e.g. CP"
-                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
-                      Code Length (Digits)
-                    </label>
-                    <input
-                      type="number"
-                      value={formState.barcodeLength || 8}
-                      onChange={(e) => handleInputChange('barcodeLength', parseInt(e.target.value) || 8)}
-                      min={4}
-                      max={20}
-                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <label className="flex items-center justify-between p-4 bg-slate-50 dark:bg-gray-950/40 border border-slate-200/60 dark:border-gray-800 rounded-2xl cursor-pointer hover:bg-slate-100/50 dark:hover:bg-gray-900/60 transition">
-                    <div>
-                      <p className="font-bold text-sm text-slate-900 dark:text-white">Automatic Barcode Generation</p>
-                      <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">Enabling this generates unique barcodes for new products automatically.</p>
-                    </div>
-                    <input
-                      type="checkbox"
-                      checked={formState.autoBarcodeGen}
-                      onChange={(e) => handleInputChange('autoBarcodeGen', e.target.checked)}
-                      className="h-5.5 w-5.5 text-blue-600 focus:ring-blue-500 rounded-md"
-                    />
-                  </label>
-                </div>
-              </div>
+              <SkuBarcodeSettingsPanel 
+                formState={formState}
+                handleInputChange={handleInputChange}
+                triggerExport={triggerExportSettings}
+                triggerImport={() => {
+                  alert('To import configuration, please use the main Settings Import tool in the Backup & Restore tab.');
+                }}
+                triggerResetCounter={async (type) => {
+                  if (type === 'sku') {
+                    await handleInputChange('skuCounter', 100000);
+                  } else {
+                    await handleInputChange('barcodeCounter', 200000000001);
+                  }
+                  await handleSave();
+                  alert(`${type.toUpperCase()} counter has been reset.`);
+                }}
+              />
             )}
 
             {/* 7. Inventory Defaults */}

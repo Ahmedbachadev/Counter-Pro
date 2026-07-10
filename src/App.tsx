@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+// Lazy-load landing page for code splitting
+const LandingPage = React.lazy(() => import('./landing/LandingPage'));
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from './stores/authStore';
 import { useThemeStore } from './stores/themeStore';
@@ -12,25 +15,28 @@ import { useExpensesStore } from './stores/expensesStore';
 import { usePurchaseStore } from './stores/purchaseStore';
 import realtimeManager from './backend/realtime';
 import Layout from './components/Layout';
-import LoginPage from './pages/LoginPage';
 import AuthGuard from './components/AuthGuard';
-import Dashboard from './pages/Dashboard';
-import Inventory from './pages/Inventory';
-import POS from './pages/POS';
-import Customers from './pages/Customers';
-import Suppliers from './pages/Suppliers';
-import Expenses from './pages/Expenses';
-import Purchases from './pages/Purchases';
-import SalesHistory from './pages/SalesHistory';
-import Reports from './pages/Reports';
-import Settings from './pages/Settings';
-import ReturnsExchanges from './pages/ReturnsExchanges';
-import Notifications from './pages/Notifications';
-import AccountCenter from './pages/AccountCenter';
-import WorkspaceExpired from './pages/WorkspaceExpired';
-import AdminRoutes from './adminpanel/routes/AdminRoutes';
-import AdminLogin from './adminpanel/pages/AdminLogin';
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Inventory = React.lazy(() => import('./pages/Inventory'));
+const POS = React.lazy(() => import('./pages/POS'));
+const Customers = React.lazy(() => import('./pages/Customers'));
+const Suppliers = React.lazy(() => import('./pages/Suppliers'));
+const Expenses = React.lazy(() => import('./pages/Expenses'));
+const Purchases = React.lazy(() => import('./pages/Purchases'));
+const SalesHistory = React.lazy(() => import('./pages/SalesHistory'));
+const Reports = React.lazy(() => import('./pages/Reports'));
+const Settings = React.lazy(() => import('./pages/Settings'));
+const ReceiptSettings = React.lazy(() => import('./pages/ReceiptSettings'));
+const ReturnsExchanges = React.lazy(() => import('./pages/ReturnsExchanges'));
+const Notifications = React.lazy(() => import('./pages/Notifications'));
+const AccountCenter = React.lazy(() => import('./pages/AccountCenter'));
+const WorkspaceExpired = React.lazy(() => import('./pages/WorkspaceExpired'));
+const AdminRoutes = React.lazy(() => import('./adminpanel/routes/AdminRoutes'));
+const AdminLogin = React.lazy(() => import('./adminpanel/pages/AdminLogin'));
+const SyncManager = React.lazy(() => import('./pages/SyncManager'));
 import './i18n/config';
+import { useSyncStore } from './stores/syncStore';
 
 // Fixed: Reconstructed the missing LayoutWrapper function definition
 const LayoutWrapper = () => {
@@ -38,19 +44,21 @@ const LayoutWrapper = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/pos" element={<POS />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/suppliers" element={<Suppliers />} />
-        <Route path="/expenses" element={<Expenses />} />
-        <Route path="/purchases" element={<Purchases />} />
-        <Route path="/sales-history" element={<SalesHistory />} />
-        <Route path="/returns" element={<ReturnsExchanges />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/account-center" element={<AccountCenter />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="inventory" element={<Inventory />} />
+        <Route path="pos" element={<POS />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="suppliers" element={<Suppliers />} />
+        <Route path="expenses" element={<Expenses />} />
+        <Route path="purchases" element={<Purchases />} />
+        <Route path="sales-history" element={<SalesHistory />} />
+        <Route path="returns" element={<ReturnsExchanges />} />
+        <Route path="reports" element={<Reports />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="settings/receipt" element={<ReceiptSettings />} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="account-center" element={<AccountCenter />} />
+        <Route path="sync" element={<SyncManager />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Layout>
   );
@@ -110,6 +118,7 @@ function App() {
     const timer = setTimeout(() => {
       if (isAuthenticated) {
         initializeStores();
+        useSyncStore.getState().initializeListeners();
       }
     }, 100);
 
@@ -130,26 +139,28 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        {/* Public Route */}
-        {/* Public Route */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/expired" element={<WorkspaceExpired />} />
+      <Suspense fallback={<div className="flex h-screen w-screen items-center justify-center bg-gray-50"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div></div>}>
+        <Routes>
+          {/* Public Route */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/expired" element={<WorkspaceExpired />} />
 
-        {/* Admin Platform Routes */}
-        <Route path="/adminpanel/login" element={<AdminLogin />} />
-        <Route path="/adminpanel/*" element={<AdminRoutes />} />
+          {/* Admin Platform Routes */}
+          <Route path="/adminpanel" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
 
-        {/* Private Protected Routes */}
-        <Route
-          path="/*"
-          element={
-            <AuthGuard>
-              <LayoutWrapper />
-            </AuthGuard>
-          }
-        />
-      </Routes>
+          {/* Private Protected Routes */}
+          <Route
+            path="/dashboard/*"
+            element={
+              <AuthGuard>
+                <LayoutWrapper />
+              </AuthGuard>
+            }
+          />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

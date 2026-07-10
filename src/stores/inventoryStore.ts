@@ -169,6 +169,7 @@ export const useInventoryStore = create<InventoryState>((set, get) => ({
       }));
     } catch (error) {
       console.error('Failed to update product:', error);
+      throw error;
     }
   },
 

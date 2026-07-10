@@ -30,7 +30,7 @@ const AdminRoutes: React.FC = () => {
           <Route path="notifications" element={<Notifications />} />
           <Route path="settings" element={<PlatformSettings />} />
           <Route path="audit-logs" element={<AuditLogs />} />
-          <Route path="*" element={<Navigate to="/adminpanel" replace />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>
     </AdminAuthGuard>

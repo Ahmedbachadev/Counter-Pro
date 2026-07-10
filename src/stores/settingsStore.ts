@@ -48,6 +48,90 @@ export interface ShopSettings {
   showBarcodeReceipt?: boolean;
   printAutomatically?: boolean;
 
+  // --- NEW RECEIPT CUSTOMIZER FIELDS ---
+  watermark?: boolean;
+  storeName?: string;
+  branchName?: string;
+  tagline?: string;
+  receiptBackground?: string;
+  showHeaderBusinessName?: boolean;
+  showHeaderBranch?: boolean;
+  showHeaderAddress?: boolean;
+  showHeaderPhone?: boolean;
+  showHeaderEmail?: boolean;
+  showHeaderWebsite?: boolean;
+  showHeaderNTN?: boolean;
+  showHeaderSTRN?: boolean;
+  showHeaderGST?: boolean;
+  showHeaderQR?: boolean;
+  showHeaderSocial?: boolean;
+  showInvoiceNumber?: string;
+  showDate?: string;
+  showTime?: string;
+  showCashier?: string;
+  showCustomerName?: string;
+  showCustomerPhone?: string;
+  showCustomerAddress?: string;
+  showMembership?: string;
+  showPaymentMethod?: string;
+  showCounterNumber?: string;
+  showTerminal?: string;
+  showOrderNotes?: string;
+  showProductName?: boolean;
+  showSKU?: boolean;
+  showBrand?: boolean;
+  showCategory?: boolean;
+  showQuantity?: boolean;
+  showUnitPrice?: boolean;
+  showProductDiscount?: boolean;
+  showProductTax?: boolean;
+  showSerialNumber?: boolean;
+  showBatchNumber?: boolean;
+  showExpiryDate?: boolean;
+  showVariant?: boolean;
+  productViewMode?: string;
+  showSubtotal?: boolean;
+  showTotalDiscount?: boolean;
+  showCoupons?: boolean;
+  showTotalTax?: boolean;
+  showServiceCharges?: boolean;
+  showDeliveryCharges?: boolean;
+  showTips?: boolean;
+  showCashReceived?: boolean;
+  showChangeReturned?: boolean;
+  showGrandTotal?: boolean;
+  showLoyaltyPoints?: boolean;
+  showGiftCardBalance?: boolean;
+  exchangePolicy?: string;
+  refundPolicy?: string;
+  warrantyPolicy?: string;
+  termsAndConditions?: string;
+  socialFacebook?: string;
+  socialInstagram?: string;
+  socialWhatsApp?: string;
+  printCopies?: number;
+  printCustomerCopy?: boolean;
+  printMerchantCopy?: boolean;
+  printKitchenCopy?: boolean;
+  printSilent?: boolean;
+  printAutoCut?: boolean;
+  printBeep?: boolean;
+  defaultPrinter?: string;
+  connectionType?: string;
+  printerEncoding?: string;
+  digitalReceiptEmail?: boolean;
+  digitalReceiptSMS?: boolean;
+  digitalReceiptWhatsApp?: boolean;
+  digitalReceiptPDF?: boolean;
+  digitalReceiptCustomerPortal?: boolean;
+  attachPdfAutomatically?: boolean;
+  qrType?: string;
+  qrWebsiteUrl?: string;
+  barcodeSize?: string;
+  receiptFont?: string;
+  receiptCharacterDensity?: string;
+  // -------------------------------------
+
   // Barcode Settings
   barcodeType?: string;
   barcodePrefix?: string;
@@ -166,11 +250,135 @@ export const defaultSettings: ShopSettings = {
   showBarcodeReceipt: true,
   printAutomatically: false,
 
-  // Barcode Settings
+  // --- NEW RECEIPT CUSTOMIZER DEFAULTS ---
+  watermark: false,
+  storeName: '',
+  branchName: '',
+  tagline: '',
+  receiptBackground: '#ffffff',
+  showHeaderBusinessName: true,
+  showHeaderBranch: false,
+  showHeaderAddress: true,
+  showHeaderPhone: true,
+  showHeaderEmail: false,
+  showHeaderWebsite: false,
+  showHeaderNTN: false,
+  showHeaderSTRN: false,
+  showHeaderGST: false,
+  showHeaderQR: false,
+  showHeaderSocial: false,
+  showInvoiceNumber: 'visible',
+  showDate: 'visible',
+  showTime: 'visible',
+  showCashier: 'visible',
+  showCustomerName: 'visible',
+  showCustomerPhone: 'hidden',
+  showCustomerAddress: 'hidden',
+  showMembership: 'hidden',
+  showPaymentMethod: 'visible',
+  showCounterNumber: 'hidden',
+  showTerminal: 'hidden',
+  showOrderNotes: 'hidden',
+  showProductName: true,
+  showSKU: false,
+  showBrand: false,
+  showCategory: false,
+  showQuantity: true,
+  showUnitPrice: true,
+  showProductDiscount: true,
+  showProductTax: false,
+  showSerialNumber: false,
+  showBatchNumber: false,
+  showExpiryDate: false,
+  showVariant: true,
+  productViewMode: 'compact',
+  showSubtotal: true,
+  showTotalDiscount: true,
+  showCoupons: false,
+  showTotalTax: true,
+  showServiceCharges: false,
+  showDeliveryCharges: false,
+  showTips: false,
+  showCashReceived: true,
+  showChangeReturned: true,
+  showGrandTotal: true,
+  showLoyaltyPoints: false,
+  showGiftCardBalance: false,
+  exchangePolicy: '',
+  refundPolicy: '',
+  warrantyPolicy: '',
+  termsAndConditions: '',
+  socialFacebook: '',
+  socialInstagram: '',
+  socialWhatsApp: '',
+  printCopies: 1,
+  printCustomerCopy: true,
+  printMerchantCopy: false,
+  printKitchenCopy: false,
+  printSilent: false,
+  printAutoCut: true,
+  printBeep: true,
+  defaultPrinter: '',
+  connectionType: 'usb',
+  printerEncoding: 'utf8',
+  digitalReceiptEmail: false,
+  digitalReceiptSMS: false,
+  digitalReceiptWhatsApp: false,
+  digitalReceiptPDF: true,
+  digitalReceiptCustomerPortal: false,
+  attachPdfAutomatically: false,
+  qrType: 'invoice',
+  qrWebsiteUrl: '',
+  barcodeSize: 'medium',
+  receiptFont: 'mono',
+  receiptCharacterDensity: 'normal',
+  // ---------------------------------------
+
+  // SKU & Barcode Settings (Enterprise Module)
+  autoSkuGeneration: true,
+  skuFormat: 'PREFIX-NUMBER',
+  skuWorkspacePrefix: 'CP',
+  skuStorePrefix: '',
+  skuCategoryPrefix: '',
+  skuBrandPrefix: '',
+  skuPrefixSeparator: '-',
+  skuStartingNumber: 100000,
+  skuNumberLength: 6,
+  skuIncrementBy: 1,
+
+  autoBarcodeGeneration: true,
   barcodeType: 'CODE128',
-  barcodePrefix: 'CP',
-  barcodeLength: 8,
-  autoBarcodeGen: true,
+  barcodePrefix: '200',
+  barcodeStartingNumber: 200000000001,
+  barcodeLength: 12,
+  barcodeIncrementBy: 1,
+
+  skuCounter: 100000,
+  barcodeCounter: 200000000001,
+
+  preventDuplicateSku: true,
+  preventDuplicateBarcode: true,
+  validateDuringImport: true,
+  autoDetectConflicts: true,
+  autoSuggestNextAvailableNumber: true,
+  highlightDuplicateIds: true,
+
+  allowManualSku: true,
+  allowManualBarcode: true,
+
+  defaultLabelSize: '30x20 mm',
+  labelOrientation: 'Landscape',
+  includeProductNameLabel: true,
+  includePriceLabel: true,
+  includeSkuLabel: true,
+  includeBarcodeLabel: true,
+  includeBrandLabel: false,
+  includeCategoryLabel: false,
+  includeLogoLabel: false,
+  printQuantityDefault: 1,
+  defaultBarcodeFontSize: 'Small',
+
+  scannerOptimization: 'USB Scanner',
 
   // Inventory Defaults
   lowStockThreshold: 5,

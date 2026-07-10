@@ -32,37 +32,37 @@ const Sidebar: React.FC = () => {
     {
       title: t('common.core', 'Core'),
       items: [
-        { to: '/', icon: LayoutDashboard, label: t('common.dashboard'), moduleKey: 'dashboard' },
-        { to: '/pos', icon: ShoppingCart, label: t('common.pos'), moduleKey: 'pos' },
+        { to: '/dashboard', icon: LayoutDashboard, label: t('common.dashboard'), moduleKey: 'dashboard' },
+        { to: '/dashboard/pos', icon: ShoppingCart, label: t('common.pos'), moduleKey: 'pos' },
       ]
     },
     {
       title: t('common.management', 'Management'),
       items: [
-        { to: '/inventory', icon: Package, label: t('common.inventory'), moduleKey: 'inventory' },
-        { to: '/purchases', icon: ShoppingBag, label: t('common.purchases', 'Purchases'), moduleKey: 'purchases' },
-        { to: '/expenses', icon: CreditCard, label: t('common.expenses', 'Expenses'), moduleKey: 'expenses' },
+        { to: '/dashboard/inventory', icon: Package, label: t('common.inventory'), moduleKey: 'inventory' },
+        { to: '/dashboard/purchases', icon: ShoppingBag, label: t('common.purchases', 'Purchases'), moduleKey: 'purchases' },
+        { to: '/dashboard/expenses', icon: CreditCard, label: t('common.expenses', 'Expenses'), moduleKey: 'expenses' },
       ]
     },
     {
       title: t('common.relations', 'Relations'),
       items: [
-        { to: '/customers', icon: Users, label: t('common.customers'), moduleKey: 'customers' },
-        { to: '/suppliers', icon: Truck, label: t('common.suppliers'), moduleKey: 'suppliers' },
+        { to: '/dashboard/customers', icon: Users, label: t('common.customers'), moduleKey: 'customers' },
+        { to: '/dashboard/suppliers', icon: Truck, label: t('common.suppliers'), moduleKey: 'suppliers' },
       ]
     },
     {
       title: t('common.operations', 'Operations'),
       items: [
-        { to: '/sales-history', icon: Receipt, label: t('common.salesHistory'), moduleKey: 'sales' },
-        { to: '/returns', icon: Undo2, label: t('common.returns', 'Returns & Exchanges'), moduleKey: 'returns' },
+        { to: '/dashboard/sales-history', icon: Receipt, label: t('common.salesHistory'), moduleKey: 'sales' },
+        { to: '/dashboard/returns', icon: Undo2, label: t('common.returns', 'Returns & Exchanges'), moduleKey: 'returns' },
       ]
     },
     {
       title: t('common.system', 'System'),
       items: [
-        { to: '/reports', icon: BarChart3, label: t('common.reports'), moduleKey: 'reports' },
-        { to: '/settings', icon: Settings, label: t('common.settings'), moduleKey: 'settings' },
+        { to: '/dashboard/reports', icon: BarChart3, label: t('common.reports'), moduleKey: 'reports' },
+        { to: '/dashboard/settings', icon: Settings, label: t('common.settings'), moduleKey: 'settings' },
       ]
     }
   ];
