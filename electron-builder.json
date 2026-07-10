@@ -1,21 +1,19 @@
 {
-  "appId": "com.sanishop.pos",
-  "productName": "SaniShop POS",
+  "appId": "com.counterpro.pos",
+  "productName": "Counter Pro",
   "directories": {
     "output": "dist-electron"
   },
   "files": [
     "dist/**/*",
-    "public/electron.js",
+    "public/electron.cjs",
     "public/preload.js",
-    "node_modules/**/*"
+    "public/localdb.cjs",
+    "public/assets/**/*"
   ],
-  "extraResources": [
-    {
-      "from": "public/assets",
-      "to": "assets",
-      "filter": ["**/*"]
-    }
+  "asar": true,
+  "asarUnpack": [
+    "**/better-sqlite3/**/*"
   ],
   "mac": {
     "category": "public.app-category.business",
@@ -23,7 +21,7 @@
   },
   "win": {
     "target": "nsis",
-    "icon": "public/assets/icon.ico"
+    "icon": "public/assets/icon.png"
   },
   "linux": {
     "target": "AppImage",

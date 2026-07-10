@@ -15,7 +15,8 @@ import {
   Undo2,
   ShoppingBag,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Database
 } from 'lucide-react';
 import { useSettingsStore } from '../stores/settingsStore';
 import { useUIStore } from '../stores/uiStore';
@@ -63,6 +64,7 @@ const Sidebar: React.FC = () => {
       items: [
         { to: '/dashboard/reports', icon: BarChart3, label: t('common.reports'), moduleKey: 'reports' },
         { to: '/dashboard/settings', icon: Settings, label: t('common.settings'), moduleKey: 'settings' },
+        { to: '/dashboard/backup', icon: Database, label: t('common.backup', 'Backup & Restore'), moduleKey: 'settings' },
       ]
     }
   ];

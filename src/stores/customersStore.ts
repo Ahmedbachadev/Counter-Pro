@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import customerService from '../services/customerService';
+import { customerRepository } from '../backend/repositories/CustomerRepository';
 import type { Customer, CustomerPayment, CustomerLoyaltyHistory } from '../backend/types';
 
 export type { Customer, CustomerPayment, CustomerLoyaltyHistory };
@@ -19,18 +20,40 @@ interface CustomerState {
   addCustomerPayment: (payment: Omit<CustomerPayment, 'id' | 'createdAt'>) => Promise<CustomerPayment>;
   getCustomerLoyaltyHistory: (customerId: number) => Promise<CustomerLoyaltyHistory[]>;
   addCustomerLoyaltyHistory: (history: Omit<CustomerLoyaltyHistory, 'id' | 'createdAt'>) => Promise<CustomerLoyaltyHistory>;
+  // Pagination
+  page: number;
+  hasMore: boolean;
+  totalCount: number;
+  loadMoreCustomers: (page?: number, limit?: number, reset?: boolean) => Promise<void>;
 }
 
 export const useCustomerStore = create<CustomerState>((set, get) => ({
   customers: [],
   isLoading: false,
   error: null,
+  page: 1,
+  hasMore: true,
+  totalCount: 0,
 
   initializeFromDatabase: async () => {
+    // Legacy method - just load first page instead of ALL
+    await get().loadMoreCustomers(1, 50, true);
+  },
+
+  loadMoreCustomers: async (page = 1, limit = 50, reset = false) => {
+    if (get().isLoading) return;
     set({ isLoading: true, error: null });
     try {
-      const customers = await customerService.getCustomers();
-      set({ customers, isLoading: false });
+      // Use the paginated endpoint
+      const result = await customerRepository.paginateCustomers(page, limit);
+      
+      set((state) => ({
+        customers: reset ? result.data : [...state.customers, ...result.data],
+        page: result.page,
+        hasMore: result.page < result.totalPages,
+        totalCount: result.total,
+        isLoading: false
+      }));
     } catch (error) {
       set({ error: 'Failed to load customers', isLoading: false });
       console.error('Error loading customers:', error);

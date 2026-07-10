@@ -12,31 +12,31 @@ export const BRANDING = {
      * Primary full color logo (text + mark). 
      * Best for light backgrounds or standard navbars.
      */
-    primary: '/assets/primarylogo.png',
+    primary: 'assets/primarylogo.png',
     
     /** 
      * Primary monochrome logo (text + mark). 
      * Best for dark backgrounds like the footer.
      */
-    primaryMonochrome: '/assets/primarymonochromelogo.png',
+    primaryMonochrome: 'assets/primarymonochromelogo.png',
     
     /** 
      * Compact square logo (mark only).
      * Best for small spaces, avatars, or square badges on light backgrounds.
      */
-    iconSquare: '/assets/icon.png',
+    iconSquare: 'assets/icon.png',
     
     /** 
      * Compact monochrome square logo (mark only).
      * Best for dark backgrounds or subtle placements.
      */
-    iconSquareMonochrome: '/assets/iconmonochrome.png',
+    iconSquareMonochrome: 'assets/iconmonochrome.png',
     
     /**
      * Browser / PWA / Apple Touch Icon.
      * Used primarily in HTML metadata.
      */
-    appIcon: '/assets/appicon.png',
+    appIcon: 'assets/appicon.png',
   },
   
   meta: {

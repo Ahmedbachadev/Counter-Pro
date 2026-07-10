@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // Lazy-load landing page for code splitting
 const LandingPage = React.lazy(() => import('./landing/LandingPage'));
@@ -35,6 +35,7 @@ const WorkspaceExpired = React.lazy(() => import('./pages/WorkspaceExpired'));
 const AdminRoutes = React.lazy(() => import('./adminpanel/routes/AdminRoutes'));
 const AdminLogin = React.lazy(() => import('./adminpanel/pages/AdminLogin'));
 const SyncManager = React.lazy(() => import('./pages/SyncManager'));
+const BackupManager = React.lazy(() => import('./pages/BackupManager'));
 import './i18n/config';
 import { useSyncStore } from './stores/syncStore';
 
@@ -58,6 +59,7 @@ const LayoutWrapper = () => {
         <Route path="notifications" element={<Notifications />} />
         <Route path="account-center" element={<AccountCenter />} />
         <Route path="sync" element={<SyncManager />} />
+        <Route path="backup" element={<BackupManager />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Layout>
@@ -65,6 +67,8 @@ const LayoutWrapper = () => {
 };
 
 function App() {
+  const Router = (window as any).electronAPI ? HashRouter : BrowserRouter;
+  const isElectron = !!(window as any).electronAPI;
   const { isDarkMode } = useThemeStore();
   const { i18n } = useTranslation();
   const { isAuthenticated, user } = useAuthStore();
@@ -142,13 +146,17 @@ function App() {
       <Suspense fallback={<div className="flex h-screen w-screen items-center justify-center bg-gray-50"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div></div>}>
         <Routes>
           {/* Public Route */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={isElectron ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/expired" element={<WorkspaceExpired />} />
 
           {/* Admin Platform Routes */}
-          <Route path="/adminpanel" element={<AdminLogin />} />
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          {!isElectron && (
+            <>
+              <Route path="/adminpanel" element={<AdminLogin />} />
+              <Route path="/admin/*" element={<AdminRoutes />} />
+            </>
+          )}
 
           {/* Private Protected Routes */}
           <Route
@@ -159,6 +167,9 @@ function App() {
               </AuthGuard>
             }
           />
+
+          {/* Fallback Catch-all */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </Suspense>
     </Router>

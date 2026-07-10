@@ -76,7 +76,7 @@ const LoginPage: React.FC = () => {
         {/* Expanded Logo and Bold Tagline Accent */}
         <div className="flex flex-col items-center text-center mb-10 space-y-4">
           <img 
-            src="/assets/primarylogo.png" 
+            src="assets/primarylogo.png" 
             alt="Counter Pro Logo" 
             className="h-16 w-auto object-contain block"
             onError={(e) => {

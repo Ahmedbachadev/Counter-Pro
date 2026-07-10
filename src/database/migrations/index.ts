@@ -1,5 +1,8 @@
 import Database from 'better-sqlite3';
 import { initialSchema } from './001_initial';
+import { up as syncQueueSchema } from './002_sync_queue';
+import { optimizationSchema } from './003_optimizations';
+import { advancedOptimizationSchema } from './004_advanced_optimizations';
 
 export interface Migration {
   id: number;
@@ -7,49 +10,40 @@ export interface Migration {
   up: (db: Database.Database) => void;
 }
 
-import { up as syncQueueUp } from './002_sync_queue';
-
 const migrations: Migration[] = [
-  {
-    id: 1,
-    name: '001_initial_schema',
-    up: initialSchema
-  },
-  {
-    id: 2,
-    name: '002_sync_queue',
-    up: syncQueueUp
-  }
+  { id: 1, name: '001_initial', up: initialSchema },
+  { id: 2, name: '002_sync_queue', up: syncQueueSchema },
+  { id: 3, name: '003_optimizations', up: optimizationSchema },
+  { id: 4, name: '004_advanced_optimizations', up: advancedOptimizationSchema },
 ];
 
 export function runMigrations(db: Database.Database) {
-  // Create migrations table if it doesn't exist
+  // Create a table to track migrations if it doesn't exist
   db.exec(`
-    CREATE TABLE IF NOT EXISTS _migrations (
-      id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL,
-      executed_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    CREATE TABLE IF NOT EXISTS schema_migrations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT UNIQUE NOT NULL,
+      executed_at TEXT NOT NULL
     );
   `);
 
-  // Get executed migrations
-  const executedIds = new Set(
-    db.prepare('SELECT id FROM _migrations').all().map((row: any) => row.id)
-  );
+  // Get already executed migrations
+  const executedStmt = db.prepare('SELECT name FROM schema_migrations');
+  const executed = executedStmt.all() as { name: string }[];
+  const executedNames = new Set(executed.map((m) => m.name));
 
-  // Run pending migrations
-  const pendingMigrations = migrations.filter((m) => !executedIds.has(m.id));
+  const pendingMigrations = migrations.filter(m => !executedNames.has(m.name));
 
   if (pendingMigrations.length > 0) {
     console.log(`[Database] Found ${pendingMigrations.length} pending migrations.`);
     
-    const insertMigration = db.prepare('INSERT INTO _migrations (id, name) VALUES (?, ?)');
-
-    // Execute each migration within a transaction
+    const insertStmt = db.prepare('INSERT INTO schema_migrations (name, executed_at) VALUES (?, ?)');
+    
+    // Execute each migration inside a transaction
     const executeMigration = db.transaction((migration: Migration) => {
       console.log(`[Database] Running migration: ${migration.name}`);
       migration.up(db);
-      insertMigration.run(migration.id, migration.name);
+      insertStmt.run(migration.name, new Date().toISOString());
     });
 
     for (const migration of pendingMigrations) {

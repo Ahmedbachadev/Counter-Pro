@@ -3,60 +3,148 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-const isDev = process.env.NODE_ENV === 'development' || !!process.env.ELECTRON_DEV;
+// Environment check
+const isDev = !app.isPackaged || process.env.NODE_ENV === 'development' || !!process.env.ELECTRON_DEV;
+
+// Production-grade logging to a local file
+const logPath = path.join(app.getPath('userData'), 'app.log');
+
+function logToFile(...messages) {
+  const timestamp = new Date().toISOString();
+  const content = `[${timestamp}] ${messages.map(m => {
+    if (m instanceof Error) return m.stack || m.message;
+    return typeof m === 'object' ? JSON.stringify(m) : m;
+  }).join(' ')}\n`;
+  try {
+    fs.appendFileSync(logPath, content, 'utf8');
+  } catch (err) {
+    console.error('Failed to write log to file:', err);
+  }
+  console.log(...messages);
+}
+
+// Global Crash/Exception Handling
+process.on('uncaughtException', (err) => {
+  logToFile('[FATAL] Uncaught Exception:', err);
+  dialog.showErrorBox('Fatal Error', `An unexpected error occurred: ${err.message || String(err)}`);
+  app.quit();
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  logToFile('[FATAL] Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+logToFile('[App] Starting initialization...');
+logToFile('[App] Production path for UserData:', app.getPath('userData'));
+logToFile('[App] Log path:', logPath);
 
 let mainWindow;
 let db;
+let dbManager;
+
+/* -------------------------
+   Window State Management
+   ------------------------- */
+const windowStatePath = path.join(app.getPath('userData'), 'window-state.json');
+
+function getSavedWindowState() {
+  try {
+    if (fs.existsSync(windowStatePath)) {
+      const data = JSON.parse(fs.readFileSync(windowStatePath, 'utf8'));
+      logToFile('[Window State] Restored saved window state:', data);
+      return data;
+    }
+  } catch (err) {
+    logToFile('[Window State] Failed to load window state:', err);
+  }
+  return { width: 1400, height: 900 }; // defaults
+}
+
+function saveWindowState(state) {
+  try {
+    fs.writeFileSync(windowStatePath, JSON.stringify(state), 'utf8');
+  } catch (err) {
+    logToFile('[Window State] Failed to save window state:', err);
+  }
+}
+
 /* -------------------------
    Database initialization
    ------------------------- */
 async function initializeDatabase() {
   try {
-    const { dbManager } = require('./localdb.cjs');
+    logToFile('[DB] Initializing local database...');
+    const localDbModule = require('./localdb.cjs');
+    dbManager = localDbModule.dbManager;
     dbManager.initialize(app.getPath('userData'));
     db = dbManager.db;
+    logToFile('[DB] Local database initialized successfully.');
   } catch (err) {
-    console.error('Failed to initialize local database:', err);
+    logToFile('[DB] Failed to initialize local database:', err);
   }
 }
-
-/* -------------------------
-   Table creation
-   ------------------------- */
-function createTables() {}
-
-/* -------------------------
-   Default data
-   ------------------------- */
-function insertDefaultData() {}
 
 /* -------------------------
    Window creation
    ------------------------- */
 function createWindow() {
+  logToFile('[Window] Creating main window...');
+  const savedState = getSavedWindowState();
+
   mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 900,
+    x: savedState.x,
+    y: savedState.y,
+    width: savedState.width,
+    height: savedState.height,
+    minWidth: 1000,
+    minHeight: 700,
     show: false,
+    resizable: true,
+    center: savedState.x === undefined, // Center window if no coordinates saved
+    backgroundColor: '#0f172a', // Slate-900 matching the main app background
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      sandbox: true,
     },
     icon: path.join(__dirname, 'assets', 'icon.png'),
   });
+
+  const saveStateHelper = () => {
+    if (!mainWindow) return;
+    const bounds = mainWindow.getBounds();
+    saveWindowState({
+      x: bounds.x,
+      y: bounds.y,
+      width: bounds.width,
+      height: bounds.height,
+    });
+  };
+
+  mainWindow.on('resize', saveStateHelper);
+  mainWindow.on('move', saveStateHelper);
+
   const devUrl = 'http://localhost:5173';
-  const prodIndex = path.join(__dirname, '../dist/index.html'); // ✅ works inside asar
+  const prodIndex = path.join(__dirname, '../dist/index.html'); // works inside asar
+
+  logToFile('[Window] Preload script path:', path.join(__dirname, 'preload.js'));
+  logToFile('[Window] Mode isDev:', isDev);
 
   if (isDev) {
-    console.log('[electron] Loading dev URL:', devUrl);
-    mainWindow.loadURL(devUrl).catch(console.error);
+    logToFile('[Window] Loading dev URL:', devUrl);
+    mainWindow.loadURL(devUrl).catch(err => {
+      logToFile('[Window] Failed to load dev URL:', err);
+    });
   } else {
+    logToFile('[Window] Expected production index path:', prodIndex);
     if (fs.existsSync(prodIndex)) {
-      console.log('[electron] Loading production file:', prodIndex);
-      mainWindow.loadFile(prodIndex).catch(console.error);
+      logToFile('[Window] Loading production file:', prodIndex);
+      mainWindow.loadFile(prodIndex).catch(err => {
+        logToFile('[Window] Failed to load production file:', err);
+      });
     } else {
-      console.error('❌ dist/index.html not found at', prodIndex);
+      logToFile('[Window] ❌ dist/index.html not found at', prodIndex);
       dialog.showErrorBox(
         'Missing Build',
         'Please run "npm run build" before launching the app.'
@@ -67,28 +155,55 @@ function createWindow() {
   }
 
   mainWindow.once('ready-to-show', () => {
+    logToFile('[Window] Window is ready to show.');
     mainWindow.show();
-    if (isDev) mainWindow.webContents.openDevTools();
+    if (isDev) {
+      logToFile('[Window] Opening DevTools for development...');
+      mainWindow.webContents.openDevTools();
+    }
   });
-  mainWindow.on('closed', () => (mainWindow = null));
+
+  mainWindow.webContents.on('render-process-gone', (event, details) => {
+    logToFile('[Window] Renderer process crash detected:', details);
+  });
+
+  mainWindow.on('unresponsive', () => {
+    logToFile('[Window] Main window has become unresponsive.');
+  });
+
+  mainWindow.on('closed', () => {
+    logToFile('[Window] Main window closed.');
+    mainWindow = null;
+  });
 }
 
 /* -------------------------
    App lifecycle
    ------------------------- */
 app.whenReady().then(async () => {
+  logToFile('[App] app.whenReady fired.');
   await initializeDatabase();
-  console.log('✅ Database ready, now creating window...');
+  logToFile('[App] Database setup complete, creating main window...');
   createWindow();
 });
+
 app.on('window-all-closed', () => {
+  logToFile('[App] window-all-closed fired.');
   if (process.platform !== 'darwin') {
-    if (db) db.close();
+    if (db) {
+      logToFile('[App] Closing database...');
+      db.close();
+    }
     app.quit();
   }
 });
+
 app.on('before-quit', () => {
-  if (db) db.close();
+  logToFile('[App] before-quit fired.');
+  if (db) {
+    logToFile('[App] Closing database...');
+    db.close();
+  }
 });
 
 /* -------------------------
@@ -111,7 +226,9 @@ async function withTimeout(promise, timeoutMs = 5000) {
 ipcMain.handle('repo-call', async (event, repoName, methodName, ...args) => {
   try {
     ensureDB();
-    const { dbManager } = require('./localdb.cjs');
+    if (!dbManager) {
+      throw new Error('Database manager not available');
+    }
     const repo = dbManager[repoName];
     if (!repo) {
       throw new Error(`Repository not found: ${repoName}`);
@@ -122,13 +239,13 @@ ipcMain.handle('repo-call', async (event, repoName, methodName, ...args) => {
     const result = await repo[methodName](...args);
     return { success: true, data: result };
   } catch (error) {
-    console.error(`Error in repo-call ${repoName}.${methodName}:`, error);
+    logToFile(`[IPC] Error in repo-call ${repoName}.${methodName}:`, error);
     return { success: false, error: error.message || String(error) };
   }
 });
 
 ipcMain.handle('network-status-change', async (event, status) => {
-  console.log(`[Network] Application is now ${status}`);
+  logToFile(`[Network] Application is now ${status}`);
   if (dbManager?.syncScheduler) {
     dbManager.syncScheduler.setNetworkStatus(status === 'online');
   }
@@ -151,37 +268,35 @@ ipcMain.handle('db-query', async (event, sql, params = []) => {
     return await withTimeout(operation, 8000);
   } catch (error) {
     if (error.code === 'SQLITE_BUSY') {
-      console.error('Database query error: SQLITE_BUSY (Database is locked, timed out)', error.message);
+      logToFile('[DB] query error: SQLITE_BUSY (Database is locked, timed out)', error.message);
     } else {
-      console.error('Database query error:', error);
+      logToFile('[DB] query error:', error);
     }
     return { success: false, error: error.message };
   }
 });
 
-// Added a general transaction handler to wrap complex, multi-step DB calls
-// This is not used by your current TS file, but is a best practice.
 ipcMain.handle('db-transaction', async (event, operations) => {
-    try {
-        ensureDB();
-        const transaction = db.transaction(() => {
-            const results = [];
-            for (const { sql, params } of operations) {
-                const stmt = db.prepare(sql);
-                const result = stmt.run(params);
-                results.push(result);
-            }
-            return results;
-        });
-        return { success: true, data: transaction() };
-    } catch (error) {
-        if (error.code === 'SQLITE_BUSY') {
-            console.error('Database transaction error: SQLITE_BUSY (Database is locked, timed out)', error.message);
-        } else {
-            console.error('Database transaction error:', error);
-        }
-        return { success: false, error: error.message };
+  try {
+    ensureDB();
+    const transaction = db.transaction(() => {
+      const results = [];
+      for (const { sql, params } of operations) {
+        const stmt = db.prepare(sql);
+        const result = stmt.run(params);
+        results.push(result);
+      }
+      return results;
+    });
+    return { success: true, data: transaction() };
+  } catch (error) {
+    if (error.code === 'SQLITE_BUSY') {
+      logToFile('[DB] transaction error: SQLITE_BUSY (Database is locked, timed out)', error.message);
+    } else {
+      logToFile('[DB] transaction error:', error);
     }
+    return { success: false, error: error.message };
+  }
 });
 
 ipcMain.handle('db-run', async (event, sql, params = []) => {
@@ -200,9 +315,9 @@ ipcMain.handle('db-run', async (event, sql, params = []) => {
     return await withTimeout(operation, 8000);
   } catch (error) {
     if (error.code === 'SQLITE_BUSY') {
-      console.error('Database run error: SQLITE_BUSY (Database is locked, timed out)', error.message);
+      logToFile('[DB] run error: SQLITE_BUSY (Database is locked, timed out)', error.message);
     } else {
-      console.error('Database run error:', error);
+      logToFile('[DB] run error:', error);
     }
     return { success: false, error: error.message };
   }
@@ -224,9 +339,9 @@ ipcMain.handle('db-get', async (event, sql, params = []) => {
     return await withTimeout(operation, 8000);
   } catch (error) {
     if (error.code === 'SQLITE_BUSY') {
-      console.error('Database get error: SQLITE_BUSY (Database is locked, timed out)', error.message);
+      logToFile('[DB] get error: SQLITE_BUSY (Database is locked, timed out)', error.message);
     } else {
-      console.error('Database get error:', error);
+      logToFile('[DB] get error:', error);
     }
     return { success: false, error: error.message };
   }
@@ -264,10 +379,11 @@ ipcMain.handle('export-data', async () => {
     };
 
     fs.writeFileSync(result.filePath, JSON.stringify(data, null, 2), 'utf-8');
+    logToFile('[Export] Exported data successfully to:', result.filePath);
 
     return { success: true, filePath: result.filePath };
   } catch (error) {
-    console.error('Export data error:', error);
+    logToFile('[Export] Export data error:', error);
     return { success: false, error: error.message };
   }
 });
@@ -403,10 +519,11 @@ ipcMain.handle('import-data', async () => {
     });
 
     importTransaction();
+    logToFile('[Import] Imported data successfully from:', result.filePaths[0]);
 
     return { success: true };
   } catch (error) {
-    console.error('Import data error:', error);
+    logToFile('[Import] Import data error:', error);
     return { success: false, error: error.message };
   }
 });

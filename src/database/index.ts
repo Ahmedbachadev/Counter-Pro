@@ -73,6 +73,10 @@ export class DatabaseManager {
     
     // Enable WAL mode for performance
     this.db.pragma('journal_mode = WAL');
+    this.db.pragma('synchronous = NORMAL');
+    this.db.pragma('cache_size = -64000'); // 64MB cache
+    this.db.pragma('mmap_size = 268435456'); // 256MB mmap
+    this.db.pragma('temp_store = MEMORY');
     
     // Run all pending migrations
     runMigrations(this.db);

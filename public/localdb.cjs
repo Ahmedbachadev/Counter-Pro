@@ -264,26 +264,92 @@ var init_sync_queue = __esm({
   }
 });
 
+// src/database/migrations/003_optimizations.ts
+function optimizationSchema(db) {
+  db.exec(`
+    -- Products Indexes
+    CREATE INDEX IF NOT EXISTS idx_products_category_id ON products(category_id);
+    CREATE INDEX IF NOT EXISTS idx_products_supplier_id ON products(supplier_id);
+    CREATE INDEX IF NOT EXISTS idx_products_name ON products(name);
+    CREATE INDEX IF NOT EXISTS idx_products_sku ON products(sku);
+    CREATE INDEX IF NOT EXISTS idx_products_barcode ON products(barcode);
+    CREATE INDEX IF NOT EXISTS idx_products_created_at ON products(created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
+
+    -- Customers Indexes
+    CREATE INDEX IF NOT EXISTS idx_customers_name ON customers(name);
+    CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(phone);
+    CREATE INDEX IF NOT EXISTS idx_customers_created_at ON customers(created_at DESC);
+
+    -- Suppliers Indexes
+    CREATE INDEX IF NOT EXISTS idx_suppliers_name ON suppliers(name);
+    CREATE INDEX IF NOT EXISTS idx_suppliers_created_at ON suppliers(created_at DESC);
+
+    -- Sales Indexes
+    CREATE INDEX IF NOT EXISTS idx_sales_customer_id ON sales(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_sales_created_at ON sales(created_at DESC);
+
+    -- Purchases Indexes
+    CREATE INDEX IF NOT EXISTS idx_purchases_supplier_id ON purchases(supplier_id);
+    CREATE INDEX IF NOT EXISTS idx_purchases_purchase_date ON purchases(purchase_date DESC);
+
+    -- Purchase Items Indexes
+    CREATE INDEX IF NOT EXISTS idx_purchase_items_purchase_id ON purchase_items(purchase_id);
+    CREATE INDEX IF NOT EXISTS idx_purchase_items_product_id ON purchase_items(product_id);
+
+    -- Expenses Indexes
+    CREATE INDEX IF NOT EXISTS idx_expenses_category ON expenses(category);
+    CREATE INDEX IF NOT EXISTS idx_expenses_created_at ON expenses(created_at DESC);
+  `);
+}
+var init_optimizations = __esm({
+  "src/database/migrations/003_optimizations.ts"() {
+  }
+});
+
+// src/database/migrations/004_advanced_optimizations.ts
+function advancedOptimizationSchema(db) {
+  db.exec(`
+    -- Product compound indexes
+    CREATE INDEX IF NOT EXISTS idx_products_category_supplier ON products(category_id, supplier_id);
+    
+    -- Sales history compound indexes
+    CREATE INDEX IF NOT EXISTS idx_sales_customer_date ON sales(customer_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_sales_cashier_date ON sales(cashier_id, created_at DESC);
+    
+    -- Inventory movements complex lookup
+    CREATE INDEX IF NOT EXISTS idx_inventory_product_date ON inventory_movements(product_id, created_at DESC);
+    
+    -- Optimize status and type lookups
+    CREATE INDEX IF NOT EXISTS idx_inventory_action_type ON inventory_movements(action_type);
+    CREATE INDEX IF NOT EXISTS idx_sales_payment_method ON sales(payment_method);
+  `);
+}
+var init_advanced_optimizations = __esm({
+  "src/database/migrations/004_advanced_optimizations.ts"() {
+  }
+});
+
 // src/database/migrations/index.ts
 function runMigrations(db) {
   db.exec(`
-    CREATE TABLE IF NOT EXISTS _migrations (
-      id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL,
-      executed_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    CREATE TABLE IF NOT EXISTS schema_migrations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT UNIQUE NOT NULL,
+      executed_at TEXT NOT NULL
     );
   `);
-  const executedIds = new Set(
-    db.prepare("SELECT id FROM _migrations").all().map((row) => row.id)
-  );
-  const pendingMigrations = migrations.filter((m) => !executedIds.has(m.id));
+  const executedStmt = db.prepare("SELECT name FROM schema_migrations");
+  const executed = executedStmt.all();
+  const executedNames = new Set(executed.map((m) => m.name));
+  const pendingMigrations = migrations.filter((m) => !executedNames.has(m.name));
   if (pendingMigrations.length > 0) {
     console.log(`[Database] Found ${pendingMigrations.length} pending migrations.`);
-    const insertMigration = db.prepare("INSERT INTO _migrations (id, name) VALUES (?, ?)");
+    const insertStmt = db.prepare("INSERT INTO schema_migrations (name, executed_at) VALUES (?, ?)");
     const executeMigration = db.transaction((migration) => {
       console.log(`[Database] Running migration: ${migration.name}`);
       migration.up(db);
-      insertMigration.run(migration.id, migration.name);
+      insertStmt.run(migration.name, (/* @__PURE__ */ new Date()).toISOString());
     });
     for (const migration of pendingMigrations) {
       try {
@@ -303,17 +369,13 @@ var init_migrations = __esm({
   "src/database/migrations/index.ts"() {
     init_initial();
     init_sync_queue();
+    init_optimizations();
+    init_advanced_optimizations();
     migrations = [
-      {
-        id: 1,
-        name: "001_initial_schema",
-        up: initialSchema
-      },
-      {
-        id: 2,
-        name: "002_sync_queue",
-        up
-      }
+      { id: 1, name: "001_initial", up: initialSchema },
+      { id: 2, name: "002_sync_queue", up },
+      { id: 3, name: "003_optimizations", up: optimizationSchema },
+      { id: 4, name: "004_advanced_optimizations", up: advancedOptimizationSchema }
     ];
   }
 });
@@ -22954,6 +23016,10 @@ var init_index = __esm({
           // verbose: console.log 
         });
         this.db.pragma("journal_mode = WAL");
+        this.db.pragma("synchronous = NORMAL");
+        this.db.pragma("cache_size = -64000");
+        this.db.pragma("mmap_size = 268435456");
+        this.db.pragma("temp_store = MEMORY");
         runMigrations(this.db);
         this.queue = new QueueManager(this.db);
         this.queue.recover();

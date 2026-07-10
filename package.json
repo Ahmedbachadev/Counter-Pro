@@ -20,6 +20,7 @@
   "dependencies": {
     "@react-pdf/font": "^4.0.3",
     "@supabase/supabase-js": "^2.110.0",
+    "@tanstack/react-virtual": "^3.14.5",
     "better-sqlite3": "^12.11.1",
     "concurrently": "^9.2.1",
     "date-fns": "^4.1.0",
@@ -58,42 +59,5 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"
-  },
-  "build": {
-    "appId": "com.khatabook.pos",
-    "productName": "Khata Book",
-    "asar": true,
-    "directories": {
-      "output": "dist-electron"
-    },
-    "files": [
-      "dist/**/*",
-      "public/electron.cjs",
-      "public/preload.js",
-      {
-        "from": "assets/",
-        "to": "assets/",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
-    "extraResources": [
-      {
-        "from": "assets/",
-        "to": "assets/"
-      }
-    ],
-    "mac": {
-      "category": "public.app-category.business"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "public/assets/icon.ico"
-    },
-    "linux": {
-      "target": "AppImage",
-      "icon": "public/assets/icon.png"
-    }
   }
 }
