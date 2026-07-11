@@ -235,6 +235,7 @@ const Inventory: React.FC = () => {
   } = useInventoryStore();
   const { suppliers } = useSupplierStore();
   const { sales } = usePOSStore();
+  const { settings } = useSettingsStore();
 
   // Tab State (Default to Analytics for intelligence landing)
   const [activeTab, setActiveTab] = useState<'analytics' | 'products' | 'categories' | 'adjustments' | 'purchases' | 'movements' | 'audit' | 'barcodes'>('analytics');
@@ -3921,8 +3922,9 @@ const Inventory: React.FC = () => {
                       type="text"
                       value={productForm.sku}
                       onChange={(e) => setProductForm({ ...productForm, sku: e.target.value })}
-                      className="w-full px-3.5 py-2 border border-gray-300 dark:border-gray-650 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white font-mono text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="e.g. PPR-TEE-25"
+                      disabled={!editingProduct && settings.autoSkuGeneration}
+                      className={`w-full px-3.5 py-2 border border-gray-300 dark:border-gray-650 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white font-mono text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${(!editingProduct && settings.autoSkuGeneration) ? 'opacity-60 cursor-not-allowed bg-gray-50 dark:bg-gray-800' : ''}`}
+                      placeholder={!editingProduct && settings.autoSkuGeneration ? "Auto Generated" : "e.g. PPR-TEE-25"}
                     />
                   </div>
 
@@ -3934,8 +3936,9 @@ const Inventory: React.FC = () => {
                       type="text"
                       value={productForm.barcode}
                       onChange={(e) => setProductForm({ ...productForm, barcode: e.target.value })}
-                      className="w-full px-3.5 py-2 border border-gray-305 dark:border-gray-650 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white font-mono text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="e.g. 123456789"
+                      disabled={!editingProduct && settings.autoBarcodeGeneration}
+                      className={`w-full px-3.5 py-2 border border-gray-305 dark:border-gray-650 rounded-xl bg-white dark:bg-gray-755 text-gray-900 dark:text-white font-mono text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${(!editingProduct && settings.autoBarcodeGeneration) ? 'opacity-60 cursor-not-allowed bg-gray-50 dark:bg-gray-800' : ''}`}
+                      placeholder={!editingProduct && settings.autoBarcodeGeneration ? "Auto Generated" : "e.g. 123456789"}
                     />
                   </div>
 

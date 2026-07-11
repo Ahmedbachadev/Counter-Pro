@@ -309,6 +309,15 @@ const Header: React.FC = () => {
           {/* Right Side Actions */}
           <div className="flex items-center space-x-3.5 ml-4">
             
+            {/* Shop Logo (Custom or Default) */}
+            <div className="hidden sm:flex items-center justify-center mr-2">
+              {shopSettings.logo ? (
+                <img src={shopSettings.logo} alt="Shop Logo" className="h-8 object-contain" />
+              ) : (
+                <img src="/assets/primarylogo.png" alt="Counter Pro Logo" className="h-8 object-contain" />
+              )}
+            </div>
+            
             {/* Command Trigger (Search) */}
             <button
               onClick={() => setSearchModalOpen(true)}

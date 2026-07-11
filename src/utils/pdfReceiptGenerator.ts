@@ -53,6 +53,8 @@ export interface ShopSettings {
   phone: string;
   email: string;
   taxRate: number;
+  logo?: string;
+  showLogoReceipt?: boolean;
 }
 
 export interface ReceiptData {
@@ -135,6 +137,19 @@ const buildReceiptDoc = (data: ReceiptData): { doc: jsPDF; filename: string } | 
     keepReceipt: 'Please keep this receipt for your records',
     returnPolicy: 'we have every kind of electrical and sanitary items from the market'
   };
+
+  // Header - Shop Logo
+  if (shopInfo.showLogoReceipt && shopInfo.logo && shopInfo.logo.startsWith('data:image')) {
+    try {
+      const imgProps = doc.getImageProperties(shopInfo.logo);
+      const logoWidth = 30; // Max width in mm
+      const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
+      doc.addImage(shopInfo.logo, imgProps.fileType || 'PNG', (pageWidth - logoWidth) / 2, yPos, logoWidth, logoHeight);
+      yPos += logoHeight + 5;
+    } catch (e) {
+      console.error('Error adding logo to PDF', e);
+    }
+  }
 
   // Header - Shop Name
   addText(shopInfo.name, 0, yPos, { 

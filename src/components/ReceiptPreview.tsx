@@ -47,8 +47,8 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ settings }) => {
         
         {/* HEADER SECTION */}
         <div className="text-center space-y-1">
-          {settings.showLogoReceipt && settings.logo && (
-             <img src={settings.logo} alt="Logo" className="h-12 w-auto mx-auto mb-2 grayscale contrast-125" />
+          {settings.showLogoReceipt && (
+             <img src={settings.logo || '/assets/primarylogo.png'} alt="Logo" className="h-12 w-auto mx-auto mb-2 grayscale contrast-125" />
           )}
           {settings.showHeaderBusinessName && (
              <h2 className="font-bold text-lg leading-tight uppercase">{settings.storeName || settings.name || 'Your Store Name'}</h2>

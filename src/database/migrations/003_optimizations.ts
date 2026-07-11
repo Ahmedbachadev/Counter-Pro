@@ -1,6 +1,18 @@
 import Database from 'better-sqlite3';
 
 export function optimizationSchema(db: Database.Database) {
+  // Ensure sku and status columns exist (they may have been added later)
+  const columns = db.pragma("table_info(products)") as any[];
+  const hasSku = columns.some(col => col.name === 'sku');
+  const hasStatus = columns.some(col => col.name === 'status');
+  
+  if (!hasSku) {
+    db.exec(`ALTER TABLE products ADD COLUMN sku TEXT;`);
+  }
+  if (!hasStatus) {
+    db.exec(`ALTER TABLE products ADD COLUMN status TEXT DEFAULT 'Active';`);
+  }
+
   // Add critical indexes for searches, filters, and relationships
   // These indexes dramatically improve performance on tables with >100,000 rows.
   db.exec(`

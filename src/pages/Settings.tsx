@@ -6,7 +6,7 @@ import {
   Database, RefreshCw, AlertTriangle, Shield, Save, Check, 
   Trash2, Plus, ArrowUpRight, ArrowDownLeft, ShieldAlert, Sparkles,
   Eye, FileText, Smartphone, LayoutGrid, CheckCircle2, Sliders, Settings as SettingsIcon,
-  Bell, Users
+  Bell, Users, Upload
 } from 'lucide-react';
 import { useThemeStore } from '../stores/themeStore';
 import { useAuthStore } from '../stores/authStore';
@@ -119,6 +119,17 @@ const Settings: React.FC = () => {
   };
 
   // File imports
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        handleInputChange('logo', base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const handleImportBackup = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -443,6 +454,46 @@ const Settings: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      Shop Logo
+                    </label>
+                    <div className="flex items-center gap-4">
+                      {formState.logo ? (
+                        <div className="relative h-16 w-16 rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-900 flex items-center justify-center overflow-visible">
+                          <img src={formState.logo} alt="Logo Preview" className="h-full w-full object-contain p-1" />
+                          <button
+                            type="button"
+                            onClick={() => handleInputChange('logo', '')}
+                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow-md hover:bg-red-600 transition"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="h-16 w-16 rounded-xl border border-dashed border-slate-300 dark:border-gray-700 flex flex-col items-center justify-center bg-slate-50 dark:bg-gray-900/50 text-slate-400">
+                          <Building2 className="h-6 w-6 opacity-50" />
+                        </div>
+                      )}
+                      
+                      <div className="flex-1">
+                        <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-700 text-sm font-semibold text-slate-700 dark:text-gray-300 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-700 transition shadow-sm">
+                          <Upload className="h-4 w-4" />
+                          Upload Image
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleLogoUpload}
+                          />
+                        </label>
+                        <p className="text-[10px] text-slate-500 mt-1.5 max-w-sm leading-tight">
+                          Recommended format: PNG, JPG, or SVG with transparent background. Max size: 2MB.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Business Name (English)

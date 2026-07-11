@@ -69,9 +69,11 @@ const LayoutWrapper = () => {
 function App() {
   const Router = (window as any).electronAPI ? HashRouter : BrowserRouter;
   const isElectron = !!(window as any).electronAPI;
+  const [isDbReady, setIsDbReady] = React.useState(!isElectron);
   const { isDarkMode } = useThemeStore();
   const { i18n } = useTranslation();
   const { isAuthenticated, user } = useAuthStore();
+  const { isOnline } = useSyncStore();
 
   const { initializeFromDatabase: initInventory } = useInventoryStore();
   const { initializeFromDatabase: initCustomers } = useCustomerStore();
@@ -80,6 +82,27 @@ function App() {
   const { initializeFromDatabase: initSuppliers } = useSupplierStore();
   const { initializeFromDatabase: initExpenses } = useExpensesStore();
   const { initializeFromDatabase: initPurchases } = usePurchaseStore();
+
+  useEffect(() => {
+    console.log('React mounted');
+    if (isElectron) {
+      const checkDb = async () => {
+        try {
+          const ready = await (window as any).electronAPI.waitUntilDbReady();
+          if (ready) {
+            console.log('Application ready');
+            setIsDbReady(true);
+          } else {
+            // Retry checking after a short delay (e.g. 100ms) until database completes migrations
+            setTimeout(checkDb, 100);
+          }
+        } catch (error) {
+          console.error('Failed to check database ready:', error);
+        }
+      };
+      checkDb();
+    }
+  }, [isElectron]);
 
   useEffect(() => {
     // Apply theme
@@ -113,21 +136,17 @@ function App() {
           initPurchases().catch(err => console.error('Failed to init purchases:', err)),
         ]);
         console.log('All stores initialized successfully');
+        console.log('Stores initialized');
       } catch (error) {
         console.error('Store initialization error:', error);
       }
     };
 
-    // Add a small delay to ensure database is ready
-    const timer = setTimeout(() => {
-      if (isAuthenticated) {
-        initializeStores();
-        useSyncStore.getState().initializeListeners();
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [isAuthenticated]);
+    if (isDbReady && isAuthenticated) {
+      initializeStores();
+      useSyncStore.getState().initializeListeners();
+    }
+  }, [isDbReady, isAuthenticated, isOnline]);
 
   useEffect(() => {
     if (isAuthenticated && user?.workspaceId) {
@@ -141,6 +160,29 @@ function App() {
     };
   }, [isAuthenticated, user?.workspaceId]);
 
+  if (!isDbReady) {
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center bg-slate-950 text-white font-sans">
+        <div className="relative flex items-center justify-center">
+          {/* Animated pulsing gradient rings */}
+          <div className="absolute h-32 w-32 animate-ping rounded-full bg-indigo-500/10 duration-1000"></div>
+          <div className="absolute h-24 w-24 animate-pulse rounded-full bg-indigo-500/20"></div>
+          {/* Inner spinner */}
+          <div className="h-16 w-16 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent"></div>
+        </div>
+        <h1 className="mt-8 text-2xl font-bold tracking-wider text-slate-100 animate-pulse">
+          Counter Pro
+        </h1>
+        <p className="mt-2 text-sm text-slate-400 font-medium">
+          Loading secure local database...
+        </p>
+        <span className="mt-1 text-xs text-indigo-400 font-semibold uppercase tracking-widest">
+          Offline Workspace
+        </span>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <Suspense fallback={<div className="flex h-screen w-screen items-center justify-center bg-gray-50"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div></div>}>
@@ -151,12 +193,8 @@ function App() {
           <Route path="/expired" element={<WorkspaceExpired />} />
 
           {/* Admin Platform Routes */}
-          {!isElectron && (
-            <>
-              <Route path="/adminpanel" element={<AdminLogin />} />
-              <Route path="/admin/*" element={<AdminRoutes />} />
-            </>
-          )}
+          <Route path="/adminpanel" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
 
           {/* Private Protected Routes */}
           <Route

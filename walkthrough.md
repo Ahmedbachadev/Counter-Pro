@@ -31,3 +31,24 @@ npm run build
 - **Status**: Successful (completed in 1m 31s)
 - **Error Code**: 0 (No compilation or TypeScript errors detected)
 - **Existing Login UI / Experience**: Remains fully identical, fully responsive, and supports both email and username logins.
+
+---
+
+## Web Browser Fallbacks
+
+In order to support the new offline-first SQLite database architecture alongside a seamless Web preview (`npm run dev`), we've implemented an intelligent fallback mechanism across all business modules.
+
+### Changes Made
+
+#### 🌐 Dual Database Routing
+- **Environment Detection**: Added a safe `isElectron` detection check to identify whether the app is running as a desktop app or simply in a standard web browser.
+- **Service Layers Updated**: Modified all internal service files to seamlessly switch between the local database and the cloud database depending on the environment.
+  - [customerService.ts](file:///d:/Khata%20Book/src/services/customerService.ts)
+  - [expenseService.ts](file:///d:/Khata%20Book/src/services/expenseService.ts)
+  - [inventoryService.ts](file:///d:/Khata%20Book/src/services/inventoryService.ts)
+  - [salesService.ts](file:///d:/Khata%20Book/src/services/salesService.ts)
+  - [settingsService.ts](file:///d:/Khata%20Book/src/services/settingsService.ts)
+  - [supplierService.ts](file:///d:/Khata%20Book/src/services/supplierService.ts)
+  - [authService.ts](file:///d:/Khata%20Book/src/services/authService.ts)
+
+Now, if you open the app in a web browser, it will safely ignore the missing `window.electronAPI` and directly query Supabase for all your previous online data without any crashes.

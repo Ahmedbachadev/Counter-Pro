@@ -30,6 +30,7 @@ export function initialSchema(db: Database.Database) {
       name_urdu TEXT,
       category_id TEXT,
       supplier_id TEXT,
+      sku TEXT,
       barcode TEXT,
       price REAL DEFAULT 0,
       cost REAL DEFAULT 0,
@@ -38,6 +39,7 @@ export function initialSchema(db: Database.Database) {
       min_stock INTEGER DEFAULT 0,
       description TEXT,
       image TEXT,
+      status TEXT DEFAULT 'Active',
       ${syncColumns},
       FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
       FOREIGN KEY (supplier_id) REFERENCES suppliers(id) ON DELETE SET NULL

@@ -45,7 +45,7 @@ export const useCustomerStore = create<CustomerState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       // Use the paginated endpoint
-      const result = await customerRepository.paginateCustomers(page, limit);
+      const result = await customerRepository.paginate(page, limit);
       
       set((state) => ({
         customers: reset ? result.data : [...state.customers, ...result.data],

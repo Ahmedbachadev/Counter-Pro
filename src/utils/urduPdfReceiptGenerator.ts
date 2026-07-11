@@ -46,6 +46,8 @@ export interface ShopSettings {
   phone: string;
   email: string;
   taxRate: number;
+  logo?: string;
+  showLogoReceipt?: boolean;
 }
 
 export interface ReceiptData {
@@ -105,6 +107,20 @@ export const generateUrduPDFReceipt = (data: ReceiptData): void => {
       default: return method;
     }
   };
+
+  // Header - Shop Name in Urdu
+  // Header - Shop Logo
+  if (shopInfo.showLogoReceipt && shopInfo.logo && shopInfo.logo.startsWith('data:image')) {
+    try {
+      const imgProps = doc.getImageProperties(shopInfo.logo);
+      const logoWidth = 30; // Max width in mm
+      const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
+      doc.addImage(shopInfo.logo, imgProps.fileType || 'PNG', (pageWidth - logoWidth) / 2, yPos, logoWidth, logoHeight);
+      yPos += logoHeight + 5;
+    } catch (e) {
+      console.error('Error adding logo to PDF', e);
+    }
+  }
 
   // Header - Shop Name in Urdu
   addUrduText(shopInfo.nameUrdu, 0, yPos, { 

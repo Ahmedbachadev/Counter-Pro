@@ -69,6 +69,7 @@ function initialSchema(db) {
       name_urdu TEXT,
       category_id TEXT,
       supplier_id TEXT,
+      sku TEXT,
       barcode TEXT,
       price REAL DEFAULT 0,
       cost REAL DEFAULT 0,
@@ -77,6 +78,7 @@ function initialSchema(db) {
       min_stock INTEGER DEFAULT 0,
       description TEXT,
       image TEXT,
+      status TEXT DEFAULT 'Active',
       ${syncColumns},
       FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
       FOREIGN KEY (supplier_id) REFERENCES suppliers(id) ON DELETE SET NULL
@@ -266,6 +268,15 @@ var init_sync_queue = __esm({
 
 // src/database/migrations/003_optimizations.ts
 function optimizationSchema(db) {
+  const columns = db.pragma("table_info(products)");
+  const hasSku = columns.some((col) => col.name === "sku");
+  const hasStatus = columns.some((col) => col.name === "status");
+  if (!hasSku) {
+    db.exec(`ALTER TABLE products ADD COLUMN sku TEXT;`);
+  }
+  if (!hasStatus) {
+    db.exec(`ALTER TABLE products ADD COLUMN status TEXT DEFAULT 'Active';`);
+  }
   db.exec(`
     -- Products Indexes
     CREATE INDEX IF NOT EXISTS idx_products_category_id ON products(category_id);

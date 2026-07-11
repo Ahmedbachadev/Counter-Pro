@@ -34,6 +34,7 @@ process.on('unhandledRejection', (reason, promise) => {
   logToFile('[FATAL] Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
+logToFile('Electron started');
 logToFile('[App] Starting initialization...');
 logToFile('[App] Production path for UserData:', app.getPath('userData'));
 logToFile('[App] Log path:', logPath);
@@ -41,6 +42,7 @@ logToFile('[App] Log path:', logPath);
 let mainWindow;
 let db;
 let dbManager;
+let isDbInitialized = false;
 
 /* -------------------------
    Window State Management
@@ -78,9 +80,16 @@ async function initializeDatabase() {
     dbManager = localDbModule.dbManager;
     dbManager.initialize(app.getPath('userData'));
     db = dbManager.db;
+    isDbInitialized = true;
     logToFile('[DB] Local database initialized successfully.');
   } catch (err) {
-    logToFile('[DB] Failed to initialize local database:', err);
+    logToFile('[FATAL] Failed to initialize local database:', err);
+    dialog.showErrorBox(
+      'Database Error',
+      `Fatal error during database initialization:\n\n${err.stack || err.message || String(err)}`
+    );
+    app.quit();
+    process.exit(1);
   }
 }
 
@@ -209,9 +218,15 @@ app.on('before-quit', () => {
 /* -------------------------
    IPC handlers
    ------------------------- */
+logToFile('IPC ready');
+
 function ensureDB() {
   if (!db) throw new Error('Database not initialized yet');
 }
+
+ipcMain.handle('wait-until-db-ready', async () => {
+  return isDbInitialized;
+});
 
 // Helper function to wrap database operations with timeout
 async function withTimeout(promise, timeoutMs = 5000) {
