@@ -469,15 +469,28 @@ export class SupabaseProvider implements DataProvider {
     return [];
   }
   async addCustomerLoyaltyHistory(history: Omit<CustomerLoyaltyHistory, 'id' | 'createdAt'>): Promise<CustomerLoyaltyHistory> {
-    throw new Error('Not implemented');
+    // There is no customer_loyalty_history table in Supabase schema yet.
+    // Return a mocked successful response so it doesn't break the sale flow.
+    return {
+      ...history,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString()
+    } as any;
   }
+
   async updateCustomerBalance(id: number | string, amount: number): Promise<void> {
     const { data } = await this.getClient().from('customers').select('pending_amount').eq('id', id).single();
     if (data) {
       await this.getClient().from('customers').update({ pending_amount: Number(data.pending_amount) + amount }).eq('id', id);
     }
   }
-  async updateCustomerLoyaltyPoints(id: number | string, pointsChange: number): Promise<void> {}
+
+  async updateCustomerLoyaltyPoints(id: number | string, pointsChange: number): Promise<void> {
+    const { data } = await this.getClient().from('customers').select('loyalty_points').eq('id', id).single();
+    if (data) {
+      await this.getClient().from('customers').update({ loyalty_points: Number(data.loyalty_points || 0) + pointsChange }).eq('id', id);
+    }
+  }
 
   async getSales(): Promise<Sale[]> {
     return this.getSalesWithItems() as any;

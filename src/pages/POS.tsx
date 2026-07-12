@@ -273,6 +273,8 @@ const POS: React.FC = () => {
 
   // Simulated Loading State for commercial skeleton intro
   const [isLoading, setIsLoading] = useState(true);
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+  const [isAddingCustomer, setIsAddingCustomer] = useState(false);
 
   // Page catalog slice count for rendering performance optimization
   const [visibleProductsCount, setVisibleProductsCount] = useState(48);
@@ -1047,6 +1049,8 @@ const POS: React.FC = () => {
       return;
     }
 
+    setIsCheckoutLoading(true);
+
     const primaryMethod = payments.length === 1 ? payments[0].method : 'cash';
 
     const sale = {
@@ -1123,6 +1127,8 @@ const POS: React.FC = () => {
     } catch (error) {
       console.error('Failed to complete sale:', error);
       showToast('Failed to record sale. Check details in database logs.', 'error');
+    } finally {
+      setIsCheckoutLoading(false);
     }
   };
 
@@ -1137,7 +1143,16 @@ const POS: React.FC = () => {
       return;
     }
 
-    if (remainingBalance > 0 && !selectedCustomer) {
+    // Initialize default payment to full finalAmount if not manually edited yet
+    if (!isPaymentEdited || (payments.length === 1 && payments[0].amount === 0)) {
+      setPayments([{ method: payments[0]?.method || 'cash', amount: finalAmount, reference: '' }]);
+    }
+
+    // Recalculate remaining balance check inline
+    const computedTotalPaid = (!isPaymentEdited || (payments.length === 1 && payments[0].amount === 0)) ? finalAmount : totalPaidAmount;
+    const computedRemaining = Math.max(0, finalAmount - computedTotalPaid);
+    
+    if (computedRemaining > 0 && !selectedCustomer) {
       showToast('Please select a customer before finalizing credit/partial checkout invoices.', 'error');
       return;
     }
@@ -1161,6 +1176,7 @@ const POS: React.FC = () => {
       showToast('Customer name is required', 'error');
       return;
     }
+    setIsAddingCustomer(true);
     try {
       await addCustomer({ ...newCustomer, pendingAmount: 0, loyaltyPoints: 0 } as any);
       setNewCustomer({ name: '', phone: '', email: '', address: '', customerType: 'Regular' });
@@ -1168,6 +1184,8 @@ const POS: React.FC = () => {
       showToast('Customer profile added successfully!', 'success');
     } catch (e) {
       showToast('Error registering customer.', 'error');
+    } finally {
+      setIsAddingCustomer(false);
     }
   };
 
@@ -1817,66 +1835,6 @@ const POS: React.FC = () => {
             )}
           </div>
 
-          {/* Ledger pricing parameters */}
-          <div className="p-4 bg-gray-50 dark:bg-gray-950/60 border-t border-gray-150 dark:border-gray-805 space-y-4 shrink-0">
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-black text-gray-500 dark:text-gray-450 uppercase tracking-wider">Payment Allocation Matrix</span>
-                <button
-                  onClick={handleAddPaymentRow}
-                  className="text-[10px] font-black text-indigo-650 hover:text-indigo-805 dark:text-indigo-400 uppercase tracking-wide flex items-center gap-1"
-                >
-                  <Plus className="h-3 w-3 stroke-[3]" /> Add Split Row
-                </button>
-              </div>
-
-              <div className="space-y-2 max-h-[140px] overflow-y-auto pr-1">
-                {payments.map((p, index) => (
-                  <div key={index} className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-2 shadow-sm animate-in slide-in-from-top-1.5 duration-100">
-                    <select
-                      value={p.method}
-                      onChange={(e) => handleUpdatePaymentValue(index, 'method', e.target.value as PaymentMethod)}
-                      className="text-xs font-black bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 text-gray-800 dark:text-gray-200 focus:outline-none"
-                    >
-                      {AVAILABLE_PAYMENT_METHODS.map(m => (
-                        <option key={m.id} value={m.id}>{m.label}</option>
-                      ))}
-                    </select>
-
-                    <div className="relative flex-1">
-                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400">Rs</span>
-                      <input
-                        type="number"
-                        placeholder="Amount"
-                        value={p.amount === 0 ? '' : p.amount}
-                        onChange={(e) => handleUpdatePaymentValue(index, 'amount', e.target.value)}
-                        className="w-full text-right pl-6 pr-2.5 py-1.5 text-xs font-black bg-transparent border-b border-gray-250 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500"
-                      />
-                    </div>
-
-                    {payments.length > 1 && (
-                      <button
-                        onClick={() => handleRemovePaymentRow(index)}
-                        className="text-gray-400 hover:text-red-500 p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
-                        title="Remove row"
-                      >
-                        <X className="h-4.5 w-4.5" />
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick full pay stream */}
-            {payments.length === 1 && (
-              <div className="grid grid-cols-3 gap-1.5 select-none">
-                <button onClick={() => handleQuickPayFull('cash')} className={`p-2 text-[10px] font-bold rounded-lg border text-center transition-all ${payments[0].method === 'cash' ? 'bg-indigo-650 text-white border-transparent shadow-sm' : 'bg-white dark:bg-gray-900 border-gray-250 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50'}`}>Full Cash</button>
-                <button onClick={() => handleQuickPayFull('card')} className={`p-2 text-[10px] font-bold rounded-lg border text-center transition-all ${payments[0].method === 'card' ? 'bg-indigo-650 text-white border-transparent shadow-sm' : 'bg-white dark:bg-gray-900 border-gray-250 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50'}`}>Full Card</button>
-                <button onClick={() => handleQuickPayFull('bank_transfer')} className={`p-2 text-[10px] font-bold rounded-lg border text-center transition-all ${payments[0].method === 'bank_transfer' ? 'bg-indigo-650 text-white border-transparent shadow-sm' : 'bg-white dark:bg-gray-900 border-gray-250 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50'}`}>Full Bank</button>
-              </div>
-            )}
-
             {/* Validation Notice Feedback Box */}
             {validationError && (
               <div className="bg-red-50 dark:bg-red-950/40 border border-red-200/50 text-red-650 dark:text-red-400 rounded-xl p-3 flex items-center gap-2 text-xs font-semibold animate-shake">
@@ -2114,7 +2072,20 @@ const POS: React.FC = () => {
             </div>
 
             <div className="flex gap-3">
-              <button onClick={handleAddCustomer} className="flex-1 bg-indigo-600 hover:bg-indigo-755 text-white py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all">Save Profile</button>
+              <button 
+                onClick={handleAddCustomer} 
+                disabled={isAddingCustomer}
+                className="flex-1 bg-indigo-600 hover:bg-indigo-755 disabled:bg-indigo-400 text-white py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+              >
+                {isAddingCustomer ? (
+                  <>
+                    <div className="h-3.5 w-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Saving...</span>
+                  </>
+                ) : (
+                  'Save Profile'
+                )}
+              </button>
               <button
                 onClick={() => {
                   setShowAddCustomerModal(false);
@@ -2650,15 +2621,62 @@ const POS: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Payments allocation rows */}
-                <div className="space-y-2 border-b pb-3 border-gray-200/60 dark:border-gray-805">
-                  <span className="text-[9px] font-black text-gray-400 uppercase tracking-wider block">Allocated Payments</span>
-                  {payments.map((p, idx) => (
-                    <div key={idx} className="flex justify-between text-xs font-bold text-gray-750 dark:text-gray-300">
-                      <span className="uppercase tracking-wide">{p.method.replace('_', ' ')}</span>
-                      <span className="font-extrabold">Rs {Number(p.amount).toLocaleString()}</span>
+                {/* Payment Allocation Matrix in Checkout */}
+                <div className="space-y-3 border-b pb-4 border-gray-200/60 dark:border-gray-805">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black text-gray-500 dark:text-gray-450 uppercase tracking-wider">Payment Allocation Matrix</span>
+                    <button
+                      onClick={handleAddPaymentRow}
+                      className="text-[10px] font-black text-indigo-650 hover:text-indigo-805 dark:text-indigo-400 uppercase tracking-wide flex items-center gap-1"
+                    >
+                      <Plus className="h-3 w-3 stroke-[3]" /> Add Split
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    {payments.map((p, index) => (
+                      <div key={index} className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-3 shadow-sm">
+                        <select
+                          value={p.method}
+                          onChange={(e) => handleUpdatePaymentValue(index, 'method', e.target.value as PaymentMethod)}
+                          className="w-1/3 text-sm font-black bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2.5 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                        >
+                          {AVAILABLE_PAYMENT_METHODS.map(m => (
+                            <option key={m.id} value={m.id}>{m.label}</option>
+                          ))}
+                        </select>
+
+                        <div className="relative flex-1">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">Rs</span>
+                          <input
+                            type="number"
+                            placeholder="Amount"
+                            value={p.amount === 0 ? '' : p.amount}
+                            onChange={(e) => handleUpdatePaymentValue(index, 'amount', e.target.value)}
+                            className="w-full text-right pl-8 pr-3 py-2 text-base font-black bg-transparent border-b-2 border-gray-250 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                          />
+                        </div>
+
+                        {payments.length > 1 && (
+                          <button
+                            onClick={() => handleRemovePaymentRow(index)}
+                            className="text-gray-400 hover:text-red-500 p-2 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg shrink-0 transition-colors"
+                            title="Remove row"
+                          >
+                            <X className="h-5 w-5" />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {payments.length === 1 && (
+                    <div className="grid grid-cols-3 gap-2 mt-2 select-none">
+                      <button onClick={() => handleQuickPayFull('cash')} className={`p-2 text-xs font-bold rounded-xl border text-center transition-all ${payments[0].method === 'cash' ? 'bg-indigo-650 text-white border-transparent shadow-md' : 'bg-white dark:bg-gray-900 border-gray-250 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50'}`}>Full Cash</button>
+                      <button onClick={() => handleQuickPayFull('card')} className={`p-2 text-xs font-bold rounded-xl border text-center transition-all ${payments[0].method === 'card' ? 'bg-indigo-650 text-white border-transparent shadow-md' : 'bg-white dark:bg-gray-900 border-gray-250 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50'}`}>Full Card</button>
+                      <button onClick={() => handleQuickPayFull('bank_transfer')} className={`p-2 text-xs font-bold rounded-xl border text-center transition-all ${payments[0].method === 'bank_transfer' ? 'bg-indigo-650 text-white border-transparent shadow-md' : 'bg-white dark:bg-gray-900 border-gray-250 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50'}`}>Full Bank</button>
                     </div>
-                  ))}
+                  )}
                 </div>
 
                 {/* Outstanding accounts balance ledger */}
@@ -2699,10 +2717,20 @@ const POS: React.FC = () => {
               </button>
               <button
                 onClick={handleCompleteSale}
-                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-750 text-white rounded-xl font-black text-xs uppercase tracking-wider shadow-lg shadow-indigo-650/10 transition-all flex items-center gap-1.5 hover:scale-[1.01]"
+                disabled={isCheckoutLoading}
+                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-750 disabled:bg-indigo-400 text-white rounded-xl font-black text-xs uppercase tracking-wider shadow-lg shadow-indigo-650/10 transition-all flex items-center gap-1.5 hover:scale-[1.01]"
               >
-                <Check className="h-4.5 w-4.5 stroke-[3]" />
-                <span>Confirm & Complete Sale (F9)</span>
+                {isCheckoutLoading ? (
+                  <>
+                    <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Check className="h-4.5 w-4.5 stroke-[3]" />
+                    <span>Confirm & Complete Sale (F9)</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
