@@ -551,6 +551,31 @@ var init_settings_expansion = __esm({
   }
 });
 
+// src/database/migrations/006_customers_expansion.ts
+function customersExpansionSchema(db) {
+  const columnsToAdd = [
+    { name: "loyalty_points", type: "INTEGER DEFAULT 0" },
+    { name: "customer_type", type: "TEXT" },
+    { name: "billing_address", type: "TEXT" },
+    { name: "shipping_address", type: "TEXT" },
+    { name: "notes", type: "TEXT" },
+    { name: "status", type: "TEXT" }
+  ];
+  for (const col of columnsToAdd) {
+    try {
+      db.exec(`ALTER TABLE customers ADD COLUMN ${col.name} ${col.type}`);
+    } catch (err) {
+      if (!err.message.includes("duplicate column name")) {
+        throw err;
+      }
+    }
+  }
+}
+var init_customers_expansion = __esm({
+  "src/database/migrations/006_customers_expansion.ts"() {
+  }
+});
+
 // src/database/migrations/index.ts
 function runMigrations(db) {
   db.exec(`
@@ -593,12 +618,14 @@ var init_migrations = __esm({
     init_optimizations();
     init_advanced_optimizations();
     init_settings_expansion();
+    init_customers_expansion();
     migrations = [
       { id: 1, name: "001_initial", up: initialSchema },
       { id: 2, name: "002_sync_queue", up },
       { id: 3, name: "003_optimizations", up: optimizationSchema },
       { id: 4, name: "004_advanced_optimizations", up: advancedOptimizationSchema },
-      { id: 5, name: "005_settings_expansion", up: settingsExpansionSchema }
+      { id: 5, name: "005_settings_expansion", up: settingsExpansionSchema },
+      { id: 6, name: "006_customers_expansion", up: customersExpansionSchema }
     ];
   }
 });

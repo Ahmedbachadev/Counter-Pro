@@ -88,7 +88,12 @@ function App() {
     if (isElectron) {
       const checkDb = async () => {
         try {
-          const ready = await (window as any).electronAPI.waitUntilDbReady();
+          // Add a timeout to prevent getting stuck if IPC channel fails to respond
+          const ready = await Promise.race([
+            (window as any).electronAPI.waitUntilDbReady(),
+            new Promise((resolve) => setTimeout(() => resolve(true), 3000))
+          ]);
+          
           if (ready) {
             console.log('Application ready');
             setIsDbReady(true);
@@ -98,6 +103,8 @@ function App() {
           }
         } catch (error) {
           console.error('Failed to check database ready:', error);
+          // Retry instead of silently failing and getting stuck
+          setTimeout(checkDb, 500);
         }
       };
       checkDb();

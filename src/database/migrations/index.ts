@@ -4,6 +4,7 @@ import { up as syncQueueSchema } from './002_sync_queue';
 import { optimizationSchema } from './003_optimizations';
 import { advancedOptimizationSchema } from './004_advanced_optimizations';
 import { settingsExpansionSchema } from './005_settings_expansion';
+import { customersExpansionSchema } from './006_customers_expansion';
 
 export interface Migration {
   id: number;
@@ -17,6 +18,7 @@ const migrations: Migration[] = [
   { id: 3, name: '003_optimizations', up: optimizationSchema },
   { id: 4, name: '004_advanced_optimizations', up: advancedOptimizationSchema },
   { id: 5, name: '005_settings_expansion', up: settingsExpansionSchema },
+  { id: 6, name: '006_customers_expansion', up: customersExpansionSchema },
 ];
 
 export function runMigrations(db: Database.Database) {
