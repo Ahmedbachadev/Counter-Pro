@@ -268,7 +268,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="sticky top-0 z-30 bg-white dark:bg-gray-900 border-b border-slate-200 dark:border-gray-800 transition-colors shadow-sm">
-        <div className="flex items-center justify-between h-16 px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16 px-4 sm:px-6 relative">
           
           {/* Left Side: Brand, Mobile Menu, and Breadcrumbs */}
           <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
@@ -280,44 +280,18 @@ const Header: React.FC = () => {
               <Menu className="h-5 w-5" />
             </button>
 
-            {/* Workspace / Business Name - Desktop Only */}
-            <span className="hidden sm:block text-sm font-bold text-slate-800 dark:text-slate-200 max-w-[120px] truncate">
-              {shopSettings.shopName || 'Counter Pro'}
-            </span>
 
-            <span className="hidden sm:block text-slate-300 dark:text-gray-700">|</span>
-
-            {/* Breadcrumb Navigation */}
-            <nav className="flex items-center space-x-1.5 text-xs sm:text-sm font-medium text-slate-500 dark:text-gray-400 min-w-0 overflow-x-auto scrollbar-none">
-              {breadcrumbs.map((crumb, idx) => (
-                <React.Fragment key={idx}>
-                  {idx > 0 && <ChevronRight className="h-3.5 w-3.5 text-slate-350 dark:text-gray-650 shrink-0" />}
-                  {idx === breadcrumbs.length - 1 ? (
-                    <span className="text-slate-900 dark:text-white font-semibold truncate shrink-0">
-                      {crumb.label}
-                    </span>
-                  ) : (
-                    <Link to={crumb.to} className="hover:text-slate-900 dark:hover:text-white transition-colors shrink-0">
-                      {crumb.label}
-                    </Link>
-                  )}
-                </React.Fragment>
-              ))}
-            </nav>
           </div>
+
+          {/* Center: Shop Logo (Custom) */}
+          {shopSettings.logo && (
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden sm:flex items-center justify-center pointer-events-none">
+              <img src={shopSettings.logo} alt="Shop Logo" className="h-10 md:h-12 object-contain" />
+            </div>
+          )}
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-3.5 ml-4">
-            
-            {/* Shop Logo (Custom or Default) */}
-            <div className="hidden sm:flex items-center justify-center mr-2">
-              {shopSettings.logo ? (
-                <img src={shopSettings.logo} alt="Shop Logo" className="h-8 object-contain" />
-              ) : (
-                <img src="/assets/primarylogo.png" alt="Counter Pro Logo" className="h-8 object-contain" />
-              )}
-            </div>
-            
             {/* Command Trigger (Search) */}
             <button
               onClick={() => setSearchModalOpen(true)}

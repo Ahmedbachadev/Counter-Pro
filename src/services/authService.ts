@@ -3,7 +3,7 @@ import { getProvider } from '../backend/providers';
 import type { User } from '../backend/types';
 
 const isElectron = typeof window !== 'undefined' && !!(window as any).electronAPI;
-const useLocal = () => isElectron && typeof navigator !== 'undefined' && !navigator.onLine;
+const useLocal = () => isElectron;
 
 export const authService = {
   async authenticateUser(username: string, password: string): Promise<any> {

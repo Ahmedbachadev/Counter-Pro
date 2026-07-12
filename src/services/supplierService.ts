@@ -9,7 +9,7 @@ import type {
 } from '../backend/types';
 
 const isElectron = typeof window !== 'undefined' && !!(window as any).electronAPI;
-const useLocal = () => isElectron && typeof navigator !== 'undefined' && !navigator.onLine;
+const useLocal = () => isElectron;
 
 export const supplierService = {
   async getSuppliers(): Promise<Supplier[]> {

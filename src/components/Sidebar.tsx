@@ -99,19 +99,9 @@ const Sidebar: React.FC = () => {
         {/* Brand / Logo Header */}
         <div className="h-16 flex items-center justify-between px-5 border-b border-slate-200 dark:border-gray-800">
           <div className="flex items-center space-x-3 overflow-hidden">
-            <div className="bg-blue-600 p-2 rounded-xl text-white shadow-sm flex-shrink-0 animate-pulse-subtle">
-              <Store className="h-5 w-5" />
+            <div className="flex-shrink-0">
+              <img src="/assets/primarylogo.png" alt="Logo" className="h-12 object-contain" />
             </div>
-            {!sidebarCollapsed && (
-              <div className="flex flex-col min-w-0 transition-opacity duration-200">
-                <span className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                  {shopSettings.shopName || 'Counter Pro'}
-                </span>
-                <span className="text-[10px] font-semibold text-slate-400 dark:text-gray-500 uppercase tracking-wider">
-                  CPDS SaaS
-                </span>
-              </div>
-            )}
           </div>
           
           {/* Collapse Button - Desktop Only */}

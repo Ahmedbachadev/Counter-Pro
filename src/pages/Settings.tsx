@@ -488,7 +488,8 @@ const Settings: React.FC = () => {
                           />
                         </label>
                         <p className="text-[10px] text-slate-500 mt-1.5 max-w-sm leading-tight">
-                          Recommended format: PNG, JPG, or SVG with transparent background. Max size: 2MB.
+                          Recommended format: PNG or SVG with transparent background. Max size: 2MB.<br />
+                          Optimal dimensions: 500x150 pixels (horizontal) or 256x256 pixels (square).
                         </p>
                       </div>
                     </div>

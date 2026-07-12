@@ -63,14 +63,30 @@ export interface ReceiptData {
   shopInfo: ShopSettings;
 }
 
+const urlToBase64 = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error('Failed to convert image to base64', error);
+    return '';
+  }
+};
+
 // Internal helper: builds and returns the jsPDF document
-const buildReceiptDoc = (data: ReceiptData): { doc: jsPDF; filename: string } | null => {
+const buildReceiptDoc = async (data: ReceiptData): Promise<{ doc: jsPDF; filename: string } | null> => {
   const { sale, customer, shopInfo } = data;
   
   // FIX: Exit if sale object is null/undefined
   if (!sale) {
     console.error("Sale data is missing for PDF receipt generation.");
-    return;
+    return null;
   }
   
   // Create new PDF document
@@ -139,20 +155,27 @@ const buildReceiptDoc = (data: ReceiptData): { doc: jsPDF; filename: string } | 
   };
 
   // Header - Shop Logo
-  if (shopInfo.showLogoReceipt && shopInfo.logo && shopInfo.logo.startsWith('data:image')) {
+  if (shopInfo.showLogoReceipt && shopInfo.logo) {
     try {
-      const imgProps = doc.getImageProperties(shopInfo.logo);
-      const logoWidth = 30; // Max width in mm
-      const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
-      doc.addImage(shopInfo.logo, imgProps.fileType || 'PNG', (pageWidth - logoWidth) / 2, yPos, logoWidth, logoHeight);
-      yPos += logoHeight + 5;
+      let logoDataUrl = shopInfo.logo;
+      if (shopInfo.logo.startsWith('http')) {
+        logoDataUrl = await urlToBase64(shopInfo.logo);
+      }
+      
+      if (logoDataUrl && logoDataUrl.startsWith('data:image')) {
+        const imgProps = doc.getImageProperties(logoDataUrl);
+        const logoWidth = 30; // Max width in mm
+        const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
+        doc.addImage(logoDataUrl, imgProps.fileType || 'PNG', (pageWidth - logoWidth) / 2, yPos, logoWidth, logoHeight);
+        yPos += logoHeight + 5;
+      }
     } catch (e) {
       console.error('Error adding logo to PDF', e);
     }
   }
 
   // Header - Shop Name
-  addText(shopInfo.name, 0, yPos, { 
+  addText(shopInfo.name || 'Your Store', 0, yPos, { 
     fontSize: 18, 
     style: 'bold', 
     align: 'center' 
@@ -316,8 +339,8 @@ const buildReceiptDoc = (data: ReceiptData): { doc: jsPDF; filename: string } | 
 /**
  * Downloads the receipt as a PDF file.
  */
-export const downloadPDFReceipt = (data: ReceiptData): void => {
-  const result = buildReceiptDoc(data);
+export const downloadPDFReceipt = async (data: ReceiptData): Promise<void> => {
+  const result = await buildReceiptDoc(data);
   if (!result) return;
   const { doc, filename } = result;
   doc.save(filename);
@@ -326,8 +349,8 @@ export const downloadPDFReceipt = (data: ReceiptData): void => {
 /**
  * Opens the receipt in a small print popup window and triggers the browser print dialog.
  */
-export const printPDFReceipt = (data: ReceiptData): void => {
-  const result = buildReceiptDoc(data);
+export const printPDFReceipt = async (data: ReceiptData): Promise<void> => {
+  const result = await buildReceiptDoc(data);
   if (!result) return;
   const { doc } = result;
 
@@ -351,8 +374,8 @@ export const printPDFReceipt = (data: ReceiptData): void => {
 /**
  * Silently saves/downloads the receipt PDF (used for auto-save on sale completion).
  */
-export const savePDFReceipt = (data: ReceiptData): void => {
-  const result = buildReceiptDoc(data);
+export const savePDFReceipt = async (data: ReceiptData): Promise<void> => {
+  const result = await buildReceiptDoc(data);
   if (!result) return;
   const { doc, filename } = result;
   doc.save(filename);

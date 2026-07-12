@@ -652,15 +652,17 @@ export class SupabaseProvider implements DataProvider {
       primaryColor: data.primary_color,
       secondaryColor: data.secondary_color,
       accentColor: data.accent_color,
+      logo: data.invoice_logo_url,
       invoiceLogo: data.invoice_logo_url,
       receiptHeader: data.receipt_header,
       receiptFooter: data.receipt_footer,
     };
     
     // Convert signed URL if it's a storage path
-    if (settings.invoiceLogo && !settings.invoiceLogo.startsWith('data:') && !settings.invoiceLogo.startsWith('http')) {
-      const { data: signedUrlData } = await this.getClient().storage.from('business-logos').createSignedUrl(settings.invoiceLogo, 3600);
+    if (settings.logo && !settings.logo.startsWith('data:') && !settings.logo.startsWith('http')) {
+      const { data: signedUrlData } = await this.getClient().storage.from('business-logos').createSignedUrl(settings.logo, 3600);
       if (signedUrlData) {
+        settings.logo = signedUrlData.signedUrl;
         settings.invoiceLogo = signedUrlData.signedUrl;
       }
     }
@@ -691,7 +693,24 @@ export class SupabaseProvider implements DataProvider {
     if (updates.receiptHeader !== undefined) payload.receipt_header = updates.receiptHeader;
     if (updates.receiptFooter !== undefined) payload.receipt_footer = updates.receiptFooter;
 
-    if (updates.invoiceLogo !== undefined) {
+    if (updates.logo !== undefined) {
+      if (updates.logo.startsWith('data:image/')) {
+        try {
+          const res = await fetch(updates.logo);
+          const blob = await res.blob();
+          const ext = blob.type.split('/')[1] || 'png';
+          const file = new File([blob], `logo_${Date.now()}.${ext}`, { type: blob.type });
+          const path = `${workspaceId}/${file.name}`;
+          await storageManager.uploadFile('business-logos', path, file);
+          payload.invoice_logo_url = path;
+        } catch (err) {
+          console.error('Failed to upload logo:', err);
+          payload.invoice_logo_url = updates.logo;
+        }
+      } else {
+        payload.invoice_logo_url = updates.logo;
+      }
+    } else if (updates.invoiceLogo !== undefined) {
       if (updates.invoiceLogo.startsWith('data:image/')) {
         try {
           const res = await fetch(updates.invoiceLogo);

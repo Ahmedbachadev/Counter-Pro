@@ -56,7 +56,23 @@ export interface ReceiptData {
   shopInfo: ShopSettings;
 }
 
-export const generateUrduPDFReceipt = (data: ReceiptData): void => {
+const urlToBase64 = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error('Failed to convert image to base64', error);
+    return '';
+  }
+};
+
+export const generateUrduPDFReceipt = async (data: ReceiptData): Promise<void> => {
   const { sale, customer, shopInfo } = data;
   
   // FIX: Exit if sale object is null/undefined
@@ -110,13 +126,20 @@ export const generateUrduPDFReceipt = (data: ReceiptData): void => {
 
   // Header - Shop Name in Urdu
   // Header - Shop Logo
-  if (shopInfo.showLogoReceipt && shopInfo.logo && shopInfo.logo.startsWith('data:image')) {
+  if (shopInfo.showLogoReceipt && shopInfo.logo) {
     try {
-      const imgProps = doc.getImageProperties(shopInfo.logo);
-      const logoWidth = 30; // Max width in mm
-      const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
-      doc.addImage(shopInfo.logo, imgProps.fileType || 'PNG', (pageWidth - logoWidth) / 2, yPos, logoWidth, logoHeight);
-      yPos += logoHeight + 5;
+      let logoDataUrl = shopInfo.logo;
+      if (shopInfo.logo.startsWith('http')) {
+        logoDataUrl = await urlToBase64(shopInfo.logo);
+      }
+      
+      if (logoDataUrl && logoDataUrl.startsWith('data:image')) {
+        const imgProps = doc.getImageProperties(logoDataUrl);
+        const logoWidth = 30; // Max width in mm
+        const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
+        doc.addImage(logoDataUrl, imgProps.fileType || 'PNG', (pageWidth - logoWidth) / 2, yPos, logoWidth, logoHeight);
+        yPos += logoHeight + 5;
+      }
     } catch (e) {
       console.error('Error adding logo to PDF', e);
     }
