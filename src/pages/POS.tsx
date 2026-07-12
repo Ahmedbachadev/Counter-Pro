@@ -1942,7 +1942,6 @@ const POS: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
 
       {/* CRM Account link modal */}
       {showCustomerModal && (
