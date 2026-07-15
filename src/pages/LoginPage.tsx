@@ -31,13 +31,13 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
 
     if (!email.trim()) {
-      setFormError('Please enter your email address or username.');
+      setFormError(isUrdu ? 'براہ کرم اپنا ای میل یا صارف نام درج کریں۔' : 'Please enter your email address or username.');
       setIsLoading(false);
       return;
     }
 
     if (!password) {
-      setFormError('Please enter your password.');
+      setFormError(isUrdu ? 'براہ کرم اپنا پاس ورڈ درج کریں۔' : 'Please enter your password.');
       setIsLoading(false);
       return;
     }
@@ -50,15 +50,29 @@ const LoginPage: React.FC = () => {
           navigate('/adminpanel', { replace: true });
           return;
         }
-        
+
         const from = (location.state as any)?.from?.pathname || '/dashboard';
         const target = (from === '/login' || from.startsWith('/adminpanel')) ? '/dashboard' : from;
-        
+
         navigate(target, { replace: true });
       }
-    } catch (err) {
-      console.error(err);
-      setFormError('An unexpected authentication error occurred. Please try again.');
+    } catch (err: any) {
+      console.error("Authentication catch block triggered:", err);
+
+      // Catch network-specific failures (Supabase connection dropped/offline)
+      if (err?.message?.includes('Failed to fetch') || err?.name === 'TypeError') {
+        setFormError(
+          isUrdu
+            ? 'سرور سے رابطہ قائم کرنے میں ناکامی۔ براہ کرم اپنا انٹرنیٹ کنکشن چیک کریں۔'
+            : 'Network error: Unable to reach authentication server. Please check your internet connection.'
+        );
+      } else {
+        setFormError(
+          isUrdu
+            ? 'لاگ ان کے دوران غیر متوقع خرابی پیش آئی۔ دوبارہ کوشش کریں۔'
+            : 'An unexpected authentication error occurred. Please try again.'
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -66,18 +80,18 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 flex flex-col justify-between items-center p-6 antialiased selection:bg-blue-600 selection:text-white">
-      
+
       {/* Top spacing to help center main layout visually */}
       <div className="hidden sm:block h-16" />
 
       {/* Main Centered Box Container */}
       <div className="w-full max-w-[360px] mx-auto my-auto py-8 flex flex-col items-center">
-        
+
         {/* Expanded Logo and Bold Tagline Accent */}
         <div className="flex flex-col items-center text-center mb-10 space-y-4">
-          <img 
-            src="assets/primarylogo.png" 
-            alt="Counter Pro Logo" 
+          <img
+            src="/assets/primarylogo.png"
+            alt="Counter Pro Logo"
             className="h-16 w-auto object-contain block"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
@@ -91,7 +105,7 @@ const LoginPage: React.FC = () => {
         {/* Form Interactive Workspace */}
         <div className="w-full">
           <form onSubmit={handleSubmit} className="space-y-4">
-            
+
             {/* Username/Email Input Field */}
             <div className="space-y-1.5">
               <label htmlFor="email" className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400">

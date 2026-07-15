@@ -42,6 +42,7 @@ export class SyncEngine {
 
     this.isSyncing = true;
     this.currentWorkspaceId = workspaceId;
+    const startTime = Date.now();
     SyncLogger.info(`Starting sync cycle for workspace ${workspaceId}`);
 
     try {
@@ -74,9 +75,14 @@ export class SyncEngine {
 
       // 8. Finish
       this.progress.finish();
-      SyncLogger.info('Sync cycle completed successfully.');
+      
+      const duration = Date.now() - startTime;
+      const stats = this.progress.getProgress();
+      
+      SyncLogger.info(`Sync cycle completed in ${duration}ms. Uploaded: ${stats.uploadCount}, Downloaded: ${stats.downloadCount}, Failed: ${stats.failedCount}`);
     } catch (err) {
-      SyncLogger.error('Sync cycle failed completely', err);
+      const duration = Date.now() - startTime;
+      SyncLogger.error(`Sync cycle failed completely after ${duration}ms`, err);
       this.progress.setStage('error', 'Critical failure during sync');
     } finally {
       this.isSyncing = false;

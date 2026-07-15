@@ -112,7 +112,7 @@ function createWindow() {
     center: savedState.x === undefined, // Center window if no coordinates saved
     backgroundColor: '#0f172a', // Slate-900 matching the main app background
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
@@ -137,7 +137,7 @@ function createWindow() {
   const devUrl = 'http://localhost:5173';
   const prodIndex = path.join(__dirname, '../dist/index.html'); // works inside asar
 
-  logToFile('[Window] Preload script path:', path.join(__dirname, 'preload.js'));
+  logToFile('[Window] Preload script path:', path.join(__dirname, 'preload.cjs'));
   logToFile('[Window] Mode isDev:', isDev);
 
   if (isDev) {
@@ -266,6 +266,65 @@ ipcMain.handle('network-status-change', async (event, status) => {
   }
   return { success: true };
 });
+
+// ─── Offline-First Sync IPC Handlers ───────────────────────────────────────────
+
+ipcMain.handle('set-supabase-session', async (event, accessToken, refreshToken) => {
+  try {
+    if (!dbManager) throw new Error('Database manager not available');
+    const success = await dbManager.setAuthSession(accessToken, refreshToken);
+    logToFile(`[Sync] Supabase session set: ${success}`);
+    return { success };
+  } catch (error) {
+    logToFile('[Sync] Failed to set Supabase session:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('initialize-sync', async (event, workspaceId) => {
+  try {
+    if (!dbManager) throw new Error('Database manager not available');
+    logToFile(`[Sync] Initializing sync for workspace: ${workspaceId}`);
+    await dbManager.initializeSync(workspaceId);
+    return { success: true };
+  } catch (error) {
+    logToFile('[Sync] Failed to initialize sync:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('trigger-manual-sync', async () => {
+  try {
+    if (!dbManager) throw new Error('Database manager not available');
+    dbManager.requestManualSync();
+    return { success: true };
+  } catch (error) {
+    logToFile('[Sync] Manual sync trigger failed:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('stop-sync', async () => {
+  try {
+    if (!dbManager) throw new Error('Database manager not available');
+    await dbManager.stopSync();
+    logToFile('[Sync] Sync stopped and session cleared');
+    return { success: true };
+  } catch (error) {
+    logToFile('[Sync] Failed to stop sync:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('get-sync-status', async () => {
+  try {
+    if (!dbManager) return { success: true, data: null };
+    return { success: true, data: dbManager.getSyncStatus() };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 
 ipcMain.handle('db-query', async (event, sql, params = []) => {
   try {

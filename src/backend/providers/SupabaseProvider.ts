@@ -638,9 +638,9 @@ export class SupabaseProvider implements DataProvider {
     // Fallback if missing
     if (!data) return { id: 1, name: 'Counter Pro', nameUrdu: '', address: '', addressUrdu: '', phone: '', email: '', taxRate: 0, updatedAt: '' };
     
-    const settings: ShopSettings = {
+    const settings: any = {
       id: data.id,
-      name: 'Counter Pro', // We don't store name in settings table anymore, it's in business_profiles or workspaces
+      name: 'Counter Pro', // Fallback, will be overridden if in data
       nameUrdu: '',
       address: '',
       addressUrdu: '',
@@ -648,28 +648,23 @@ export class SupabaseProvider implements DataProvider {
       email: '',
       taxRate: 0,
       updatedAt: data.updated_at,
-      currency: data.currency,
-      currencySymbol: data.currency_symbol,
-      dateFormat: data.date_format,
-      numberFormat: data.number_format,
-      receiptSize: data.receipt_size,
-      showLogoReceipt: data.show_logo_receipt,
-      showCustomerReceipt: data.show_customer_receipt,
-      showTaxBreakdownReceipt: data.show_tax_breakdown_receipt,
-      showBarcodeReceipt: data.show_barcode_receipt,
-      printAutomatically: data.print_automatically,
-      lowStockThreshold: data.low_stock_threshold,
-      inventoryValuationMethod: data.inventory_valuation_method,
-      autoPrintReceiptPOS: data.auto_print_receipt_pos,
-      openCashDrawer: data.open_cash_drawer,
-      primaryColor: data.primary_color,
-      secondaryColor: data.secondary_color,
-      accentColor: data.accent_color,
-      logo: data.invoice_logo_url,
-      invoiceLogo: data.invoice_logo_url,
-      receiptHeader: data.receipt_header,
-      receiptFooter: data.receipt_footer,
     };
+    
+    // Automatically convert all snake_case database properties to camelCase
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== null && value !== undefined) {
+        const camelKey = key.replace(/([-_][a-z])/g, group =>
+          group.toUpperCase().replace('-', '').replace('_', '')
+        );
+        settings[camelKey] = value;
+      }
+    }
+    
+    // Explicit mappings for legacy or special fields
+    if (data.invoice_logo_url) {
+      settings.logo = data.invoice_logo_url;
+      settings.invoiceLogo = data.invoice_logo_url;
+    }
     
     // Convert signed URL if it's a storage path
     if (settings.logo && !settings.logo.startsWith('data:') && !settings.logo.startsWith('http')) {
@@ -685,26 +680,15 @@ export class SupabaseProvider implements DataProvider {
 
   async updateSettings(updates: Partial<ShopSettings>): Promise<void> {
     const workspaceId = await this.getWorkspaceId();
+    
+    // Automatically convert all camelCase updates to snake_case for Supabase
     const payload: any = {};
-    if (updates.currency !== undefined) payload.currency = updates.currency;
-    if (updates.currencySymbol !== undefined) payload.currency_symbol = updates.currencySymbol;
-    if (updates.dateFormat !== undefined) payload.date_format = updates.dateFormat;
-    if (updates.numberFormat !== undefined) payload.number_format = updates.numberFormat;
-    if (updates.receiptSize !== undefined) payload.receipt_size = updates.receiptSize;
-    if (updates.showLogoReceipt !== undefined) payload.show_logo_receipt = updates.showLogoReceipt;
-    if (updates.showCustomerReceipt !== undefined) payload.show_customer_receipt = updates.showCustomerReceipt;
-    if (updates.showTaxBreakdownReceipt !== undefined) payload.show_tax_breakdown_receipt = updates.showTaxBreakdownReceipt;
-    if (updates.showBarcodeReceipt !== undefined) payload.show_barcode_receipt = updates.showBarcodeReceipt;
-    if (updates.printAutomatically !== undefined) payload.print_automatically = updates.printAutomatically;
-    if (updates.lowStockThreshold !== undefined) payload.low_stock_threshold = updates.lowStockThreshold;
-    if (updates.inventoryValuationMethod !== undefined) payload.inventory_valuation_method = updates.inventoryValuationMethod;
-    if (updates.autoPrintReceiptPOS !== undefined) payload.auto_print_receipt_pos = updates.autoPrintReceiptPOS;
-    if (updates.openCashDrawer !== undefined) payload.open_cash_drawer = updates.openCashDrawer;
-    if (updates.primaryColor !== undefined) payload.primary_color = updates.primaryColor;
-    if (updates.secondaryColor !== undefined) payload.secondary_color = updates.secondaryColor;
-    if (updates.accentColor !== undefined) payload.accent_color = updates.accentColor;
-    if (updates.receiptHeader !== undefined) payload.receipt_header = updates.receiptHeader;
-    if (updates.receiptFooter !== undefined) payload.receipt_footer = updates.receiptFooter;
+    for (const [key, value] of Object.entries(updates)) {
+      if (value !== undefined) {
+        const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+        payload[snakeKey] = value;
+      }
+    }
 
     if (updates.logo !== undefined) {
       if (updates.logo.startsWith('data:image/')) {
@@ -715,12 +699,15 @@ export class SupabaseProvider implements DataProvider {
           const file = new File([blob], `logo_${Date.now()}.${ext}`, { type: blob.type });
           const path = `${workspaceId}/${file.name}`;
           await storageManager.uploadFile('business-logos', path, file);
-          payload.invoice_logo_url = path;
+          payload.logo = path;
+          payload.invoice_logo_url = path; // Backward compatibility
         } catch (err) {
           console.error('Failed to upload logo:', err);
+          payload.logo = updates.logo;
           payload.invoice_logo_url = updates.logo;
         }
       } else {
+        payload.logo = updates.logo;
         payload.invoice_logo_url = updates.logo;
       }
     } else if (updates.invoiceLogo !== undefined) {
@@ -732,18 +719,25 @@ export class SupabaseProvider implements DataProvider {
           const file = new File([blob], `logo_${Date.now()}.${ext}`, { type: blob.type });
           const path = `${workspaceId}/${file.name}`;
           await storageManager.uploadFile('business-logos', path, file);
+          payload.invoice_logo = path;
           payload.invoice_logo_url = path;
         } catch (err) {
           console.error('Failed to upload logo:', err);
+          payload.invoice_logo = updates.invoiceLogo;
           payload.invoice_logo_url = updates.invoiceLogo;
         }
       } else {
+        payload.invoice_logo = updates.invoiceLogo;
         payload.invoice_logo_url = updates.invoiceLogo;
       }
     }
 
     if (Object.keys(payload).length > 0) {
-      await this.getClient().from('settings').update(payload).eq('workspace_id', workspaceId);
+      const { error } = await this.getClient().from('settings').update(payload).eq('workspace_id', workspaceId);
+      if (error) {
+        console.error("Supabase settings update failed:", error);
+        throw error;
+      }
     }
   }
 

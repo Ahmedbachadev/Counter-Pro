@@ -545,6 +545,53 @@ const Settings: React.FC = () => {
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      WhatsApp Number
+                    </label>
+                    <input
+                      type="text"
+                      value={formState.whatsappNumber || ''}
+                      onChange={(e) => handleInputChange('whatsappNumber', e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      Owner Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formState.ownerName || ''}
+                      onChange={(e) => handleInputChange('ownerName', e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      Tax Registration Number (NTN)
+                    </label>
+                    <input
+                      type="text"
+                      value={formState.taxRegistrationNumber || ''}
+                      onChange={(e) => handleInputChange('taxRegistrationNumber', e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      Company Registration Number
+                    </label>
+                    <input
+                      type="text"
+                      value={formState.registrationNumber || ''}
+                      onChange={(e) => handleInputChange('registrationNumber', e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                    />
+                  </div>
 
                   <div className="md:col-span-2">
                     <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
@@ -559,18 +606,43 @@ const Settings: React.FC = () => {
                     />
                   </div>
 
-                  <div>
+                  <div className="md:col-span-2">
                     <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Physical Address (English)
                     </label>
                     <textarea
                       value={formState.address}
                       onChange={(e) => handleInputChange('address', e.target.value)}
-                      rows={3}
+                      rows={2}
                       className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
                       required
                     />
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      City
+                    </label>
+                    <input
+                      type="text"
+                      value={formState.city || ''}
+                      onChange={(e) => handleInputChange('city', e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-600 dark:text-gray-300 uppercase tracking-wider mb-2">
+                      Country
+                    </label>
+                    <input
+                      type="text"
+                      value={formState.country || ''}
+                      onChange={(e) => handleInputChange('country', e.target.value)}
+                      className="w-full px-4 py-2.5 border border-slate-300/80 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-950 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                    />
+                  </div>
+
 
                 </div>
               </div>

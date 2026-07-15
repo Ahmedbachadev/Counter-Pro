@@ -5,6 +5,8 @@ import { optimizationSchema } from './003_optimizations';
 import { advancedOptimizationSchema } from './004_advanced_optimizations';
 import { settingsExpansionSchema } from './005_settings_expansion';
 import { customersExpansionSchema } from './006_customers_expansion';
+import { up as syncMetadataSchema } from './007_sync_metadata';
+import { businessProfileSchema } from './008_business_profile';
 
 export interface Migration {
   id: number;
@@ -19,6 +21,8 @@ const migrations: Migration[] = [
   { id: 4, name: '004_advanced_optimizations', up: advancedOptimizationSchema },
   { id: 5, name: '005_settings_expansion', up: settingsExpansionSchema },
   { id: 6, name: '006_customers_expansion', up: customersExpansionSchema },
+  { id: 7, name: '007_sync_metadata', up: syncMetadataSchema },
+  { id: 8, name: '008_business_profile', up: businessProfileSchema },
 ];
 
 export function runMigrations(db: Database.Database) {

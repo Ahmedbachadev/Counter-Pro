@@ -9,8 +9,8 @@ export class SyncScheduler {
   private timer: NodeJS.Timeout | null = null;
   
   // Settings
-  private syncIntervalMs = 5 * 60 * 1000; // 5 minutes
-  private thresholdLimit = 20; // Automatically sync if queue reaches 20
+  private syncIntervalMs = 30 * 1000; // 30 seconds
+  private thresholdLimit = 1; // Automatically sync on every change
   
   private currentWorkspaceId: string | null = null;
   private isOnline: boolean = true;

@@ -8,61 +8,60 @@ import type {
   PurchaseEntryItem
 } from '../backend/types';
 
+// Offline-first: Electron always reads/writes SQLite. Sync engine handles Supabase.
 const isElectron = typeof window !== 'undefined' && !!(window as any).electronAPI;
-const useLocal = () => isElectron;
 
 export const supplierService = {
   async getSuppliers(): Promise<Supplier[]> {
-    return useLocal() ? supplierRepository.getSuppliers() : getProvider().getSuppliers();
+    return isElectron ? supplierRepository.getSuppliers() : getProvider().getSuppliers();
   },
 
   async addSupplier(supplier: Omit<Supplier, 'id' | 'createdAt' | 'updatedAt'>): Promise<Supplier> {
-    return useLocal() ? supplierRepository.addSupplier(supplier) : getProvider().addSupplier(supplier);
+    return isElectron ? supplierRepository.addSupplier(supplier) : getProvider().addSupplier(supplier);
   },
 
   async updateSupplier(id: number, updates: Partial<Supplier>): Promise<void> {
-    return useLocal() ? supplierRepository.updateSupplier(id, updates) : getProvider().updateSupplier(id, updates);
+    return isElectron ? supplierRepository.updateSupplier(id, updates) : getProvider().updateSupplier(id, updates);
   },
 
   async deleteSupplier(id: number): Promise<void> {
-    return useLocal() ? supplierRepository.deleteSupplier(id) : getProvider().deleteSupplier(id);
+    return isElectron ? supplierRepository.deleteSupplier(id) : getProvider().deleteSupplier(id);
   },
 
   async getSupplierProducts(supplierId: number): Promise<Product[]> {
-    return useLocal() ? supplierRepository.getSupplierProducts(supplierId) : getProvider().getSupplierProducts(supplierId);
+    return isElectron ? supplierRepository.getSupplierProducts(supplierId) : getProvider().getSupplierProducts(supplierId);
   },
 
   async getSupplierStats(supplierId: number): Promise<{ totalProducts: number; totalCost: number }> {
-    return useLocal() ? supplierRepository.getSupplierStats(supplierId) : getProvider().getSupplierStats(supplierId);
+    return isElectron ? supplierRepository.getSupplierStats(supplierId) : getProvider().getSupplierStats(supplierId);
   },
 
   async addStockPurchase(purchase: Omit<StockPurchase, 'id' | 'createdAt'>): Promise<StockPurchase> {
-    return useLocal() ? supplierRepository.addStockPurchase(purchase) : getProvider().addStockPurchase(purchase);
+    return isElectron ? supplierRepository.addStockPurchase(purchase) : getProvider().addStockPurchase(purchase);
   },
 
   async getSupplierStockPurchases(supplierId: number): Promise<StockPurchase[]> {
-    return useLocal() ? supplierRepository.getSupplierStockPurchases(supplierId) : getProvider().getSupplierStockPurchases(supplierId);
+    return isElectron ? supplierRepository.getSupplierStockPurchases(supplierId) : getProvider().getSupplierStockPurchases(supplierId);
   },
 
   async getProductStockPurchases(productId: number): Promise<StockPurchase[]> {
-    return useLocal() ? supplierRepository.getProductStockPurchases(productId) : getProvider().getProductStockPurchases(productId);
+    return isElectron ? supplierRepository.getProductStockPurchases(productId) : getProvider().getProductStockPurchases(productId);
   },
 
   async getAllStockPurchases(): Promise<StockPurchase[]> {
-    return useLocal() ? supplierRepository.getAllStockPurchases() : getProvider().getAllStockPurchases();
+    return isElectron ? supplierRepository.getAllStockPurchases() : getProvider().getAllStockPurchases();
   },
 
   async getPurchaseEntries(): Promise<PurchaseEntry[]> {
-    return useLocal() ? supplierRepository.getPurchaseEntries() : getProvider().getPurchaseEntries();
+    return isElectron ? supplierRepository.getPurchaseEntries() : getProvider().getPurchaseEntries();
   },
 
   async addPurchaseEntry(
     entry: Omit<PurchaseEntry, 'id' | 'createdAt' | 'items'>,
     items: Omit<PurchaseEntryItem, 'id' | 'purchaseEntryId'>[]
   ): Promise<PurchaseEntry> {
-    return useLocal() ? supplierRepository.addPurchaseEntry(entry, items) : getProvider().addPurchaseEntry(entry, items);
+    return isElectron ? supplierRepository.addPurchaseEntry(entry, items) : getProvider().addPurchaseEntry(entry, items);
   }
 };
 
 export default supplierService;
-

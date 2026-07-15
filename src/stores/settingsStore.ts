@@ -15,8 +15,15 @@ export interface ShopSettings {
   // Business Profile
   logo?: string;
   website?: string;
-  taxRegistrationNumber?: string;
+  taxRegistrationNumber?: string; // e.g. NTN
+  registrationNumber?: string; // e.g. SECP/Company Registration
   description?: string;
+  ownerName?: string;
+  whatsappNumber?: string;
+  city?: string;
+  country?: string;
+  preferences?: string; // Fallback JSON column
+
 
   // Branding
   invoiceLogo?: string;
@@ -214,7 +221,14 @@ export const defaultSettings: ShopSettings = {
   logo: '',
   website: 'https://counterpro.com',
   taxRegistrationNumber: 'NTN-1234567-8',
+  registrationNumber: '',
   description: 'Premium Retail and Wholesale POS Solution',
+  ownerName: '',
+  whatsappNumber: '',
+  city: 'Swat',
+  country: 'Pakistan',
+  preferences: '{}',
+
 
   // Branding
   invoiceLogo: '',

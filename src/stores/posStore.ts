@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import salesService from '../services/salesService';
-import { Product } from './inventoryStore';
+import { Product, useInventoryStore } from './inventoryStore';
 import { Customer } from './customersStore';
 import { useCustomerStore } from './customersStore';
 
@@ -78,6 +78,15 @@ export const usePOSStore = create<POSStore>((set, get) => ({
   addSale: async (saleData) => {
     try {
       await salesService.addSale(saleData as any, saleData.items as any);
+      
+      // Deduct inventory stock for each sold item
+      if (saleData.items && saleData.items.length > 0) {
+        for (const item of saleData.items) {
+          if (item.product && item.product.id) {
+            await useInventoryStore.getState().updateStock(item.product.id, -item.quantity);
+          }
+        }
+      }
       
       // If there's an outstanding balance and a valid customer, automatically add it to their credit ledger
       if (saleData.dueAmount > 0 && saleData.customerId) {
@@ -205,6 +214,51 @@ export const usePOSStore = create<POSStore>((set, get) => ({
 
   deleteSale: async (saleId) => {
     try {
+      // 1. Fetch sale details to perform reversals before deletion
+      const saleToDel = get().sales.find(s => s.id === saleId);
+      if (saleToDel) {
+        // Reverse inventory stock
+        const saleItems = await salesService.getSaleItems(saleId);
+        if (saleItems && saleItems.length > 0) {
+          for (const item of saleItems) {
+            // Note: in local sale items might not have nested .product, check if it's nested or flat
+            const productId = item.product?.id || item.productId || (item as any).product_id;
+            if (productId) {
+              await useInventoryStore.getState().updateStock(productId, item.quantity);
+            }
+          }
+        }
+
+        // Reverse customer ledger
+        if (saleToDel.dueAmount > 0 && saleToDel.customerId) {
+          await useCustomerStore.getState().updateCustomerPendingAmount(saleToDel.customerId, -saleToDel.dueAmount);
+        }
+
+        // Reverse loyalty points
+        if (saleToDel.customerId) {
+          const config = { pointsPerAmount: 100, enabled: true };
+          try {
+            const saved = localStorage.getItem('khatabook_loyalty_config');
+            if (saved) Object.assign(config, JSON.parse(saved));
+          } catch (e) {}
+
+          if (config.enabled) {
+            const pointsEarned = Math.floor(saleToDel.finalAmount / config.pointsPerAmount);
+            if (pointsEarned > 0) {
+              await useCustomerStore.getState().addCustomerLoyaltyHistory({
+                customerId: saleToDel.customerId,
+                points: pointsEarned,
+                transactionType: 'redeem', // effectively revoking by redeeming
+                referenceType: 'sale',
+                referenceId: `SALE-${saleId}`,
+                notes: `Reversed points from deleted invoice #${saleId}`
+              });
+            }
+          }
+        }
+      }
+
+      // 2. Perform actual deletion
       await salesService.deleteSale(saleId);
       const sales = await salesService.getSales();
       set({ sales: sales as any[] });
@@ -212,5 +266,5 @@ export const usePOSStore = create<POSStore>((set, get) => ({
       console.error('Failed to delete sale:', error);
       throw error;
     }
-  }
+  },
 }));

@@ -56,12 +56,15 @@ export class BaseRepository<T extends BaseRecord> {
         ...data
       };
 
-      const keys = Object.keys(record);
-      const values = keys.map(k => (record as any)[k]);
-      const placeholders = keys.map(() => '?').join(', ');
+      const columnsInfo = this.db.pragma(`table_info(${this.tableName})`) as any[];
+      const validColumns = new Set(columnsInfo.map((c: any) => c.name));
+
+      const validKeys = Object.keys(record).filter(k => validColumns.has(k));
+      const values = validKeys.map(k => (record as any)[k]);
+      const placeholders = validKeys.map(() => '?').join(', ');
 
       const stmt = this.db.prepare(`
-        INSERT INTO ${this.tableName} (${keys.join(', ')})
+        INSERT INTO ${this.tableName} (${validKeys.join(', ')})
         VALUES (${placeholders})
       `);
 
@@ -91,9 +94,12 @@ export class BaseRepository<T extends BaseRecord> {
         sync_status: 'pending'
       };
 
-      const keys = Object.keys(updatedRecord);
-      const values = keys.map(k => (updatedRecord as any)[k]);
-      const setClause = keys.map(k => `${k} = ?`).join(', ');
+      const columnsInfo = this.db.pragma(`table_info(${this.tableName})`) as any[];
+      const validColumns = new Set(columnsInfo.map((c: any) => c.name));
+
+      const validKeys = Object.keys(updatedRecord).filter(k => validColumns.has(k));
+      const values = validKeys.map(k => (updatedRecord as any)[k]);
+      const setClause = validKeys.map(k => `${k} = ?`).join(', ');
 
       const stmt = this.db.prepare(`
         UPDATE ${this.tableName}

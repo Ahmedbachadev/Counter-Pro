@@ -1,0 +1,881 @@
+[2026-07-15T10:04:20.930Z] [SyncEngine] INFO: [InitialSync] Starting full download for workspace 0949c497-d3bb-4a56-a68f-e530ce301003... 
+[2026-07-15T10:04:20.935Z] [SyncEngine] INFO: [InitialSync] Downloading categories... 
+[2026-07-15T10:04:21.379Z] [SyncEngine] INFO: [InitialSync] Downloaded 2 records for categories 
+[2026-07-15T10:04:21.434Z] [SyncEngine] INFO: [InitialSync] Finished categories: 2 inserted, 0 skipped. 
+[2026-07-15T10:04:21.435Z] [SyncEngine] INFO: [InitialSync] Downloading products... 
+[2026-07-15T10:04:21.705Z] [SyncEngine] INFO: [InitialSync] Downloaded 2 records for products 
+[2026-07-15T10:04:21.724Z] [SyncEngine] INFO: [InitialSync] Finished products: 2 inserted, 0 skipped. 
+[2026-07-15T10:04:21.725Z] [SyncEngine] INFO: [InitialSync] Downloading customers... 
+[2026-07-15T10:04:22.056Z] [SyncEngine] INFO: [InitialSync] Downloaded 6 records for customers 
+[2026-07-15T10:04:22.066Z] [SyncEngine] INFO: [InitialSync] Finished customers: 6 inserted, 0 skipped. 
+[2026-07-15T10:04:22.067Z] [SyncEngine] INFO: [InitialSync] Downloading suppliers... 
+[2026-07-15T10:04:22.307Z] [SyncEngine] INFO: [InitialSync] No records for suppliers 
+[2026-07-15T10:04:22.308Z] [SyncEngine] INFO: [InitialSync] Downloading expenses... 
+[2026-07-15T10:04:22.724Z] [SyncEngine] INFO: [InitialSync] No records for expenses 
+[2026-07-15T10:04:22.726Z] [SyncEngine] INFO: [InitialSync] Downloading purchases... 
+[2026-07-15T10:04:23.144Z] [SyncEngine] ERROR: [InitialSync] Failed to fetch purchases: Could not find the table 'public.purchases' in the schema cache 
+[2026-07-15T10:04:23.146Z] [SyncEngine] ERROR: [InitialSync] Error syncing purchases: Could not find the table 'public.purchases' in the schema cache 
+[2026-07-15T10:04:23.147Z] [SyncEngine] INFO: [InitialSync] Downloading purchase_items... 
+[2026-07-15T10:04:23.532Z] [SyncEngine] ERROR: [InitialSync] Failed to fetch purchase_items: Could not find the table 'public.purchase_items' in the schema cache 
+[2026-07-15T10:04:23.533Z] [SyncEngine] ERROR: [InitialSync] Error syncing purchase_items: Could not find the table 'public.purchase_items' in the schema cache 
+[2026-07-15T10:04:23.535Z] [SyncEngine] INFO: [InitialSync] Downloading sales... 
+[2026-07-15T10:04:23.950Z] [SyncEngine] INFO: [InitialSync] Downloaded 7 records for sales 
+[2026-07-15T10:04:23.969Z] [SyncEngine] INFO: [InitialSync] Finished sales: 7 inserted, 0 skipped. 
+[2026-07-15T10:04:23.970Z] [SyncEngine] INFO: [InitialSync] Downloading sale_items... 
+[2026-07-15T10:04:24.468Z] [SyncEngine] ERROR: [InitialSync] Failed to fetch sale_items: column sale_items.workspace_id does not exist 
+[2026-07-15T10:04:24.470Z] [SyncEngine] ERROR: [InitialSync] Error syncing sale_items: column sale_items.workspace_id does not exist 
+[2026-07-15T10:04:24.471Z] [SyncEngine] INFO: [InitialSync] Downloading inventory_movements... 
+[2026-07-15T10:04:25.002Z] [SyncEngine] ERROR: [InitialSync] Failed to fetch inventory_movements: Could not find the table 'public.inventory_movements' in the schema cache 
+[2026-07-15T10:04:25.004Z] [SyncEngine] ERROR: [InitialSync] Error syncing inventory_movements: Could not find the table 'public.inventory_movements' in the schema cache 
+[2026-07-15T10:04:25.005Z] [SyncEngine] INFO: [InitialSync] Downloading settings... 
+[2026-07-15T10:04:26.210Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for settings 
+[2026-07-15T10:04:26.215Z] [SyncEngine] WARN: [InitialSync] Skipped record in settings: SQLite3 can only bind numbers, strings, bigints, buffers, and null 
+[2026-07-15T10:04:26.217Z] [SyncEngine] INFO: [InitialSync] Finished settings: 0 inserted, 1 skipped. 
+[2026-07-15T10:04:26.218Z] [SyncEngine] INFO: [InitialSync] Downloading users... 
+[2026-07-15T10:04:28.895Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for users 
+[2026-07-15T10:04:28.899Z] [SyncEngine] INFO: [InitialSync] Finished users: 1 inserted, 0 skipped. 
+[2026-07-15T10:04:28.901Z] [SyncEngine] INFO: [InitialSync] Complete. Inserted 18 records across 8 tables. 
+[2026-07-15T10:04:28.904Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T10:04:28.906Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:04:28.909Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:04:31.661Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:04:49.446Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:04:50.451Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:04:55.185Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:04:57.152Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:04:58.920Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:04:58.921Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T10:04:59.578Z] [SyncEngine] INFO: Sync cycle completed in 30671ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:05:28.930Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:05:28.932Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:05:28.935Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:05:31.163Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:05:34.604Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:05:34.885Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:05:35.542Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:05:35.784Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:05:36.170Z] [SyncEngine] INFO: Sync cycle completed in 7238ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:05:58.931Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:05:58.933Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:05:58.935Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:05:59.582Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:06:01.247Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:06:01.587Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:06:02.161Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:06:02.515Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:06:02.782Z] [SyncEngine] INFO: Sync cycle completed in 3849ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:06:28.939Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:06:28.942Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:06:28.946Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:06:29.473Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:06:31.446Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:06:31.692Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:06:32.233Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:06:32.494Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:06:32.738Z] [SyncEngine] INFO: Sync cycle completed in 3796ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:06:58.940Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:06:58.942Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:06:58.945Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:07:00.757Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:07:02.552Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:07:02.806Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:07:03.585Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:07:03.836Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:07:04.088Z] [SyncEngine] INFO: Sync cycle completed in 5146ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:07:28.960Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:07:28.962Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:07:28.965Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:07:29.381Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:07:32.835Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:07:33.074Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:07:34.286Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:07:35.281Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:07:36.424Z] [SyncEngine] INFO: Sync cycle completed in 7462ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:07:58.977Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:07:58.979Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:07:58.981Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:07:59.892Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:08:01.495Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:08:02.034Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:08:02.603Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:08:02.900Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:08:03.255Z] [SyncEngine] INFO: Sync cycle completed in 4276ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:08:28.977Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:08:28.978Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:08:28.981Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:08:29.405Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:08:31.335Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:08:31.755Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:08:32.289Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:08:32.579Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:08:32.825Z] [SyncEngine] INFO: Sync cycle completed in 3847ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:08:58.993Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:08:58.995Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:08:58.997Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:08:59.415Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:09:01.129Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:09:03.480Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:09:04.039Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:09:04.336Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:09:04.611Z] [SyncEngine] INFO: Sync cycle completed in 5616ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:09:28.993Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:09:28.995Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:09:28.997Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:09:29.523Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:09:31.341Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:09:31.673Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:09:32.420Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:09:32.785Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:09:33.021Z] [SyncEngine] INFO: Sync cycle completed in 4026ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:09:58.993Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:09:58.995Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:09:58.998Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:09:59.885Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:10:00.540Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-15T10:10:02.683Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:10:02.927Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:10:03.462Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:10:03.753Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:10:04.031Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-15T10:10:04.033Z] [SyncEngine] INFO: Sync cycle completed in 5038ms. Uploaded: 0, Downloaded: 1, Failed: 5 
+[2026-07-15T10:10:28.994Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:10:28.996Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:10:28.999Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:10:29.495Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:10:31.237Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:10:31.477Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:10:32.100Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:10:32.348Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:10:32.615Z] [SyncEngine] INFO: Sync cycle completed in 3619ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:10:59.009Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:10:59.010Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:10:59.013Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:10:59.432Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:11:01.042Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:11:01.327Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:11:01.845Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:11:02.165Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:11:02.548Z] [SyncEngine] INFO: Sync cycle completed in 3538ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:11:29.024Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:11:29.026Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:11:29.028Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:11:29.983Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:11:32.406Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:11:32.687Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:11:33.238Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:11:33.633Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:11:34.017Z] [SyncEngine] INFO: Sync cycle completed in 4991ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:11:59.056Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:11:59.058Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:11:59.061Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:12:05.516Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:12:13.122Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:12:14.479Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:12:16.446Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:12:17.731Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:12:18.262Z] [SyncEngine] INFO: Sync cycle completed in 19204ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:12:29.056Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:12:29.058Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:12:29.061Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:12:29.521Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:12:33.271Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:12:33.576Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:12:34.646Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:12:36.353Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:12:38.399Z] [SyncEngine] INFO: Sync cycle completed in 9341ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:12:59.068Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:12:59.070Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:12:59.072Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:13:02.028Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T10:13:12.214Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T10:13:12.526Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T10:13:13.644Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T10:13:14.039Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T10:13:14.408Z] [SyncEngine] INFO: Sync cycle completed in 15338ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T10:13:29.084Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:13:29.086Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T10:13:29.089Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T10:13:36.150Z] [SyncEngine] ERROR: Download failed for settings {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:13:43.207Z] [SyncEngine] ERROR: Download failed for users {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:13:52.076Z] [SyncEngine] ERROR: Download failed for categories {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:13:59.283Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:13:59.284Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T10:14:04.055Z] [SyncEngine] ERROR: Download failed for suppliers {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:14:11.802Z] [SyncEngine] ERROR: Download failed for customers {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:14:18.950Z] [SyncEngine] ERROR: Download failed for products {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:14:25.995Z] [SyncEngine] ERROR: Download failed for purchases {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:14:29.467Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T10:14:29.468Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T10:14:34.001Z] [SyncEngine] ERROR: Download failed for purchase_items {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:14:41.183Z] [SyncEngine] ERROR: Download failed for sales {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T10:14:48.294Z] [SyncEngine] ERROR: Download failed for sale_items {"message":"TypeError: fetch failed","details":"TypeError: fetch failed\n\nCaused by: Error: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co (ENOTFOUND)\nError: getaddrinfo ENOTFOUND nvenvuikepbjtgakasog.supabase.co\n    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26)","hint":"","code":""}
+[2026-07-15T14:05:48.673Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:05:48.676Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:05:48.685Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:05:48.786Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:05:48.788Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T14:05:55.324Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:05:56.831Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:05:58.212Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:05:58.533Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:05:58.786Z] [SyncEngine] INFO: Sync cycle completed in 10109ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:06:18.819Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:06:18.822Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:06:18.826Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:06:22.608Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:06:22.922Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:06:23.772Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:06:24.825Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:06:25.161Z] [SyncEngine] INFO: Sync cycle completed in 6339ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:06:48.845Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:06:48.848Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:06:48.854Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:06:53.675Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:06:53.677Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T14:06:54.875Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:06:55.182Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:06:55.822Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:06:56.178Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:06:56.473Z] [SyncEngine] INFO: Sync cycle completed in 7625ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:07:23.684Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:07:23.687Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:07:23.692Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:07:28.263Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:07:29.588Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-15T14:07:32.021Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:07:32.499Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:07:33.237Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:07:33.510Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:07:33.772Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-15T14:07:33.774Z] [SyncEngine] INFO: Sync cycle completed in 10087ms. Uploaded: 0, Downloaded: 1, Failed: 5 
+[2026-07-15T14:07:53.717Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:07:53.719Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:07:53.723Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:07:54.297Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:07:56.147Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:07:56.424Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:07:57.002Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:07:57.293Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:07:57.575Z] [SyncEngine] INFO: Sync cycle completed in 3856ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:08:23.785Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:08:23.787Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:08:23.794Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:08:24.731Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:08:26.733Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:08:27.005Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:08:27.630Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:08:27.916Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:08:28.196Z] [SyncEngine] INFO: Sync cycle completed in 4409ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:08:53.898Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:08:53.901Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:08:53.905Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:08:54.324Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:08:56.538Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:08:56.836Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:08:57.479Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:08:57.738Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:08:58.032Z] [SyncEngine] INFO: Sync cycle completed in 4131ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:09:23.923Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:09:23.926Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:09:23.930Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:09:24.428Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:09:33.085Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:09:33.369Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:09:34.322Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:09:34.634Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:09:34.921Z] [SyncEngine] INFO: Sync cycle completed in 10995ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:09:53.925Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:09:53.928Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:09:53.932Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:09:54.518Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:09:58.117Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:09:58.461Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:09:59.238Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:09:59.582Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:09:59.902Z] [SyncEngine] INFO: Sync cycle completed in 5974ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:10:23.935Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:10:23.938Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:10:23.943Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:10:28.305Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:10:33.060Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:10:33.386Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:10:34.013Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:10:34.322Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:10:34.635Z] [SyncEngine] INFO: Sync cycle completed in 10697ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:10:53.939Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:10:53.942Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:10:53.945Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:10:54.401Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:10:56.219Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:10:56.533Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:10:57.178Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:10:57.466Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:10:57.773Z] [SyncEngine] INFO: Sync cycle completed in 3831ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:11:24.127Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:11:24.129Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:11:24.133Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:11:25.047Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:11:27.084Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:11:27.395Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:11:28.367Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:11:28.827Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:11:29.137Z] [SyncEngine] INFO: Sync cycle completed in 5008ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:11:54.256Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:11:54.485Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:11:54.603Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:11:59.340Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:12:02.463Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:12:02.810Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:12:03.738Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:12:04.090Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:12:04.390Z] [SyncEngine] INFO: Sync cycle completed in 9905ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:12:24.554Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:12:24.559Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:12:24.563Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:12:27.599Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:12:31.287Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:12:31.654Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:12:32.267Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:12:33.074Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:12:33.808Z] [SyncEngine] INFO: Sync cycle completed in 9249ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:12:54.591Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:12:54.594Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:12:54.598Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:12:55.352Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:12:59.122Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:12:59.549Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:13:00.062Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:13:00.332Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:13:00.588Z] [SyncEngine] INFO: Sync cycle completed in 5994ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:13:24.595Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:13:24.598Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:13:24.601Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:13:25.247Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:13:27.082Z] [SyncEngine] ERROR: Download failed for purchases {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchases' in the schema cache"}
+[2026-07-15T14:13:27.436Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.purchase_orders'","message":"Could not find the table 'public.purchase_items' in the schema cache"}
+[2026-07-15T14:13:28.118Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":null,"message":"column sale_items.workspace_id does not exist"}
+[2026-07-15T14:13:28.404Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.stock_movements'","message":"Could not find the table 'public.inventory_movements' in the schema cache"}
+[2026-07-15T14:13:29.241Z] [SyncEngine] INFO: Sync cycle completed in 4643ms. Uploaded: 0, Downloaded: 0, Failed: 5 
+[2026-07-15T14:17:18.739Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:17:18.742Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:17:18.748Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:17:18.811Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:17:18.814Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T14:17:19.367Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:17:21.253Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:17:21.811Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:17:22.074Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:17:22.309Z] [SyncEngine] INFO: Sync cycle completed in 3567ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:22:15.481Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:22:15.484Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:22:15.488Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:22:15.792Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:22:16.055Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-15T14:22:17.825Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:22:18.413Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:22:18.672Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:22:18.912Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-15T14:22:18.914Z] [SyncEngine] INFO: Sync cycle completed in 3430ms. Uploaded: 0, Downloaded: 1, Failed: 4 
+[2026-07-15T14:22:45.492Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:22:45.495Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:22:45.499Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:22:46.000Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:22:47.999Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:22:48.524Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:22:48.776Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:22:49.039Z] [SyncEngine] INFO: Sync cycle completed in 3544ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:23:15.499Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:23:15.502Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:23:15.506Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:23:15.936Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:23:19.251Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:23:19.762Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:23:20.028Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:23:20.290Z] [SyncEngine] INFO: Sync cycle completed in 4788ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:23:45.515Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:23:45.518Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:23:45.522Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:23:46.026Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:23:53.995Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:23:57.145Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:23:57.405Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:23:57.675Z] [SyncEngine] INFO: Sync cycle completed in 12157ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:24:15.519Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:24:15.521Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:24:15.525Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:24:15.957Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:24:17.961Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:24:18.518Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:24:18.797Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:24:19.056Z] [SyncEngine] INFO: Sync cycle completed in 3535ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:24:45.520Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:24:45.523Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:24:45.527Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:24:46.163Z] [SyncEngine] ERROR: Download failed for settings {}
+[2026-07-15T14:24:48.403Z] [SyncEngine] ERROR: Download failed for purchase_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"purchase_order_items.created_at\".","message":"column purchase_order_items.updated_at does not exist"}
+[2026-07-15T14:24:48.966Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"sale_items.created_at\".","message":"column sale_items.updated_at does not exist"}
+[2026-07-15T14:24:49.276Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"42703","details":null,"hint":"Perhaps you meant to reference the column \"stock_movements.created_at\".","message":"column stock_movements.updated_at does not exist"}
+[2026-07-15T14:24:49.559Z] [SyncEngine] INFO: Sync cycle completed in 4036ms. Uploaded: 0, Downloaded: 0, Failed: 4 
+[2026-07-15T14:27:27.929Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:27:27.933Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:27:27.941Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:27:28.009Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:27:28.012Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T14:27:30.937Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-15T14:27:41.378Z] [SyncEngine] INFO: Data updated in tables: settings 
+[2026-07-15T14:27:41.381Z] [SyncEngine] INFO: Sync cycle completed in 13448ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-15T14:28:23.228Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:28:23.230Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:28:23.234Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:28:23.911Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-15T14:28:25.980Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:28:26.507Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:28:26.817Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-15T14:28:26.819Z] [SyncEngine] INFO: Sync cycle completed in 3589ms. Uploaded: 0, Downloaded: 1, Failed: 2 
+[2026-07-15T14:28:53.248Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:28:53.251Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:28:53.255Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:28:56.311Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:28:56.620Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:28:56.864Z] [SyncEngine] INFO: Sync cycle completed in 3613ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:29:23.250Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:29:23.253Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:29:23.258Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:29:26.428Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:29:26.690Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:29:26.928Z] [SyncEngine] INFO: Sync cycle completed in 3675ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:29:53.353Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:29:53.356Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:29:53.359Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:30:00.010Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:30:00.274Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:30:00.514Z] [SyncEngine] INFO: Sync cycle completed in 7158ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:30:23.365Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:30:23.368Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:30:23.371Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:30:27.809Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:30:28.108Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:30:28.369Z] [SyncEngine] INFO: Sync cycle completed in 5000ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:30:53.379Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:30:53.381Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:30:53.386Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:31:01.862Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:31:02.140Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:31:02.466Z] [SyncEngine] INFO: Sync cycle completed in 9085ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:31:23.385Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:31:23.389Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:31:23.393Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:31:26.387Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:31:26.677Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:31:26.950Z] [SyncEngine] INFO: Sync cycle completed in 3561ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:31:35.773Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:31:35.774Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:31:35.778Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:31:35.794Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:31:35.795Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T14:31:38.260Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:31:38.504Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:31:38.738Z] [SyncEngine] INFO: Sync cycle completed in 2964ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:32:05.804Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:32:05.806Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:32:05.810Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:32:08.598Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:32:08.865Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:32:09.134Z] [SyncEngine] INFO: Sync cycle completed in 3328ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:32:35.815Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:32:35.817Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:32:35.821Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:32:38.632Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:32:38.911Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:32:39.154Z] [SyncEngine] INFO: Sync cycle completed in 3337ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:33:05.833Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:33:05.835Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:33:05.838Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:33:08.560Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:33:08.852Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:33:09.106Z] [SyncEngine] INFO: Sync cycle completed in 3271ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:33:35.846Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:33:35.848Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:33:35.851Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:33:38.608Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:33:38.885Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:33:39.144Z] [SyncEngine] INFO: Sync cycle completed in 3296ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:34:05.849Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:34:05.851Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:34:05.855Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:34:08.574Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:34:08.865Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:34:09.123Z] [SyncEngine] INFO: Sync cycle completed in 3272ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:34:35.852Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:34:35.855Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:34:35.858Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:34:38.556Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:34:38.829Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:34:39.091Z] [SyncEngine] INFO: Sync cycle completed in 3237ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:35:05.877Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:35:05.880Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:35:05.883Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:35:08.876Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:35:09.141Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:35:09.403Z] [SyncEngine] INFO: Sync cycle completed in 3523ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:35:35.880Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:35:35.884Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:35:35.888Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:35:38.805Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:35:39.088Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:35:39.335Z] [SyncEngine] INFO: Sync cycle completed in 3451ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:36:05.893Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:36:05.895Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:36:05.898Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:36:09.039Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:36:09.286Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:36:09.546Z] [SyncEngine] INFO: Sync cycle completed in 3651ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:36:35.907Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:36:35.910Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:36:35.913Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:36:38.783Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:36:39.082Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:36:39.330Z] [SyncEngine] INFO: Sync cycle completed in 3420ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:37:05.908Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:37:05.910Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:37:05.914Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:37:08.702Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:37:08.944Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:37:09.176Z] [SyncEngine] INFO: Sync cycle completed in 3266ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:37:35.917Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:37:35.920Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:37:35.924Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:37:38.916Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:37:39.191Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:37:39.438Z] [SyncEngine] INFO: Sync cycle completed in 3518ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:38:05.918Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:38:05.920Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:38:05.923Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:38:08.787Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:38:09.039Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:38:09.271Z] [SyncEngine] INFO: Sync cycle completed in 3351ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:38:35.924Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:38:35.926Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:38:35.929Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:38:38.625Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:38:38.900Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:38:39.165Z] [SyncEngine] INFO: Sync cycle completed in 3239ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:39:05.930Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:39:05.933Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:39:05.937Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:39:13.533Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:39:14.135Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:39:14.669Z] [SyncEngine] INFO: Sync cycle completed in 8736ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:39:35.938Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:39:35.940Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:39:35.944Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:39:40.175Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:39:40.633Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:39:41.076Z] [SyncEngine] INFO: Sync cycle completed in 5136ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:40:05.943Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:40:05.945Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:40:05.949Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:40:08.970Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:40:09.218Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:40:09.474Z] [SyncEngine] INFO: Sync cycle completed in 3529ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:40:35.953Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:40:35.955Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:40:35.958Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:40:38.724Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:40:39.015Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:40:39.284Z] [SyncEngine] INFO: Sync cycle completed in 3329ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:41:05.966Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:41:05.969Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:41:05.973Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:41:11.805Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:41:12.094Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:41:12.344Z] [SyncEngine] INFO: Sync cycle completed in 6375ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:41:35.979Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T14:41:35.981Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:41:35.985Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:41:38.856Z] [SyncEngine] ERROR: Download failed for sale_items {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:41:39.127Z] [SyncEngine] ERROR: Download failed for inventory_movements {"code":"SQLITE_CONSTRAINT_NOTNULL"}
+[2026-07-15T14:41:39.369Z] [SyncEngine] INFO: Sync cycle completed in 3388ms. Uploaded: 0, Downloaded: 0, Failed: 2 
+[2026-07-15T14:50:17.144Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:50:17.147Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T14:50:17.155Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T14:50:17.209Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T14:50:17.212Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T14:50:26.091Z] [SyncEngine] INFO: Sync cycle completed in 8944ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:01:48.418Z] [SyncEngine] INFO: [InitialSync] Starting full download for workspace 0949c497-d3bb-4a56-a68f-e530ce301003... 
+[2026-07-15T15:01:48.422Z] [SyncEngine] INFO: [InitialSync] Downloading categories... 
+[2026-07-15T15:01:50.710Z] [SyncEngine] INFO: [InitialSync] Downloaded 2 records for categories 
+[2026-07-15T15:01:50.722Z] [SyncEngine] INFO: [InitialSync] Finished categories: 2 inserted, 0 skipped. 
+[2026-07-15T15:01:50.724Z] [SyncEngine] INFO: [InitialSync] Downloading products... 
+[2026-07-15T15:01:53.168Z] [SyncEngine] INFO: [InitialSync] Downloaded 2 records for products 
+[2026-07-15T15:01:53.179Z] [SyncEngine] INFO: [InitialSync] Finished products: 2 inserted, 0 skipped. 
+[2026-07-15T15:01:53.181Z] [SyncEngine] INFO: [InitialSync] Downloading customers... 
+[2026-07-15T15:01:55.965Z] [SyncEngine] INFO: [InitialSync] Downloaded 6 records for customers 
+[2026-07-15T15:01:55.980Z] [SyncEngine] INFO: [InitialSync] Finished customers: 6 inserted, 0 skipped. 
+[2026-07-15T15:01:55.982Z] [SyncEngine] INFO: [InitialSync] Downloading suppliers... 
+[2026-07-15T15:01:58.637Z] [SyncEngine] INFO: [InitialSync] No records for suppliers 
+[2026-07-15T15:01:58.639Z] [SyncEngine] INFO: [InitialSync] Downloading expenses... 
+[2026-07-15T15:02:03.340Z] [SyncEngine] INFO: [InitialSync] No records for expenses 
+[2026-07-15T15:02:03.342Z] [SyncEngine] INFO: [InitialSync] Downloading purchases... 
+[2026-07-15T15:02:07.712Z] [SyncEngine] INFO: [InitialSync] No records for purchases 
+[2026-07-15T15:02:07.714Z] [SyncEngine] INFO: [InitialSync] Downloading purchase_items... 
+[2026-07-15T15:02:12.240Z] [SyncEngine] INFO: [InitialSync] No records for purchase_items 
+[2026-07-15T15:02:12.242Z] [SyncEngine] INFO: [InitialSync] Downloading sales... 
+[2026-07-15T15:02:17.254Z] [SyncEngine] INFO: [InitialSync] Downloaded 7 records for sales 
+[2026-07-15T15:02:17.270Z] [SyncEngine] INFO: [InitialSync] Finished sales: 7 inserted, 0 skipped. 
+[2026-07-15T15:02:17.272Z] [SyncEngine] INFO: [InitialSync] Downloading sale_items... 
+[2026-07-15T15:02:19.937Z] [SyncEngine] INFO: [InitialSync] Downloaded 8 records for sale_items 
+[2026-07-15T15:02:19.950Z] [SyncEngine] INFO: [InitialSync] Finished sale_items: 8 inserted, 0 skipped. 
+[2026-07-15T15:02:19.952Z] [SyncEngine] INFO: [InitialSync] Downloading inventory_movements... 
+[2026-07-15T15:02:22.637Z] [SyncEngine] INFO: [InitialSync] Downloaded 14 records for inventory_movements 
+[2026-07-15T15:02:22.658Z] [SyncEngine] INFO: [InitialSync] Finished inventory_movements: 14 inserted, 0 skipped. 
+[2026-07-15T15:02:22.660Z] [SyncEngine] INFO: [InitialSync] Downloading settings... 
+[2026-07-15T15:02:24.879Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for settings 
+[2026-07-15T15:02:24.888Z] [SyncEngine] INFO: [InitialSync] Finished settings: 1 inserted, 0 skipped. 
+[2026-07-15T15:02:24.890Z] [SyncEngine] INFO: [InitialSync] Downloading users... 
+[2026-07-15T15:02:27.218Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for users 
+[2026-07-15T15:02:27.223Z] [SyncEngine] INFO: [InitialSync] Finished users: 1 inserted, 0 skipped. 
+[2026-07-15T15:02:27.227Z] [SyncEngine] INFO: [InitialSync] Complete. Inserted 41 records across 12 tables. 
+[2026-07-15T15:02:27.230Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-15T15:02:27.233Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:02:27.237Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:02:57.253Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:02:57.256Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T15:02:58.051Z] [SyncEngine] INFO: Sync cycle completed in 30818ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:03:27.267Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:03:27.270Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:03:27.275Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:03:57.269Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:03:57.272Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T15:04:09.246Z] [SyncEngine] INFO: Sync cycle completed in 41976ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:04:27.281Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:04:27.283Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:04:27.286Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:04:57.269Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:04:57.272Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T15:04:59.202Z] [SyncEngine] INFO: Sync cycle completed in 31919ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:05:27.285Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:05:27.288Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:05:27.292Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:05:40.449Z] [SyncEngine] INFO: Sync cycle completed in 13160ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:05:57.307Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:05:57.309Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:05:57.313Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:06:01.614Z] [SyncEngine] INFO: Sync cycle completed in 4305ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:06:27.314Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:06:27.317Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:06:27.320Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:06:31.378Z] [SyncEngine] INFO: Sync cycle completed in 4061ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:06:57.314Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:06:57.316Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:06:57.320Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:07:01.322Z] [SyncEngine] INFO: Sync cycle completed in 4006ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:07:27.329Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:07:27.331Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:07:27.335Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:07:31.670Z] [SyncEngine] INFO: Sync cycle completed in 4339ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:07:57.343Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:07:57.345Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:07:57.349Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:08:00.931Z] [SyncEngine] INFO: Sync cycle completed in 3586ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:08:27.345Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:08:27.348Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:08:27.351Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:08:31.312Z] [SyncEngine] INFO: Sync cycle completed in 3964ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:08:57.352Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:08:57.354Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:08:57.358Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:09:01.422Z] [SyncEngine] INFO: Sync cycle completed in 4068ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:09:27.372Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:09:27.374Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:09:27.377Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:09:31.526Z] [SyncEngine] INFO: Sync cycle completed in 4152ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:09:57.387Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:09:57.389Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:09:57.393Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:10:01.793Z] [SyncEngine] INFO: Sync cycle completed in 4404ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:10:27.393Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:10:27.395Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:10:27.399Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:10:35.151Z] [SyncEngine] INFO: Sync cycle completed in 7756ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:10:57.397Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:10:57.399Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:10:57.403Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:11:01.586Z] [SyncEngine] INFO: Sync cycle completed in 4187ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:11:27.403Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:11:27.405Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:11:27.408Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:11:31.161Z] [SyncEngine] INFO: Sync cycle completed in 3756ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:11:57.412Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:11:57.415Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:11:57.419Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:12:01.672Z] [SyncEngine] INFO: Sync cycle completed in 4257ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:12:27.414Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:12:27.417Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:12:27.421Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:12:31.763Z] [SyncEngine] INFO: Sync cycle completed in 4345ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:12:57.416Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:12:57.418Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:12:57.422Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:13:01.810Z] [SyncEngine] INFO: Sync cycle completed in 4392ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:13:27.423Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:13:27.426Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:13:27.430Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:13:32.353Z] [SyncEngine] INFO: Sync cycle completed in 4927ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:13:57.436Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:13:57.439Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:13:57.442Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:14:00.965Z] [SyncEngine] INFO: Sync cycle completed in 3526ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:14:27.440Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:14:27.443Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:14:27.447Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:14:32.127Z] [SyncEngine] INFO: Sync cycle completed in 4684ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:14:57.441Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:14:57.444Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:14:57.448Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:15:01.858Z] [SyncEngine] INFO: Sync cycle completed in 4414ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:15:27.452Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:15:27.454Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:15:27.457Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:15:45.719Z] [SyncEngine] INFO: Sync cycle completed in 18265ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:15:57.517Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:15:57.519Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:15:57.523Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:16:05.681Z] [SyncEngine] INFO: Sync cycle completed in 8162ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:16:27.680Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:16:27.683Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:16:27.687Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:16:48.035Z] [SyncEngine] INFO: Sync cycle completed in 20352ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:16:57.717Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:16:57.719Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:16:57.724Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:17:23.403Z] [SyncEngine] INFO: Sync cycle completed in 25684ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:17:27.748Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:17:27.751Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:17:27.756Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:17:46.635Z] [SyncEngine] INFO: Sync cycle completed in 18884ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:17:57.757Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:17:57.759Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:17:57.764Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:18:09.016Z] [SyncEngine] INFO: Sync cycle completed in 11257ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:18:27.760Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:18:27.763Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:18:27.767Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:18:35.300Z] [SyncEngine] INFO: Sync cycle completed in 7537ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:18:57.776Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:18:57.778Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:18:57.783Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:19:07.613Z] [SyncEngine] INFO: Sync cycle completed in 9835ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:19:27.783Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:19:27.785Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:19:27.788Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:19:33.937Z] [SyncEngine] INFO: Sync cycle completed in 6151ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:19:57.783Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:19:57.785Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:19:57.789Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:20:15.096Z] [SyncEngine] INFO: Sync cycle completed in 17311ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:20:27.805Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:20:27.807Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:20:27.811Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:20:37.917Z] [SyncEngine] INFO: Sync cycle completed in 10110ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:20:57.820Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:20:57.824Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:20:57.828Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:21:13.060Z] [SyncEngine] INFO: Sync cycle completed in 15236ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:21:27.978Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:21:27.981Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:21:27.986Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:21:38.724Z] [SyncEngine] INFO: Sync cycle completed in 10743ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:21:58.002Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:21:58.005Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:21:58.008Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:22:21.673Z] [SyncEngine] INFO: Sync cycle completed in 23668ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:22:28.116Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:22:28.118Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:22:28.124Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:22:47.684Z] [SyncEngine] INFO: Sync cycle completed in 19566ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:22:58.135Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:22:58.138Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:22:58.141Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:23:09.527Z] [SyncEngine] INFO: Sync cycle completed in 11389ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:23:28.145Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:23:28.147Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:23:28.151Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:23:47.122Z] [SyncEngine] INFO: Sync cycle completed in 18975ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:23:58.150Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:23:58.152Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:23:58.156Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:24:28.221Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:24:28.223Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T15:24:58.227Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:24:58.229Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T15:24:59.987Z] [SyncEngine] INFO: Sync cycle completed in 61835ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:25:28.239Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:25:28.243Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:25:28.248Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:25:58.249Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:25:58.252Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-15T15:26:02.126Z] [SyncEngine] INFO: Sync cycle completed in 33883ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:26:28.275Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:26:28.278Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:26:28.285Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:26:44.169Z] [SyncEngine] INFO: Sync cycle completed in 15891ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:26:58.508Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:26:58.510Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:26:58.514Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:27:05.224Z] [SyncEngine] INFO: Sync cycle completed in 6714ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:27:28.583Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:27:28.587Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:27:28.591Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:27:34.368Z] [SyncEngine] INFO: Sync cycle completed in 5781ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:27:58.589Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:27:58.591Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:27:58.594Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:28:03.258Z] [SyncEngine] INFO: Sync cycle completed in 4667ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:28:28.602Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:28:28.605Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:28:28.609Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:28:33.083Z] [SyncEngine] INFO: Sync cycle completed in 4478ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:28:58.612Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:28:58.615Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:28:58.618Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:29:05.177Z] [SyncEngine] INFO: Sync cycle completed in 6562ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:29:28.624Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:29:28.627Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:29:28.630Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:29:40.267Z] [SyncEngine] INFO: Sync cycle completed in 11641ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:29:58.672Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:29:58.674Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:29:58.682Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:30:10.762Z] [SyncEngine] INFO: Sync cycle completed in 12088ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:30:28.686Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:30:28.689Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:30:28.692Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:30:49.393Z] [SyncEngine] INFO: Sync cycle completed in 20704ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:30:58.782Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:30:58.785Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:30:58.789Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:31:04.485Z] [SyncEngine] INFO: Sync cycle completed in 5700ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:31:28.854Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:31:28.857Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:31:28.861Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:31:34.865Z] [SyncEngine] INFO: Sync cycle completed in 6008ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:31:58.862Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:31:58.865Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:31:58.869Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:32:04.036Z] [SyncEngine] INFO: Sync cycle completed in 5171ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:32:28.874Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:32:28.876Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:32:28.881Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:32:37.050Z] [SyncEngine] INFO: Sync cycle completed in 8174ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:32:59.484Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:32:59.486Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:32:59.490Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:33:05.320Z] [SyncEngine] INFO: Sync cycle completed in 5834ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:33:30.112Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:33:30.114Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:33:30.117Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-15T15:33:35.820Z] [SyncEngine] INFO: Sync cycle completed in 5706ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-15T15:34:01.260Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-15T15:34:01.266Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-15T15:34:01.271Z] [SyncEngine] INFO: No pending uploads. 

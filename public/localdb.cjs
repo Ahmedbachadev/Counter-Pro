@@ -576,6 +576,53 @@ var init_customers_expansion = __esm({
   }
 });
 
+// src/database/migrations/007_sync_metadata.ts
+function up2(db) {
+  db.exec(`
+    -- Track sync state per workspace
+    CREATE TABLE IF NOT EXISTS sync_metadata (
+      id TEXT PRIMARY KEY,
+      workspace_id TEXT NOT NULL UNIQUE,
+      initial_sync_completed INTEGER DEFAULT 0,
+      initial_sync_at TEXT,
+      last_full_sync_at TEXT,
+      tables_synced TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_sync_metadata_workspace ON sync_metadata(workspace_id);
+  `);
+}
+var init_sync_metadata = __esm({
+  "src/database/migrations/007_sync_metadata.ts"() {
+  }
+});
+
+// src/database/migrations/008_business_profile.ts
+function businessProfileSchema(db) {
+  const newColumns = [
+    "owner_name",
+    "whatsapp_number",
+    "city",
+    "country",
+    "registration_number",
+    "preferences"
+    // Fallback JSON column for any unmapped UI fields
+  ];
+  const columnsInfo = db.pragma("table_info(settings)");
+  const existingColumns = new Set(columnsInfo.map((c) => c.name));
+  for (const col of newColumns) {
+    if (!existingColumns.has(col)) {
+      db.exec(`ALTER TABLE settings ADD COLUMN ${col} TEXT;`);
+    }
+  }
+}
+var init_business_profile = __esm({
+  "src/database/migrations/008_business_profile.ts"() {
+  }
+});
+
 // src/database/migrations/index.ts
 function runMigrations(db) {
   db.exec(`
@@ -619,13 +666,17 @@ var init_migrations = __esm({
     init_advanced_optimizations();
     init_settings_expansion();
     init_customers_expansion();
+    init_sync_metadata();
+    init_business_profile();
     migrations = [
       { id: 1, name: "001_initial", up: initialSchema },
       { id: 2, name: "002_sync_queue", up },
       { id: 3, name: "003_optimizations", up: optimizationSchema },
       { id: 4, name: "004_advanced_optimizations", up: advancedOptimizationSchema },
       { id: 5, name: "005_settings_expansion", up: settingsExpansionSchema },
-      { id: 6, name: "006_customers_expansion", up: customersExpansionSchema }
+      { id: 6, name: "006_customers_expansion", up: customersExpansionSchema },
+      { id: 7, name: "007_sync_metadata", up: up2 },
+      { id: 8, name: "008_business_profile", up: businessProfileSchema }
     ];
   }
 });
@@ -736,11 +787,13 @@ var init_BaseRepository = __esm({
             device_id: "LOCAL",
             ...data
           };
-          const keys = Object.keys(record);
-          const values = keys.map((k) => record[k]);
-          const placeholders = keys.map(() => "?").join(", ");
+          const columnsInfo = this.db.pragma(`table_info(${this.tableName})`);
+          const validColumns = new Set(columnsInfo.map((c) => c.name));
+          const validKeys = Object.keys(record).filter((k) => validColumns.has(k));
+          const values = validKeys.map((k) => record[k]);
+          const placeholders = validKeys.map(() => "?").join(", ");
           const stmt = this.db.prepare(`
-        INSERT INTO ${this.tableName} (${keys.join(", ")})
+        INSERT INTO ${this.tableName} (${validKeys.join(", ")})
         VALUES (${placeholders})
       `);
           stmt.run(values);
@@ -763,9 +816,11 @@ var init_BaseRepository = __esm({
             version: existing.version + 1,
             sync_status: "pending"
           };
-          const keys = Object.keys(updatedRecord);
-          const values = keys.map((k) => updatedRecord[k]);
-          const setClause = keys.map((k) => `${k} = ?`).join(", ");
+          const columnsInfo = this.db.pragma(`table_info(${this.tableName})`);
+          const validColumns = new Set(columnsInfo.map((c) => c.name));
+          const validKeys = Object.keys(updatedRecord).filter((k) => validColumns.has(k));
+          const values = validKeys.map((k) => updatedRecord[k]);
+          const setClause = validKeys.map((k) => `${k} = ?`).join(", ");
           const stmt = this.db.prepare(`
         UPDATE ${this.tableName}
         SET ${setClause}
@@ -1603,13 +1658,13 @@ function __disposeResources(env) {
   }
   return next();
 }
-function __rewriteRelativeImportExtension(path3, preserveJsx) {
-  if (typeof path3 === "string" && /^\.\.?\//.test(path3)) {
-    return path3.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function(m, tsx, d, ext, cm) {
+function __rewriteRelativeImportExtension(path4, preserveJsx) {
+  if (typeof path4 === "string" && /^\.\.?\//.test(path4)) {
+    return path4.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function(m, tsx, d, ext, cm) {
       return tsx ? preserveJsx ? ".jsx" : ".js" : d && (!ext || !cm) ? m : d + ext + "." + cm.toLowerCase() + "js";
     });
   }
-  return path3;
+  return path4;
 }
 var extendStatics, __assign, __createBinding, __setModuleDefault, ownKeys, _SuppressedError, tslib_es6_default;
 var init_tslib_es6 = __esm({
@@ -10105,8 +10160,8 @@ var require_main2 = __commonJS({
 });
 
 // node_modules/iceberg-js/dist/index.mjs
-function buildUrl(baseUrl, path3, query) {
-  const url = new URL(path3, baseUrl);
+function buildUrl(baseUrl, path4, query) {
+  const url = new URL(path4, baseUrl);
   if (query) {
     for (const [key, value] of Object.entries(query)) {
       if (value !== void 0) {
@@ -10136,12 +10191,12 @@ function createFetchClient(options) {
   return {
     async request({
       method,
-      path: path3,
+      path: path4,
       query,
       body,
       headers
     }) {
-      const url = buildUrl(options.baseUrl, path3, query);
+      const url = buildUrl(options.baseUrl, path4, query);
       const authHeaders = await buildAuthHeaders(options.auth);
       const res = await fetchFn(url, {
         method,
@@ -11039,7 +11094,7 @@ var init_dist3 = __esm({
       * @param path The relative file path. Should be of the format `folder/subfolder/filename.png`. The bucket must already exist before attempting to upload.
       * @param fileBody The body of the file to be stored in the bucket.
       */
-      async uploadOrUpdate(method, path3, fileBody, fileOptions) {
+      async uploadOrUpdate(method, path4, fileBody, fileOptions) {
         var _this = this;
         return _this.handleOperation(async () => {
           let body;
@@ -11063,7 +11118,7 @@ var init_dist3 = __esm({
             if ((typeof ReadableStream !== "undefined" && body instanceof ReadableStream || body && typeof body === "object" && "pipe" in body && typeof body.pipe === "function") && !options.duplex) options.duplex = "half";
           }
           if (fileOptions === null || fileOptions === void 0 ? void 0 : fileOptions.headers) for (const [key, value] of Object.entries(fileOptions.headers)) headers = setHeader(headers, key, value);
-          const cleanPath = _this._removeEmptyFolders(path3);
+          const cleanPath = _this._removeEmptyFolders(path4);
           const _path = _this._getFinalPath(cleanPath);
           const data = await (method == "PUT" ? put : post)(_this.fetch, `${_this.url}/object/${_path}`, body, _objectSpread22({ headers }, (options === null || options === void 0 ? void 0 : options.duplex) ? { duplex: options.duplex } : {}));
           return {
@@ -11140,8 +11195,8 @@ var init_dist3 = __esm({
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       * - For React Native, using either `Blob`, `File` or `FormData` does not work as intended. Upload file using `ArrayBuffer` from base64 file data instead, see example below.
       */
-      async upload(path3, fileBody, fileOptions) {
-        return this.uploadOrUpdate("POST", path3, fileBody, fileOptions);
+      async upload(path4, fileBody, fileOptions) {
+        return this.uploadOrUpdate("POST", path4, fileBody, fileOptions);
       }
       /**
       * Upload a file with a token generated from `createSignedUploadUrl`.
@@ -11181,9 +11236,9 @@ var init_dist3 = __esm({
       *   - `objects` table permissions: none
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       */
-      async uploadToSignedUrl(path3, token, fileBody, fileOptions) {
+      async uploadToSignedUrl(path4, token, fileBody, fileOptions) {
         var _this3 = this;
-        const cleanPath = _this3._removeEmptyFolders(path3);
+        const cleanPath = _this3._removeEmptyFolders(path4);
         const _path = _this3._getFinalPath(cleanPath);
         const url = new URL(_this3.url + `/object/upload/sign/${_path}`);
         url.searchParams.set("token", token);
@@ -11252,10 +11307,10 @@ var init_dist3 = __esm({
       *   - `objects` table permissions: `insert`
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       */
-      async createSignedUploadUrl(path3, options) {
+      async createSignedUploadUrl(path4, options) {
         var _this4 = this;
         return _this4.handleOperation(async () => {
-          let _path = _this4._getFinalPath(path3);
+          let _path = _this4._getFinalPath(path4);
           const headers = _objectSpread22({}, _this4.headers);
           if (options === null || options === void 0 ? void 0 : options.upsert) headers["x-upsert"] = "true";
           const data = await post(_this4.fetch, `${_this4.url}/object/upload/sign/${_path}`, {}, { headers });
@@ -11264,7 +11319,7 @@ var init_dist3 = __esm({
           if (!token) throw new StorageError("No token returned by API");
           return {
             signedUrl: url.toString(),
-            path: path3,
+            path: path4,
             token
           };
         });
@@ -11324,8 +11379,8 @@ var init_dist3 = __esm({
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       * - For React Native, using either `Blob`, `File` or `FormData` does not work as intended. Update file using `ArrayBuffer` from base64 file data instead, see example below.
       */
-      async update(path3, fileBody, fileOptions) {
-        return this.uploadOrUpdate("PUT", path3, fileBody, fileOptions);
+      async update(path4, fileBody, fileOptions) {
+        return this.uploadOrUpdate("PUT", path4, fileBody, fileOptions);
       }
       /**
       * Moves an existing file to a new path in the same bucket.
@@ -11476,10 +11531,10 @@ var init_dist3 = __esm({
       *   - `objects` table permissions: `select`
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       */
-      async createSignedUrl(path3, expiresIn, options) {
+      async createSignedUrl(path4, expiresIn, options) {
         var _this8 = this;
         return _this8.handleOperation(async () => {
-          let _path = _this8._getFinalPath(path3);
+          let _path = _this8._getFinalPath(path4);
           const hasTransform = typeof (options === null || options === void 0 ? void 0 : options.transform) === "object" && options.transform !== null && Object.keys(options.transform).length > 0;
           let data = await post(_this8.fetch, `${_this8.url}/object/sign/${_path}`, _objectSpread22({ expiresIn }, hasTransform ? { transform: options.transform } : {}), { headers: _this8.headers });
           const query = new URLSearchParams();
@@ -11615,13 +11670,13 @@ var init_dist3 = __esm({
       *   - `objects` table permissions: `select`
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       */
-      download(path3, options, parameters) {
+      download(path4, options, parameters) {
         const renderPath = typeof (options === null || options === void 0 ? void 0 : options.transform) === "object" && options.transform !== null && Object.keys(options.transform).length > 0 ? "render/image/authenticated" : "object";
         const query = new URLSearchParams();
         if (options === null || options === void 0 ? void 0 : options.transform) this.applyTransformOptsToQuery(query, options.transform);
         if ((options === null || options === void 0 ? void 0 : options.cacheNonce) != null) query.set("cacheNonce", String(options.cacheNonce));
         const queryString = query.toString();
-        const _path = this._getFinalPath(path3);
+        const _path = this._getFinalPath(path4);
         const downloadFn = () => get(this.fetch, `${this.url}/${renderPath}/${_path}${queryString ? `?${queryString}` : ""}`, {
           headers: this.headers,
           noResolveJson: true
@@ -11652,9 +11707,9 @@ var init_dist3 = __esm({
       * }
       * ```
       */
-      async info(path3) {
+      async info(path4) {
         var _this10 = this;
-        const _path = _this10._getFinalPath(path3);
+        const _path = _this10._getFinalPath(path4);
         return _this10.handleOperation(async () => {
           return recursiveToCamel(await get(_this10.fetch, `${_this10.url}/object/info/${_path}`, { headers: _this10.headers }));
         });
@@ -11675,9 +11730,9 @@ var init_dist3 = __esm({
       *   .exists('folder/avatar1.png')
       * ```
       */
-      async exists(path3) {
+      async exists(path4) {
         var _this11 = this;
-        const _path = _this11._getFinalPath(path3);
+        const _path = _this11._getFinalPath(path4);
         try {
           await head(_this11.fetch, `${_this11.url}/object/${_path}`, { headers: _this11.headers });
           return {
@@ -11756,8 +11811,8 @@ var init_dist3 = __esm({
       *   - `objects` table permissions: none
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       */
-      getPublicUrl(path3, options) {
-        const _path = this._getFinalPath(path3);
+      getPublicUrl(path4, options) {
+        const _path = this._getFinalPath(path4);
         const query = new URLSearchParams();
         if (options === null || options === void 0 ? void 0 : options.download) query.set("download", options.download === true ? "" : options.download);
         if (options === null || options === void 0 ? void 0 : options.transform) this.applyTransformOptsToQuery(query, options.transform);
@@ -11846,10 +11901,10 @@ var init_dist3 = __esm({
       *   .purgeCache('folder/avatar1.png', { transformations: true })
       * ```
       */
-      async purgeCache(path3, options, parameters) {
+      async purgeCache(path4, options, parameters) {
         var _this13 = this;
         return _this13.handleOperation(async () => {
-          const _path = _this13._getFinalPath(path3);
+          const _path = _this13._getFinalPath(path4);
           const query = new URLSearchParams();
           if (options === null || options === void 0 ? void 0 : options.transformations) query.set("transformations", "true");
           const queryString = query.toString();
@@ -11947,13 +12002,13 @@ var init_dist3 = __esm({
       *   - `objects` table permissions: `select`
       * - Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works
       */
-      async list(path3, options, parameters) {
+      async list(path4, options, parameters) {
         var _this14 = this;
         return _this14.handleOperation(async () => {
           const sortBy = (options === null || options === void 0 ? void 0 : options.sortBy) ? _objectSpread22(_objectSpread22({}, DEFAULT_SEARCH_OPTIONS.sortBy), options.sortBy) : DEFAULT_SEARCH_OPTIONS.sortBy;
           const body = _objectSpread22(_objectSpread22(_objectSpread22({}, DEFAULT_SEARCH_OPTIONS), options), {}, {
             sortBy,
-            prefix: path3 || ""
+            prefix: path4 || ""
           });
           return await post(_this14.fetch, `${_this14.url}/object/list/${_this14.bucketId}`, body, { headers: _this14.headers }, parameters);
         });
@@ -12019,11 +12074,11 @@ var init_dist3 = __esm({
         if (typeof Buffer !== "undefined") return Buffer.from(data).toString("base64");
         return btoa(data);
       }
-      _getFinalPath(path3) {
-        return `${this.bucketId}/${path3.replace(/^\/+/, "")}`;
+      _getFinalPath(path4) {
+        return `${this.bucketId}/${path4.replace(/^\/+/, "")}`;
       }
-      _removeEmptyFolders(path3) {
-        return path3.replace(/^\/|\/$/g, "").replace(/\/+/g, "/");
+      _removeEmptyFolders(path4) {
+        return path4.replace(/^\/|\/$/g, "").replace(/\/+/g, "/");
       }
       /** Modifies the `query`, appending values the from `transform` */
       applyTransformOptsToQuery(query, transform) {
@@ -22413,8 +22468,8 @@ var init_dist4 = __esm({
 // node_modules/dotenv/lib/main.js
 var require_main4 = __commonJS({
   "node_modules/dotenv/lib/main.js"(exports2, module2) {
-    var fs2 = require("fs");
-    var path3 = require("path");
+    var fs3 = require("fs");
+    var path4 = require("path");
     var os = require("os");
     var crypto3 = require("crypto");
     var TIPS = [
@@ -22545,7 +22600,7 @@ var require_main4 = __commonJS({
       if (options && options.path && options.path.length > 0) {
         if (Array.isArray(options.path)) {
           for (const filepath of options.path) {
-            if (fs2.existsSync(filepath)) {
+            if (fs3.existsSync(filepath)) {
               possibleVaultPath = filepath.endsWith(".vault") ? filepath : `${filepath}.vault`;
             }
           }
@@ -22553,15 +22608,15 @@ var require_main4 = __commonJS({
           possibleVaultPath = options.path.endsWith(".vault") ? options.path : `${options.path}.vault`;
         }
       } else {
-        possibleVaultPath = path3.resolve(process.cwd(), ".env.vault");
+        possibleVaultPath = path4.resolve(process.cwd(), ".env.vault");
       }
-      if (fs2.existsSync(possibleVaultPath)) {
+      if (fs3.existsSync(possibleVaultPath)) {
         return possibleVaultPath;
       }
       return null;
     }
     function _resolveHome(envPath) {
-      return envPath[0] === "~" ? path3.join(os.homedir(), envPath.slice(1)) : envPath;
+      return envPath[0] === "~" ? path4.join(os.homedir(), envPath.slice(1)) : envPath;
     }
     function _configVault(options) {
       const debug = parseBoolean(process.env.DOTENV_CONFIG_DEBUG || options && options.debug);
@@ -22578,7 +22633,7 @@ var require_main4 = __commonJS({
       return { parsed };
     }
     function configDotenv(options) {
-      const dotenvPath = path3.resolve(process.cwd(), ".env");
+      const dotenvPath = path4.resolve(process.cwd(), ".env");
       let encoding = "utf8";
       let processEnv = process.env;
       if (options && options.processEnv != null) {
@@ -22606,13 +22661,13 @@ var require_main4 = __commonJS({
       }
       let lastError;
       const parsedAll = {};
-      for (const path4 of optionPaths) {
+      for (const path5 of optionPaths) {
         try {
-          const parsed = DotenvModule.parse(fs2.readFileSync(path4, { encoding }));
+          const parsed = DotenvModule.parse(fs3.readFileSync(path5, { encoding }));
           DotenvModule.populate(parsedAll, parsed, options);
         } catch (e) {
           if (debug) {
-            _debug(`failed to load ${path4} ${e.message}`);
+            _debug(`failed to load ${path5} ${e.message}`);
           }
           lastError = e;
         }
@@ -22625,7 +22680,7 @@ var require_main4 = __commonJS({
         const shortPaths = [];
         for (const filePath of optionPaths) {
           try {
-            const relative = path3.relative(process.cwd(), filePath);
+            const relative = path4.relative(process.cwd(), filePath);
             shortPaths.push(relative);
           } catch (e) {
             if (debug) {
@@ -22730,6 +22785,36 @@ var require_main4 = __commonJS({
 });
 
 // src/database/sync/engine/MainSupabaseClient.ts
+async function setSupabaseSession(accessToken, refreshToken) {
+  if (!mainSupabase) {
+    console.warn("[MainSupabaseClient] Cannot set session \u2014 client not initialized");
+    return false;
+  }
+  try {
+    const { data, error } = await mainSupabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    });
+    if (error) {
+      console.error("[MainSupabaseClient] Failed to set session:", error.message);
+      return false;
+    }
+    console.log("[MainSupabaseClient] Session set successfully for user:", data.user?.id);
+    return true;
+  } catch (err) {
+    console.error("[MainSupabaseClient] Error setting session:", err);
+    return false;
+  }
+}
+async function clearSupabaseSession() {
+  if (!mainSupabase) return;
+  try {
+    await mainSupabase.auth.signOut();
+    console.log("[MainSupabaseClient] Session cleared.");
+  } catch (err) {
+    console.error("[MainSupabaseClient] Error clearing session:", err);
+  }
+}
 var dotenv, import_path, supabaseUrl, supabaseAnonKey, mainSupabase;
 var init_MainSupabaseClient = __esm({
   "src/database/sync/engine/MainSupabaseClient.ts"() {
@@ -22753,19 +22838,52 @@ var init_MainSupabaseClient = __esm({
 });
 
 // src/database/sync/engine/SyncLogger.ts
-var SyncLogger;
+function writeLog(level, message, data) {
+  const line = `[${(/* @__PURE__ */ new Date()).toISOString()}] [SyncEngine] ${level}: ${message} ${data ? JSON.stringify(data) : ""}
+`;
+  console.log(line.trim());
+  try {
+    import_fs.default.appendFileSync(logFile, line);
+  } catch (e) {
+  }
+}
+var import_fs, import_path2, logFile, SyncLogger;
 var init_SyncLogger = __esm({
   "src/database/sync/engine/SyncLogger.ts"() {
+    import_fs = __toESM(require("fs"), 1);
+    import_path2 = __toESM(require("path"), 1);
+    logFile = import_path2.default.join(process.cwd(), "sync-audit.log");
     SyncLogger = class {
       static info(message, context) {
-        console.log(`[SyncEngine] INFO: ${message}`, context ? JSON.stringify(context) : "");
+        writeLog("INFO", message, context);
       }
       static warn(message, context) {
-        console.warn(`[SyncEngine] WARN: ${message}`, context ? JSON.stringify(context) : "");
+        writeLog("WARN", message, context);
       }
       static error(message, error) {
-        console.error(`[SyncEngine] ERROR: ${message}`, error);
+        writeLog("ERROR", message, error);
       }
+    };
+  }
+});
+
+// src/database/sync/engine/TableMapping.ts
+var TABLE_MAPPINGS;
+var init_TableMapping = __esm({
+  "src/database/sync/engine/TableMapping.ts"() {
+    TABLE_MAPPINGS = {
+      "categories": { remoteTable: "categories", workspaceFiltered: true },
+      "products": { remoteTable: "products", workspaceFiltered: true },
+      "customers": { remoteTable: "customers", workspaceFiltered: true },
+      "suppliers": { remoteTable: "suppliers", workspaceFiltered: true },
+      "expenses": { remoteTable: "expenses", workspaceFiltered: true },
+      "purchases": { remoteTable: "purchase_orders", workspaceFiltered: true },
+      "purchase_items": { remoteTable: "purchase_order_items", workspaceFiltered: false, parentJoin: "purchase_orders!inner(workspace_id)", syncColumn: "created_at" },
+      "sales": { remoteTable: "sales", workspaceFiltered: true },
+      "sale_items": { remoteTable: "sale_items", workspaceFiltered: false, parentJoin: "sales!inner(workspace_id)", syncColumn: "created_at" },
+      "inventory_movements": { remoteTable: "stock_movements", workspaceFiltered: true, syncColumn: "created_at" },
+      "settings": { remoteTable: "settings", workspaceFiltered: true },
+      "users": { remoteTable: "users", workspaceFiltered: true }
     };
   }
 });
@@ -22776,6 +22894,7 @@ var init_UploadManager = __esm({
   "src/database/sync/engine/UploadManager.ts"() {
     init_MainSupabaseClient();
     init_SyncLogger();
+    init_TableMapping();
     UploadManager = class {
       queueManager;
       progress;
@@ -22799,15 +22918,21 @@ var init_UploadManager = __esm({
         for (const [tableName, tableItems] of Object.entries(itemsByTable)) {
           this.progress.setModule(tableName);
           SyncLogger.info(`Uploading ${tableItems.length} items to ${tableName}`);
-          const upserts = tableItems.filter((i) => i.operation !== "DELETE").map((i) => JSON.parse(i.payload));
-          const deletes = tableItems.filter((i) => i.operation === "DELETE").map((i) => i.record_id);
+          const upserts = tableItems.map((i) => {
+            const payload = JSON.parse(i.payload);
+            delete payload.sync_status;
+            delete payload.version;
+            delete payload.device_id;
+            delete payload.last_synced_at;
+            if (i.operation === "DELETE" && !payload.deleted_at) {
+              payload.deleted_at = (/* @__PURE__ */ new Date()).toISOString();
+            }
+            return payload;
+          });
+          const mapping = TABLE_MAPPINGS[tableName] || { remoteTable: tableName, workspaceFiltered: true };
           try {
             if (upserts.length > 0) {
-              const { error } = await mainSupabase.from(tableName).upsert(upserts);
-              if (error) throw error;
-            }
-            if (deletes.length > 0) {
-              const { error } = await mainSupabase.from(tableName).delete().in("id", deletes);
+              const { error } = await mainSupabase.from(mapping.remoteTable).upsert(upserts);
               if (error) throw error;
             }
             this.queueManager.removeItems(tableItems.map((i) => i.id));
@@ -22835,20 +22960,27 @@ var init_DownloadManager = __esm({
     init_MainSupabaseClient();
     init_SyncLogger();
     init_dbUtils();
+    init_AppEvents();
+    init_TableMapping();
     DownloadManager = class {
       db;
       progress;
       conflictDetector;
-      // List of tables that participate in sync
+      // Complete list of tables that participate in sync — matches InitialSyncManager
+      // Ordered by dependencies (e.g. settings/users first, categories before products, products before purchases, etc.)
       SYNC_TABLES = [
+        "settings",
+        "users",
         "categories",
-        "products",
-        "customers",
         "suppliers",
-        "expenses",
+        "customers",
+        "products",
         "purchases",
         "purchase_items",
-        "settings"
+        "sales",
+        "sale_items",
+        "inventory_movements",
+        "expenses"
       ];
       constructor(db, progress, conflictDetector) {
         this.db = db;
@@ -22862,6 +22994,7 @@ var init_DownloadManager = __esm({
         }
         this.progress.setStage("downloading", "Downloading remote changes");
         let allSuccessful = true;
+        const updatedTables = [];
         for (const tableName of this.SYNC_TABLES) {
           this.progress.setModule(tableName);
           try {
@@ -22871,36 +23004,87 @@ var init_DownloadManager = __esm({
           WHERE workspace_id = ?
         `).get(workspaceId);
             const lastSync = lastSyncedRow?.last_sync || "1970-01-01T00:00:00.000Z";
-            const { data: cloudRecords, error } = await mainSupabase.from(tableName).select("*").eq("workspace_id", workspaceId).gt("updated_at", lastSync).order("updated_at", { ascending: true });
-            if (error) throw error;
-            if (!cloudRecords || cloudRecords.length === 0) continue;
-            SyncLogger.info(`Downloaded ${cloudRecords.length} records for ${tableName}`);
-            const transaction = this.db.transaction(() => {
-              for (const cloudRecord of cloudRecords) {
-                const resolution = this.conflictDetector.evaluate(tableName, cloudRecord);
-                if (resolution === "cloud_wins") {
-                  const keys = Object.keys(cloudRecord);
-                  cloudRecord.sync_status = "synced";
-                  cloudRecord.last_synced_at = now();
-                  const placeholders = keys.map(() => "?").join(", ");
-                  const updates = keys.map((k) => `${k} = excluded.${k}`).join(", ");
-                  const query = `
-                INSERT INTO ${tableName} (${keys.join(", ")})
-                VALUES (${placeholders})
-                ON CONFLICT(id) DO UPDATE SET ${updates}
-              `;
-                  const values = keys.map((k) => cloudRecord[k]);
-                  this.db.prepare(query).run(values);
-                }
+            const mapping = TABLE_MAPPINGS[tableName] || { remoteTable: tableName, workspaceFiltered: true };
+            const selectStr = mapping.parentJoin ? `*, ${mapping.parentJoin}` : "*";
+            const syncCol = mapping.syncColumn || "updated_at";
+            let from = 0;
+            const batchSize = 1e3;
+            let hasMore = true;
+            let tableDownloadedCount = 0;
+            while (hasMore) {
+              let query = mainSupabase.from(mapping.remoteTable).select(selectStr).gt(syncCol, lastSync).order(syncCol, { ascending: true }).range(from, from + batchSize - 1);
+              if (mapping.workspaceFiltered) {
+                query = query.eq("workspace_id", workspaceId);
+              } else if (mapping.parentJoin) {
+                const parentTable = mapping.parentJoin.split("!")[0];
+                query = query.eq(`${parentTable}.workspace_id`, workspaceId);
               }
-            });
-            transaction();
-            this.progress.addDownload(cloudRecords.length);
+              const { data: cloudRecords, error } = await query;
+              if (error) throw error;
+              if (!cloudRecords || cloudRecords.length === 0) {
+                hasMore = false;
+                break;
+              }
+              const columnsInfo = this.db.pragma(`table_info(${tableName})`);
+              const validColumns = new Set(columnsInfo.map((c) => c.name));
+              const transaction = this.db.transaction(() => {
+                for (const cloudRecord of cloudRecords) {
+                  const resolution = this.conflictDetector.evaluate(tableName, cloudRecord);
+                  if (resolution === "cloud_wins") {
+                    cloudRecord.sync_status = "synced";
+                    cloudRecord.last_synced_at = now();
+                    if (!cloudRecord.workspace_id) cloudRecord.workspace_id = workspaceId;
+                    if (!cloudRecord.updated_at) cloudRecord.updated_at = cloudRecord.created_at || now();
+                    if (!cloudRecord.created_at) cloudRecord.created_at = now();
+                    const validKeys = Object.keys(cloudRecord).filter((k) => validColumns.has(k));
+                    if (validKeys.length === 0) continue;
+                    const placeholders = validKeys.map(() => "?").join(", ");
+                    const updates = validKeys.map((k) => `${k} = excluded.${k}`).join(", ");
+                    const query2 = `
+                  INSERT INTO ${tableName} (${validKeys.join(", ")})
+                  VALUES (${placeholders})
+                  ON CONFLICT(id) DO UPDATE SET ${updates}
+                `;
+                    const values = validKeys.map((k) => {
+                      if (typeof cloudRecord[k] === "boolean") return cloudRecord[k] ? 1 : 0;
+                      if (typeof cloudRecord[k] === "object" && cloudRecord[k] !== null) return JSON.stringify(cloudRecord[k]);
+                      return cloudRecord[k];
+                    });
+                    try {
+                      this.db.prepare(query2).run(values);
+                    } catch (insertErr) {
+                      throw new Error(JSON.stringify({
+                        error: "SQLITE_INSERT_FAILED",
+                        message: insertErr.message,
+                        table: tableName,
+                        query: query2.trim(),
+                        values: validKeys.reduce((acc, key, i) => ({ ...acc, [key]: values[i] }), {})
+                      }, null, 2));
+                    }
+                  }
+                }
+              });
+              transaction();
+              tableDownloadedCount += cloudRecords.length;
+              from += batchSize;
+              if (cloudRecords.length < batchSize) {
+                hasMore = false;
+              }
+            }
+            if (tableDownloadedCount > 0) {
+              SyncLogger.info(`Downloaded ${tableDownloadedCount} records for ${tableName}`);
+              this.progress.addDownload(tableDownloadedCount);
+              updatedTables.push(tableName);
+            }
           } catch (err) {
             SyncLogger.error(`Download failed for ${tableName}`, err);
             allSuccessful = false;
             this.progress.addFailure();
           }
+        }
+        if (updatedTables.length > 0) {
+          AppEvents.broadcastToRenderers("sync:data-updated", updatedTables);
+          SyncLogger.info(`Data updated in tables: ${updatedTables.join(", ")}`);
         }
         return allSuccessful;
       }
@@ -22936,6 +23120,9 @@ var init_ProgressManager = __esm({
           retryCount: 0
         };
         this.emit("sync:start");
+      }
+      getProgress() {
+        return this.progress;
       }
       setStage(stage, message) {
         this.progress.stage = stage;
@@ -23092,6 +23279,7 @@ var init_SyncEngine = __esm({
         }
         this.isSyncing = true;
         this.currentWorkspaceId = workspaceId;
+        const startTime = Date.now();
         SyncLogger.info(`Starting sync cycle for workspace ${workspaceId}`);
         try {
           const allPending = this.queueManager.getPendingOperations(workspaceId, 1e3);
@@ -23112,9 +23300,12 @@ var init_SyncEngine = __esm({
           }
           await this.downloadManager.downloadChanges(workspaceId);
           this.progress.finish();
-          SyncLogger.info("Sync cycle completed successfully.");
+          const duration = Date.now() - startTime;
+          const stats = this.progress.getProgress();
+          SyncLogger.info(`Sync cycle completed in ${duration}ms. Uploaded: ${stats.uploadCount}, Downloaded: ${stats.downloadCount}, Failed: ${stats.failedCount}`);
         } catch (err) {
-          SyncLogger.error("Sync cycle failed completely", err);
+          const duration = Date.now() - startTime;
+          SyncLogger.error(`Sync cycle failed completely after ${duration}ms`, err);
           this.progress.setStage("error", "Critical failure during sync");
         } finally {
           this.isSyncing = false;
@@ -23139,10 +23330,10 @@ var init_SyncScheduler = __esm({
       queueManager;
       timer = null;
       // Settings
-      syncIntervalMs = 5 * 60 * 1e3;
-      // 5 minutes
-      thresholdLimit = 20;
-      // Automatically sync if queue reaches 20
+      syncIntervalMs = 30 * 1e3;
+      // 30 seconds
+      thresholdLimit = 1;
+      // Automatically sync on every change
       currentWorkspaceId = null;
       isOnline = true;
       queueListener;
@@ -23205,6 +23396,205 @@ var init_SyncScheduler = __esm({
   }
 });
 
+// src/database/sync/engine/InitialSyncManager.ts
+var InitialSyncManager;
+var init_InitialSyncManager = __esm({
+  "src/database/sync/engine/InitialSyncManager.ts"() {
+    init_MainSupabaseClient();
+    init_SyncLogger();
+    init_dbUtils();
+    init_AppEvents();
+    init_TableMapping();
+    InitialSyncManager = class {
+      db;
+      // Complete list of all business tables to sync
+      ALL_TABLES = [
+        "categories",
+        "products",
+        "customers",
+        "suppliers",
+        "expenses",
+        "purchases",
+        "purchase_items",
+        "sales",
+        "sale_items",
+        "inventory_movements",
+        "settings",
+        "users"
+      ];
+      constructor(db) {
+        this.db = db;
+      }
+      /**
+       * Check if initial sync has been completed for a workspace.
+       */
+      isInitialSyncCompleted(workspaceId) {
+        const row = this.db.prepare(
+          "SELECT initial_sync_completed FROM sync_metadata WHERE workspace_id = ?"
+        ).get(workspaceId);
+        if (row?.initial_sync_completed === 1) {
+          try {
+            const usersCount = this.db.prepare("SELECT COUNT(*) as count FROM users").get();
+            if (usersCount.count === 0) {
+              SyncLogger.warn("[InitialSync] DB is empty but initial_sync_completed is 1. Forcing auto-recovery...");
+              this.db.prepare("UPDATE sync_metadata SET initial_sync_completed = 0 WHERE workspace_id = ?").run(workspaceId);
+              return false;
+            }
+          } catch (err) {
+            return false;
+          }
+          return true;
+        }
+        return false;
+      }
+      /**
+       * Perform a full initial download of all workspace data from Supabase.
+       * This is called once per workspace per device.
+       */
+      async performInitialSync(workspaceId) {
+        if (!mainSupabase) {
+          SyncLogger.error("[InitialSync] Supabase client not initialized");
+          return false;
+        }
+        if (this.isInitialSyncCompleted(workspaceId)) {
+          SyncLogger.info("[InitialSync] Already completed for workspace " + workspaceId);
+          return true;
+        }
+        SyncLogger.info(`[InitialSync] Starting full download for workspace ${workspaceId}...`);
+        AppEvents.broadcastToRenderers("sync:initial-start", { workspaceId });
+        let totalDownloaded = 0;
+        const tablesSynced = [];
+        let allSuccessful = true;
+        for (const tableName of this.ALL_TABLES) {
+          try {
+            SyncLogger.info(`[InitialSync] Downloading ${tableName}...`);
+            AppEvents.broadcastToRenderers("sync:initial-progress", {
+              table: tableName,
+              totalDownloaded,
+              tablesCompleted: tablesSynced.length,
+              totalTables: this.ALL_TABLES.length
+            });
+            const mapping = TABLE_MAPPINGS[tableName] || { remoteTable: tableName, workspaceFiltered: true };
+            const selectStr = mapping.parentJoin ? `*, ${mapping.parentJoin}` : "*";
+            let allRecords = [];
+            let from = 0;
+            const batchSize = 1e3;
+            while (true) {
+              let query = mainSupabase.from(mapping.remoteTable).select(selectStr).range(from, from + batchSize - 1).order("created_at", { ascending: true });
+              if (mapping.workspaceFiltered) {
+                query = query.eq("workspace_id", workspaceId);
+              } else if (mapping.parentJoin) {
+                const parentTable = mapping.parentJoin.split("!")[0];
+                query = query.eq(`${parentTable}.workspace_id`, workspaceId);
+              }
+              const { data, error } = await query;
+              if (error) {
+                SyncLogger.error(`[InitialSync] Failed to fetch ${tableName}: ${error.message}`);
+                throw error;
+              }
+              if (!data || data.length === 0) break;
+              allRecords = allRecords.concat(data);
+              from += batchSize;
+              if (data.length < batchSize) break;
+            }
+            if (allRecords.length === 0) {
+              SyncLogger.info(`[InitialSync] No records for ${tableName}`);
+              tablesSynced.push(tableName);
+              continue;
+            }
+            SyncLogger.info(`[InitialSync] Downloaded ${allRecords.length} records for ${tableName}`);
+            const columnsInfo = this.db.pragma(`table_info(${tableName})`);
+            const validColumns = new Set(columnsInfo.map((c) => c.name));
+            let insertedCount = 0;
+            let skippedCount = 0;
+            this.db.transaction(() => {
+              for (const record of allRecords) {
+                record.sync_status = "synced";
+                record.last_synced_at = now();
+                if (!record.version) record.version = 1;
+                if (!record.device_id) record.device_id = "CLOUD";
+                if (!record.workspace_id) record.workspace_id = workspaceId;
+                if (!record.updated_at) record.updated_at = record.created_at || now();
+                if (!record.created_at) record.created_at = now();
+                const validKeys = Object.keys(record).filter((k) => validColumns.has(k));
+                if (validKeys.length === 0) {
+                  skippedCount++;
+                  continue;
+                }
+                const placeholders = validKeys.map(() => "?").join(", ");
+                const updates = validKeys.map((k) => `${k} = excluded.${k}`).join(", ");
+                const values = validKeys.map((k) => {
+                  if (typeof record[k] === "boolean") return record[k] ? 1 : 0;
+                  if (typeof record[k] === "object" && record[k] !== null) return JSON.stringify(record[k]);
+                  return record[k];
+                });
+                try {
+                  this.db.prepare(`
+                INSERT INTO ${tableName} (${validKeys.join(", ")})
+                VALUES (${placeholders})
+                ON CONFLICT(id) DO UPDATE SET ${updates}
+              `).run(values);
+                  insertedCount++;
+                } catch (insertErr) {
+                  throw new Error(JSON.stringify({
+                    error: "SQLITE_INSERT_FAILED",
+                    message: insertErr.message,
+                    table: tableName,
+                    query: `INSERT INTO ${tableName} (${validKeys.join(", ")}) ...`,
+                    values: validKeys.reduce((acc, key, i) => ({ ...acc, [key]: values[i] }), {})
+                  }, null, 2));
+                }
+              }
+            })();
+            SyncLogger.info(`[InitialSync] Finished ${tableName}: ${insertedCount} inserted, ${skippedCount} skipped.`);
+            totalDownloaded += insertedCount;
+            tablesSynced.push(tableName);
+          } catch (err) {
+            SyncLogger.error(`[InitialSync] Error syncing ${tableName}: ${err.message}`);
+            allSuccessful = false;
+          }
+        }
+        if (tablesSynced.length > 0) {
+          const timestamp = now();
+          this.db.prepare(`
+        INSERT INTO sync_metadata (id, workspace_id, initial_sync_completed, initial_sync_at, last_full_sync_at, tables_synced, created_at, updated_at)
+        VALUES (?, ?, 1, ?, ?, ?, ?, ?)
+        ON CONFLICT(workspace_id) DO UPDATE SET 
+          initial_sync_completed = 1,
+          initial_sync_at = excluded.initial_sync_at,
+          last_full_sync_at = excluded.last_full_sync_at,
+          tables_synced = excluded.tables_synced,
+          updated_at = excluded.updated_at
+      `).run(
+            `sync_${workspaceId}`,
+            workspaceId,
+            timestamp,
+            timestamp,
+            JSON.stringify(tablesSynced),
+            timestamp,
+            timestamp
+          );
+          SyncLogger.info(`[InitialSync] Complete. Inserted ${totalDownloaded} records across ${tablesSynced.length} tables.`);
+          AppEvents.broadcastToRenderers("sync:initial-complete", {
+            workspaceId,
+            totalDownloaded,
+            tablesSynced,
+            allSuccessful
+          });
+        } else {
+          SyncLogger.error(`[InitialSync] FATAL: All tables failed to sync. Initial Sync aborted.`);
+          AppEvents.broadcastToRenderers("sync:initial-error", {
+            workspaceId,
+            error: "Initial sync failed completely."
+          });
+          return false;
+        }
+        return allSuccessful;
+      }
+    };
+  }
+});
+
 // src/database/index.ts
 var index_exports = {};
 __export(index_exports, {
@@ -23212,23 +23602,26 @@ __export(index_exports, {
   dbManager: () => dbManager
 });
 module.exports = __toCommonJS(index_exports);
-var import_better_sqlite3, import_path2, import_fs, DatabaseManager, dbManager;
+var import_better_sqlite3, import_path3, import_fs2, DatabaseManager, dbManager;
 var init_index = __esm({
   "src/database/index.ts"() {
     import_better_sqlite3 = __toESM(require("better-sqlite3"), 1);
-    import_path2 = __toESM(require("path"), 1);
-    import_fs = __toESM(require("fs"), 1);
+    import_path3 = __toESM(require("path"), 1);
+    import_fs2 = __toESM(require("fs"), 1);
     init_migrations();
     init_repositories();
     init_QueueManager();
     init_SyncEngine();
     init_SyncScheduler();
+    init_InitialSyncManager();
+    init_MainSupabaseClient();
     DatabaseManager = class _DatabaseManager {
       static instance;
       db;
       queue;
       syncEngine;
       syncScheduler;
+      initialSyncManager;
       products;
       customers;
       suppliers;
@@ -23240,6 +23633,7 @@ var init_index = __esm({
       purchase_items;
       settings;
       users;
+      currentWorkspaceId = null;
       constructor() {
       }
       static getInstance() {
@@ -23257,10 +23651,10 @@ var init_index = __esm({
           console.warn("[DatabaseManager] Database already initialized.");
           return;
         }
-        const dbPath = import_path2.default.join(userDataPath, "khata_book_local.sqlite");
+        const dbPath = import_path3.default.join(userDataPath, "khata_book_local.sqlite");
         console.log(`[DatabaseManager] Initializing database at ${dbPath}`);
-        if (!import_fs.default.existsSync(userDataPath)) {
-          import_fs.default.mkdirSync(userDataPath, { recursive: true });
+        if (!import_fs2.default.existsSync(userDataPath)) {
+          import_fs2.default.mkdirSync(userDataPath, { recursive: true });
         }
         this.db = new import_better_sqlite3.default(dbPath, {
           // verbose: console.log 
@@ -23275,7 +23669,7 @@ var init_index = __esm({
         this.queue.recover();
         this.syncEngine = new SyncEngine(this.db, this.queue);
         this.syncScheduler = new SyncScheduler(this.syncEngine, this.queue);
-        this.syncScheduler.initialize("1", true);
+        this.initialSyncManager = new InitialSyncManager(this.db);
         this.products = new ProductRepository(this.db);
         this.customers = new CustomerRepository(this.db);
         this.suppliers = new SupplierRepository(this.db);
@@ -23287,9 +23681,71 @@ var init_index = __esm({
         this.purchase_items = new PurchaseItemRepository(this.db);
         this.settings = new SettingsRepository(this.db);
         this.users = new UserRepository(this.db);
-        console.log("[DatabaseManager] Database initialization complete.");
+        console.log("[DatabaseManager] Database initialization complete (sync not started \u2014 waiting for workspace).");
+      }
+      /**
+       * Set the Supabase auth session in the main process so the sync engine 
+       * can make authenticated API calls.
+       */
+      async setAuthSession(accessToken, refreshToken) {
+        return setSupabaseSession(accessToken, refreshToken);
+      }
+      /**
+       * Initialize sync for a specific workspace.
+       * Called after login when we know the workspace ID and have auth tokens.
+       * 
+       * Steps:
+       * 1. Check if initial sync is needed (first login on this device)
+       * 2. If yes, perform full download from Supabase
+       * 3. Start the sync scheduler for incremental sync
+       */
+      async initializeSync(workspaceId) {
+        this.currentWorkspaceId = workspaceId;
+        console.log(`[DatabaseManager] Initializing sync for workspace ${workspaceId}`);
+        const needsInitialSync = !this.initialSyncManager.isInitialSyncCompleted(workspaceId);
+        if (needsInitialSync) {
+          console.log("[DatabaseManager] First login on this device \u2014 performing initial sync...");
+          await this.initialSyncManager.performInitialSync(workspaceId);
+        }
+        this.syncScheduler.initialize(workspaceId, true);
+        console.log(`[DatabaseManager] Sync scheduler started for workspace ${workspaceId}`);
+      }
+      /**
+       * Trigger a manual sync cycle.
+       */
+      requestManualSync() {
+        if (this.syncScheduler) {
+          this.syncScheduler.requestManualSync();
+        }
+      }
+      /**
+       * Stop sync and clear session (e.g., on logout).
+       */
+      async stopSync() {
+        if (this.syncScheduler) {
+          this.syncScheduler.stop();
+        }
+        this.currentWorkspaceId = null;
+        await clearSupabaseSession();
+        console.log("[DatabaseManager] Sync stopped and session cleared.");
+      }
+      /**
+       * Get current sync status information.
+       */
+      getSyncStatus() {
+        const initialSyncCompleted = this.currentWorkspaceId ? this.initialSyncManager.isInitialSyncCompleted(this.currentWorkspaceId) : false;
+        const queueStats = this.currentWorkspaceId ? this.queue.getQueueStats(this.currentWorkspaceId) : { pending: 0, syncing: 0, failed: 0 };
+        return {
+          workspaceId: this.currentWorkspaceId,
+          isSyncing: this.syncEngine.isRunning,
+          initialSyncCompleted,
+          queueStats
+        };
       }
       close() {
+        if (this.syncScheduler) {
+          this.syncScheduler.stop();
+        }
         if (this.db) {
           this.db.close();
           console.log("[DatabaseManager] Database connection closed.");

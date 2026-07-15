@@ -130,7 +130,7 @@ function App() {
   }, [i18n.language]);
 
   useEffect(() => {
-    // Initialize all stores
+    // Initialize all stores from local SQLite cache
     const initializeStores = async () => {
       try {
         await Promise.all([
@@ -143,7 +143,6 @@ function App() {
           initPurchases().catch(err => console.error('Failed to init purchases:', err)),
         ]);
         console.log('All stores initialized successfully');
-        console.log('Stores initialized');
       } catch (error) {
         console.error('Store initialization error:', error);
       }
@@ -154,6 +153,52 @@ function App() {
       useSyncStore.getState().initializeListeners();
     }
   }, [isDbReady, isAuthenticated, isOnline]);
+
+  // Offline-first: Forward auth session to main process for sync engine
+  useEffect(() => {
+    const setupSync = async () => {
+      if (!isElectron || !isAuthenticated || !user?.workspaceId) return;
+
+      try {
+        // Get current Supabase session tokens from the renderer
+        const supabaseModule = await import('./backend/supabaseClient');
+        const supabase = supabaseModule.default;
+        if (!supabase) return;
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          console.warn('[Sync] No Supabase session available to forward');
+          return;
+        }
+
+        // Forward auth tokens to the main process
+        console.log('[Sync] Forwarding auth session to main process...');
+        await (window as any).electronAPI.setSupabaseSession(
+          session.access_token,
+          session.refresh_token
+        );
+
+        // Initialize sync with workspace ID
+        console.log('[Sync] Initializing sync for workspace:', user.workspaceId);
+        await (window as any).electronAPI.initializeSync(String(user.workspaceId));
+
+        console.log('[Sync] Sync bridge established successfully');
+      } catch (err) {
+        console.error('[Sync] Failed to set up sync bridge:', err);
+      }
+    };
+
+    setupSync();
+  }, [isAuthenticated, user?.workspaceId, isElectron]);
+
+  // Stop sync on logout
+  useEffect(() => {
+    if (isElectron && !isAuthenticated) {
+      (window as any).electronAPI?.stopSync?.()?.catch?.((err: any) => {
+        console.error('[Sync] Failed to stop sync on logout:', err);
+      });
+    }
+  }, [isAuthenticated, isElectron]);
 
   useEffect(() => {
     if (isAuthenticated && user?.workspaceId) {
@@ -166,6 +211,7 @@ function App() {
       realtimeManager.disconnect();
     };
   }, [isAuthenticated, user?.workspaceId]);
+
 
   if (!isDbReady) {
     return (

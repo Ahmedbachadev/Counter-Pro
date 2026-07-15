@@ -40,6 +40,10 @@ export class ProgressManager {
     this.emit('sync:start');
   }
 
+  public getProgress(): SyncProgress {
+    return this.progress;
+  }
+
   public setStage(stage: SyncStage, message?: string) {
     this.progress.stage = stage;
     this.progress.message = message;

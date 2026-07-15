@@ -30,6 +30,7 @@ interface SyncState {
   pendingCount: number;
   queueStats: { pending: number; syncing: number; failed: number };
   toasts: SyncToast[];
+  initialSyncFailed: boolean;
   
   // Actions
   setOnlineStatus: (status: boolean) => void;
@@ -45,6 +46,56 @@ interface SyncState {
   initializeListeners: () => void;
 }
 
+/**
+ * Map of table names to the store refresh functions they should trigger.
+ * This is used by the sync:data-updated event to refresh only affected stores.
+ */
+function refreshStoresAfterSync(updatedTables: string[]) {
+  const tableToRefresh: Record<string, () => Promise<void>> = {};
+
+  // Lazy-load store references to avoid circular imports
+  try {
+    const { useInventoryStore } = require('./inventoryStore');
+    const { useCustomerStore } = require('./customersStore');
+    const { usePOSStore } = require('./posStore');
+    const { useSettingsStore } = require('./settingsStore');
+    const { useSupplierStore } = require('./supplierStore');
+    const { useExpensesStore } = require('./expensesStore');
+    const { usePurchaseStore } = require('./purchaseStore');
+
+    tableToRefresh['products'] = () => useInventoryStore.getState().initializeFromDatabase();
+    tableToRefresh['categories'] = () => useInventoryStore.getState().initializeFromDatabase();
+    tableToRefresh['customers'] = () => useCustomerStore.getState().initializeFromDatabase();
+    tableToRefresh['sales'] = () => usePOSStore.getState().initializeFromDatabase();
+    tableToRefresh['sale_items'] = () => usePOSStore.getState().initializeFromDatabase();
+    tableToRefresh['settings'] = () => useSettingsStore.getState().initializeFromDatabase();
+    tableToRefresh['suppliers'] = () => useSupplierStore.getState().initializeFromDatabase();
+    tableToRefresh['expenses'] = () => useExpensesStore.getState().initializeFromDatabase();
+    tableToRefresh['purchases'] = () => usePurchaseStore.getState().initializeFromDatabase();
+    tableToRefresh['purchase_items'] = () => usePurchaseStore.getState().initializeFromDatabase();
+  } catch (err) {
+    console.error('[SyncStore] Failed to load stores for refresh:', err);
+    return;
+  }
+
+  // Deduplicate refresh calls (e.g., both products and categories refresh inventory)
+  const refreshed = new Set<string>();
+
+  for (const table of updatedTables) {
+    const refreshFn = tableToRefresh[table];
+    if (refreshFn && !refreshed.has(table)) {
+      refreshed.add(table);
+      refreshFn().catch(err => {
+        console.error(`[SyncStore] Failed to refresh store for table ${table}:`, err);
+      });
+    }
+  }
+
+  if (refreshed.size > 0) {
+    console.log(`[SyncStore] Refreshed stores for tables: ${Array.from(refreshed).join(', ')}`);
+  }
+}
+
 export const useSyncStore = create<SyncState>((set, get) => ({
   isOnline: navigator.onLine,
   isSyncing: false,
@@ -53,6 +104,7 @@ export const useSyncStore = create<SyncState>((set, get) => ({
   pendingCount: 0,
   queueStats: { pending: 0, syncing: 0, failed: 0 },
   toasts: [],
+  initialSyncFailed: false,
 
   setOnlineStatus: (status: boolean) => {
     const wasOffline = !get().isOnline;
@@ -104,7 +156,12 @@ export const useSyncStore = create<SyncState>((set, get) => ({
 
   requestManualSync: () => {
     get().addToast('Manual synchronization requested...', 'info');
-    // TODO: Send IPC command to trigger sync manually when implemented in backend
+    // Send IPC command to trigger sync in the main process
+    if (window.electronAPI?.triggerManualSync) {
+      window.electronAPI.triggerManualSync().catch((err: any) => {
+        console.error('[SyncStore] Manual sync request failed:', err);
+      });
+    }
   },
 
   initializeListeners: () => {
@@ -137,6 +194,34 @@ export const useSyncStore = create<SyncState>((set, get) => ({
           pendingCount: Math.max(0, state.pendingCount - (ids?.length || 1)),
           queueStats: { ...state.queueStats, pending: Math.max(0, state.queueStats.pending - (ids?.length || 1)) }
         }));
+      });
+
+      // ── Offline-first: Refresh stores when sync downloads new data ──
+      window.electronAPI.onAppEvent('sync:data-updated', (updatedTables: string[]) => {
+        console.log('[SyncStore] Data updated from cloud, refreshing stores for:', updatedTables);
+        refreshStoresAfterSync(updatedTables);
+      });
+
+      // ── Initial sync events ──
+      window.electronAPI.onAppEvent('sync:initial-start', () => {
+        get().addToast('Downloading workspace data...', 'info');
+      });
+      window.electronAPI.onAppEvent('sync:initial-complete', (data: any) => {
+        if (data?.totalDownloaded > 0) {
+          get().addToast(`Initial sync complete — ${data.totalDownloaded} records downloaded`, 'success');
+          // Refresh all stores after initial sync
+          refreshStoresAfterSync([
+            'categories', 'products', 'customers', 'suppliers',
+            'expenses', 'purchases', 'purchase_items',
+            'sales', 'sale_items', 'inventory_movements',
+            'settings', 'users'
+          ]);
+        }
+        set({ initialSyncFailed: false });
+      });
+      window.electronAPI.onAppEvent('sync:initial-error', (data: any) => {
+        get().addToast(`Initial sync failed: ${data?.error || 'Unknown error'}`, 'error');
+        set({ initialSyncFailed: true });
       });
     }
 

@@ -1053,7 +1053,24 @@ const POS: React.FC = () => {
 
     const primaryMethod = payments.length === 1 ? payments[0].method : 'cash';
 
+    const businessName = useSettingsStore.getState().settings?.name || useAuthStore.getState().workspaceName || 'S';
+    const prefix = businessName.charAt(0).toUpperCase() || 'S';
+    
+    const existingSales = usePOSStore.getState().sales;
+    let maxId = existingSales.length;
+    existingSales.forEach(s => {
+       if (s.invoiceNumber) {
+          const parts = s.invoiceNumber.split('-');
+          if (parts.length > 1) {
+             const num = parseInt(parts[parts.length - 1], 10);
+             if (!isNaN(num) && num > maxId) maxId = num;
+          }
+       }
+    });
+    const generatedInvoiceNumber = `${prefix}-${maxId + 1}`;
+
     const sale = {
+      invoiceNumber: generatedInvoiceNumber,
       items: cart,
       total: subtotal,
       tax,
@@ -1091,6 +1108,7 @@ const POS: React.FC = () => {
         sale: {
           ...sale,
           id: actualInvoiceId.toString(),
+          invoiceNumber: generatedInvoiceNumber,
           createdAt: new Date(),
         },
         customer: selectedCustomer || undefined,
@@ -1098,7 +1116,7 @@ const POS: React.FC = () => {
       };
 
       setCompletedSaleData({
-        invoiceNumber: actualInvoiceId.toString(),
+        invoiceNumber: generatedInvoiceNumber,
         customerName: selectedCustomer ? selectedCustomer.name : 'Walk-In Customer',
         totalAmount: finalAmount,
         paymentStatus: computedPaymentStatus,
