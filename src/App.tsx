@@ -153,7 +153,19 @@ function App() {
       initializeStores();
       useSyncStore.getState().initializeListeners();
     }
-  }, [isDbReady, isAuthenticated, isSyncReady, isOnline]);
+  }, [
+    isDbReady, 
+    isAuthenticated, 
+    isSyncReady, 
+    isOnline, 
+    initInventory, 
+    initCustomers, 
+    initPOS, 
+    initSettings, 
+    initSuppliers, 
+    initExpenses, 
+    initPurchases
+  ]);
 
   // Offline-first: Forward auth session to main process for sync engine
   useEffect(() => {

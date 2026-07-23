@@ -769,6 +769,7 @@ const Workspaces: React.FC = () => {
   const pageSize = 15;
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
   const [filterPeriod, setFilterPeriod] = useState('All');
   const [showDeleted, setShowDeleted] = useState(false);
@@ -847,8 +848,12 @@ const Workspaces: React.FC = () => {
   }, [fetchWorkspaces]);
 
   const handleSearchChange = (val: string) => {
-    setSearchTerm(val);
-    setPage(1);
+    setSearchInput(val);
+    if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
+    searchTimerRef.current = setTimeout(() => {
+      setSearchTerm(val);
+      setPage(1);
+    }, 400);
   };
 
   const handleSort = (field: SortField) => {
@@ -873,7 +878,7 @@ const Workspaces: React.FC = () => {
         await supabase!.rpc('admin_update_workspace_status', { p_workspace_id: workspace.id, p_status: 'Disabled' });
         break;
       case 'Delete':
-        await supabase!.rpc('admin_hard_delete_workspace', { p_workspace_id: workspace.id });
+        await supabase!.rpc('admin_soft_delete_workspace', { p_workspace_id: workspace.id });
         break;
       case 'Restore':
         await supabase!.rpc('admin_restore_workspace', { p_workspace_id: workspace.id });
@@ -937,7 +942,7 @@ const Workspaces: React.FC = () => {
           <input
             type="text"
             placeholder="Search by name, email, phone, ID..."
-            value={searchTerm}
+            value={searchInput}
             onChange={e => handleSearchChange(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-[#0d1117] text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm shadow-sm transition-colors"
           />

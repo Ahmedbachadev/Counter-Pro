@@ -870,6 +870,13 @@ var init_BaseRepository = __esm({
             device_id: "LOCAL",
             ...data
           };
+          if (this.hasWorkspaceIdColumn() && !record.workspace_id) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            record.workspace_id = wid;
+          }
           const columnsInfo = this.db.pragma(`table_info(${this.tableName})`);
           const validColumns = new Set(columnsInfo.map((c) => c.name));
           const validKeys = Object.keys(record).filter((k) => validColumns.has(k));

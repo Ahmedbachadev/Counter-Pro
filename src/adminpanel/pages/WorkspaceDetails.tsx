@@ -361,7 +361,7 @@ const WorkspaceDetails: React.FC = () => {
       case 'Disable':
         await supabase!.rpc('admin_update_workspace_status', { p_workspace_id: id, p_status: 'Disabled' }); break;
       case 'Delete':
-        await supabase!.rpc('admin_hard_delete_workspace', { p_workspace_id: id });
+        await supabase!.rpc('admin_soft_delete_workspace', { p_workspace_id: id });
         navigate('/adminpanel/workspaces');
         return;
       case 'Restore':

@@ -10,8 +10,6 @@ interface EditSaleModalProps {
 }
 
 const EditSaleModal: React.FC<EditSaleModalProps> = ({ sale, onClose, onSave }) => {
-  if (!sale) return null;
-
   const { products } = useInventoryStore();
   const [items, setItems] = useState<SaleItem[]>(sale?.items || []);
   const [discount, setDiscount] = useState(sale?.discount || 0);
@@ -91,11 +89,13 @@ const EditSaleModal: React.FC<EditSaleModalProps> = ({ sale, onClose, onSave }) 
   
   // NOTE: If payment method changes to 'credit', reset amountPaid to a sane value like current paid or 0
   useEffect(() => {
-    if (paymentMethod === 'credit' && amountPaid === 0 && sale.amountPaid > 0) {
+    if (paymentMethod === 'credit' && amountPaid === 0 && (sale?.amountPaid || 0) > 0) {
         // If it was originally a paid sale, keep the paid amount as the default for editing.
-        setAmountPaid(sale.amountPaid);
+        setAmountPaid(sale?.amountPaid || 0);
     }
-  }, [paymentMethod, sale.amountPaid]);
+  }, [paymentMethod, sale?.amountPaid]);
+
+  if (!sale) return null;
 
 
   const handleSave = async () => {

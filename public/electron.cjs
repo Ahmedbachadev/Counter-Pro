@@ -480,6 +480,10 @@ ipcMain.handle('export-data', async () => {
 ipcMain.handle('import-data', async () => {
   try {
     ensureDB();
+    const workspaceId = dbManager ? dbManager.getCurrentWorkspaceId() : null;
+    if (!workspaceId) {
+      return { success: false, error: 'Workspace context missing. Cannot import data.' };
+    }
 
     const result = await dialog.showOpenDialog(mainWindow, {
       title: 'Import Database',
