@@ -9,8 +9,10 @@ export class ProductRepository extends BaseRepository<Product> {
 
   // Example of domain-specific method
   public findLowStock(): Product[] {
-    const stmt = this.db.prepare('SELECT * FROM products WHERE stock <= min_stock AND deleted_at IS NULL');
-    return stmt.all() as Product[];
+    const wid = this.getCurrentWorkspaceId();
+    if (!wid) throw new Error('[Security] Workspace context missing. Access to products denied.');
+    const stmt = this.db.prepare('SELECT * FROM products WHERE stock <= min_stock AND deleted_at IS NULL AND workspace_id = ?');
+    return stmt.all(wid) as Product[];
   }
 }
 

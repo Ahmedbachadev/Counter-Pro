@@ -1341,7 +1341,7 @@ const Purchases: React.FC = () => {
                           {order.purchaseDate}
                         </td>
                         <td className="px-6 py-4 text-slate-700 dark:text-gray-300 font-medium">
-                          {order.items.length} {order.items.length === 1 ? 'Product' : 'Products'}
+                          {(order.items?.length || 0)} {(order.items?.length || 0) === 1 ? 'Product' : 'Products'}
                         </td>
                         <td className="px-6 py-4 font-semibold text-slate-900 dark:text-white">
                           Rs. {order.totalAmount.toLocaleString()}

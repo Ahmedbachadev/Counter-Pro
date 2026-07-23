@@ -50,18 +50,18 @@ interface SyncState {
  * Map of table names to the store refresh functions they should trigger.
  * This is used by the sync:data-updated event to refresh only affected stores.
  */
-function refreshStoresAfterSync(updatedTables: string[]) {
+async function refreshStoresAfterSync(updatedTables: string[]) {
   const tableToRefresh: Record<string, () => Promise<void>> = {};
 
   // Lazy-load store references to avoid circular imports
   try {
-    const { useInventoryStore } = require('./inventoryStore');
-    const { useCustomerStore } = require('./customersStore');
-    const { usePOSStore } = require('./posStore');
-    const { useSettingsStore } = require('./settingsStore');
-    const { useSupplierStore } = require('./supplierStore');
-    const { useExpensesStore } = require('./expensesStore');
-    const { usePurchaseStore } = require('./purchaseStore');
+    const { useInventoryStore } = await import('./inventoryStore');
+    const { useCustomerStore } = await import('./customersStore');
+    const { usePOSStore } = await import('./posStore');
+    const { useSettingsStore } = await import('./settingsStore');
+    const { useSupplierStore } = await import('./supplierStore');
+    const { useExpensesStore } = await import('./expensesStore');
+    const { usePurchaseStore } = await import('./purchaseStore');
 
     tableToRefresh['products'] = () => useInventoryStore.getState().initializeFromDatabase();
     tableToRefresh['categories'] = () => useInventoryStore.getState().initializeFromDatabase();

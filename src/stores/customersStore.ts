@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import customerService from '../services/customerService';
-import { customerRepository } from '../backend/repositories/CustomerRepository';
 import type { Customer, CustomerPayment, CustomerLoyaltyHistory } from '../backend/types';
 
 export type { Customer, CustomerPayment, CustomerLoyaltyHistory };
@@ -45,7 +44,7 @@ export const useCustomerStore = create<CustomerState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       // Use the paginated endpoint
-      const result = await customerRepository.paginate(page, limit);
+      const result = await customerService.paginateCustomers(page, limit);
       
       set((state) => ({
         customers: reset ? result.data : [...state.customers, ...result.data],

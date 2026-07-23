@@ -57,8 +57,14 @@ export const useAuthStore = create<AuthState>()(
       loginBusiness: async (usernameOrEmail: string, password: string, rememberMe = false) => {
         set({ loginError: null });
         try {
+          // If the user provided a username without an '@' symbol, format it to the fallback email
+          let loginEmail = usernameOrEmail.trim();
+          if (!loginEmail.includes('@')) {
+             loginEmail = loginEmail.replace(/\s+/g, '').toLowerCase() + '@counterpro.local';
+          }
+
           const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-            email: usernameOrEmail,
+            email: loginEmail,
             password
           });
           

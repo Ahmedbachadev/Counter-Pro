@@ -7,6 +7,7 @@ import { settingsExpansionSchema } from './005_settings_expansion';
 import { customersExpansionSchema } from './006_customers_expansion';
 import { up as syncMetadataSchema } from './007_sync_metadata';
 import { businessProfileSchema } from './008_business_profile';
+import { fixUserConstraints } from './009_fix_user_constraints';
 
 export interface Migration {
   id: number;
@@ -23,6 +24,7 @@ const migrations: Migration[] = [
   { id: 6, name: '006_customers_expansion', up: customersExpansionSchema },
   { id: 7, name: '007_sync_metadata', up: syncMetadataSchema },
   { id: 8, name: '008_business_profile', up: businessProfileSchema },
+  { id: 9, name: '009_fix_user_constraints', up: fixUserConstraints },
 ];
 
 export function runMigrations(db: Database.Database) {

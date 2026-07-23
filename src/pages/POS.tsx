@@ -149,13 +149,23 @@ const ProductItem: React.FC<ProductItemProps> = React.memo(({
   const isOut = product.stock <= 0;
 
   return (
-    <button
-      disabled={isOut}
-      onClick={() => onAddToCart(product)}
-      className={`group relative flex flex-col text-left bg-white dark:bg-gray-900 border rounded-2xl p-4 transition-all duration-150 active:scale-[0.98] shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/25 ${isInCart
+    <div
+      role="button"
+      tabIndex={isOut ? -1 : 0}
+      aria-disabled={isOut}
+      onClick={() => { if (!isOut) onAddToCart(product); }}
+      onKeyDown={(e) => {
+        if (!isOut && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          onAddToCart(product);
+        }
+      }}
+      className={`group relative flex flex-col text-left bg-white dark:bg-gray-900 border rounded-2xl p-4 transition-all duration-150 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/25 ${
+        !isOut ? 'active:scale-[0.98] cursor-pointer' : 'cursor-not-allowed'
+      } ${isInCart
           ? 'ring-2 ring-indigo-600 border-transparent bg-indigo-50/15 dark:bg-indigo-950/10'
           : 'border-gray-200/80 dark:border-gray-800/85'
-        } ${isOut ? 'opacity-50 cursor-not-allowed bg-gray-50/50 dark:bg-gray-950/20' : ''}`}
+        } ${isOut ? 'opacity-50 bg-gray-50/50 dark:bg-gray-950/20' : ''}`}
     >
       {/* Star Favorite Toggle */}
       <button
@@ -202,7 +212,7 @@ const ProductItem: React.FC<ProductItemProps> = React.memo(({
           Stock: {product.stock}
         </span>
       </div>
-    </button>
+    </div>
   );
 });
 

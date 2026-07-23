@@ -82,12 +82,9 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
     );
   }
 
-  // If completely unauthorized (no session or not an admin)
   if (!isAuthorized) {
-    if (isAuthenticated && appType === 'business') {
-      return <Navigate to="/dashboard" replace />;
-    }
-    return <Navigate to="/adminpanel" state={{ from: location }} replace />;
+    // Always redirect to admin login if not authorized as admin
+    return <Navigate to="/adminpanel/login" state={{ from: location }} replace />;
   }
 
   return <>{children}</>;

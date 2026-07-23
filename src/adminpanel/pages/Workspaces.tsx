@@ -873,7 +873,7 @@ const Workspaces: React.FC = () => {
         await supabase!.rpc('admin_update_workspace_status', { p_workspace_id: workspace.id, p_status: 'Disabled' });
         break;
       case 'Delete':
-        await supabase!.rpc('admin_soft_delete_workspace', { p_workspace_id: workspace.id });
+        await supabase!.rpc('admin_hard_delete_workspace', { p_workspace_id: workspace.id });
         break;
       case 'Restore':
         await supabase!.rpc('admin_restore_workspace', { p_workspace_id: workspace.id });
@@ -890,7 +890,7 @@ const Workspaces: React.FC = () => {
       Activate:  { title: 'Activate Workspace',  message: `Activate "${workspace.name}"? Users will regain access.` },
       Suspend:   { title: 'Suspend Workspace',   message: `Suspend "${workspace.name}"? Users will lose access.`, danger: true },
       Disable:   { title: 'Disable Workspace',   message: `Disable "${workspace.name}"? This is stricter than suspension.`, danger: true },
-      Delete:    { title: 'Delete Workspace',    message: `Soft-delete "${workspace.name}"? This can be restored later.`, danger: true },
+      Delete:    { title: 'Delete Workspace',    message: `Permanently delete "${workspace.name}"? All data will be wiped and cannot be restored.`, danger: true },
       Restore:   { title: 'Restore Workspace',   message: `Restore "${workspace.name}"? It will become Active.` },
     };
     const cfg = configs[action];

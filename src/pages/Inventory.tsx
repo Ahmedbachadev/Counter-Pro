@@ -1614,7 +1614,7 @@ const Inventory: React.FC = () => {
     // Fast & Slow moving products (Velocity calculation)
     const productSoldQty: Record<number, number> = {};
     sales.forEach(s => {
-      s.items.forEach(item => {
+      s.items?.forEach(item => {
         const pId = item.product?.id || (item as any).productId;
         if (pId) {
           productSoldQty[pId] = (productSoldQty[pId] || 0) + item.quantity;
@@ -1650,7 +1650,7 @@ const Inventory: React.FC = () => {
     // Best categories by revenue
     const categorySales: Record<number, number> = {};
     sales.forEach(s => {
-      s.items.forEach(item => {
+      s.items?.forEach(item => {
         const pId = item.product?.id || (item as any).productId;
         const prod = products.find(p => p.id === pId);
         if (prod) {

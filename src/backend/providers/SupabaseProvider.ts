@@ -1,6 +1,7 @@
 import { DataProvider } from './DataProvider';
 import supabase from '../supabaseClient';
 import { storageManager } from '../storage';
+import { useAuthStore } from '../../stores/authStore';
 import type {
   Category,
   Product,
@@ -28,14 +29,11 @@ export class SupabaseProvider implements DataProvider {
   }
 
   private async getWorkspaceId(): Promise<string> {
-    const client = this.getClient();
-    let { data, error } = await client.from('workspaces').select('id').limit(1).single();
-    if (!data) {
-      const res = await client.from('workspaces').insert({ name: 'Default Workspace', slug: 'default' }).select('id').single();
-      if (res.error) throw res.error;
-      return res.data.id;
+    const workspaceId = useAuthStore.getState().workspaceId;
+    if (!workspaceId) {
+      throw new Error('[Security] Workspace context missing. SupabaseProvider access denied.');
     }
-    return data.id;
+    return String(workspaceId);
   }
 
   private async getCurrentUserId(workspaceId: string): Promise<string | null> {

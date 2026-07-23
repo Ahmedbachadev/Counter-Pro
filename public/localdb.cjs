@@ -623,6 +623,58 @@ var init_business_profile = __esm({
   }
 });
 
+// src/database/migrations/009_fix_user_constraints.ts
+function fixUserConstraints(db) {
+  const syncColumns = `
+    workspace_id TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    deleted_at TEXT,
+    sync_status TEXT DEFAULT 'PENDING',
+    version INTEGER DEFAULT 1,
+    device_id TEXT,
+    last_synced_at TEXT
+  `;
+  db.exec(`
+    -- 1. Create a new table with the correct composite UNIQUE constraint
+    CREATE TABLE IF NOT EXISTS users_new (
+      id TEXT PRIMARY KEY,
+      username TEXT NOT NULL,
+      password TEXT,
+      role TEXT NOT NULL,
+      name TEXT,
+      email TEXT,
+      phone TEXT,
+      status TEXT DEFAULT 'Active',
+      ${syncColumns},
+      UNIQUE(workspace_id, username)
+    );
+
+    -- 2. Copy existing data into the new table
+    INSERT INTO users_new (
+      id, username, password, role, name, email, phone, status,
+      workspace_id, created_at, updated_at, deleted_at, sync_status, version, device_id, last_synced_at
+    )
+    SELECT 
+      id, username, password, role, name, email, phone, status,
+      workspace_id, created_at, updated_at, deleted_at, sync_status, version, device_id, last_synced_at
+    FROM users;
+
+    -- 3. Drop the old table
+    DROP TABLE users;
+
+    -- 4. Rename the new table to the original name
+    ALTER TABLE users_new RENAME TO users;
+
+    -- 5. Recreate the sync index
+    CREATE INDEX IF NOT EXISTS idx_users_sync_status ON users(sync_status);
+  `);
+}
+var init_fix_user_constraints = __esm({
+  "src/database/migrations/009_fix_user_constraints.ts"() {
+  }
+});
+
 // src/database/migrations/index.ts
 function runMigrations(db) {
   db.exec(`
@@ -668,6 +720,7 @@ var init_migrations = __esm({
     init_customers_expansion();
     init_sync_metadata();
     init_business_profile();
+    init_fix_user_constraints();
     migrations = [
       { id: 1, name: "001_initial", up: initialSchema },
       { id: 2, name: "002_sync_queue", up },
@@ -676,7 +729,8 @@ var init_migrations = __esm({
       { id: 5, name: "005_settings_expansion", up: settingsExpansionSchema },
       { id: 6, name: "006_customers_expansion", up: customersExpansionSchema },
       { id: 7, name: "007_sync_metadata", up: up2 },
-      { id: 8, name: "008_business_profile", up: businessProfileSchema }
+      { id: 8, name: "008_business_profile", up: businessProfileSchema },
+      { id: 9, name: "009_fix_user_constraints", up: fixUserConstraints }
     ];
   }
 });
@@ -751,10 +805,30 @@ var init_BaseRepository = __esm({
         if (err instanceof DatabaseError) throw err;
         throw new DatabaseError(`Database operation failed in ${this.tableName}`, err?.code, err);
       }
+      hasWorkspaceIdColumn() {
+        if (this._hasWorkspaceId !== void 0) return this._hasWorkspaceId;
+        const columnsInfo = this.db.pragma(`table_info(${this.tableName})`);
+        this._hasWorkspaceId = columnsInfo.some((c) => c.name === "workspace_id");
+        return this._hasWorkspaceId;
+      }
+      getCurrentWorkspaceId() {
+        const { dbManager: dbManager2 } = (init_index(), __toCommonJS(index_exports));
+        return dbManager2?.getCurrentWorkspaceId() || null;
+      }
       findById(id) {
         try {
-          const stmt = this.db.prepare(`SELECT * FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL`);
-          return stmt.get(id);
+          let query = `SELECT * FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL`;
+          const params = [id];
+          if (this.hasWorkspaceIdColumn()) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            query += ` AND workspace_id = ?`;
+            params.push(wid);
+          }
+          const stmt = this.db.prepare(query);
+          return stmt.get(...params);
         } catch (err) {
           this.handleError(err);
         }
@@ -762,9 +836,18 @@ var init_BaseRepository = __esm({
       findAll(options) {
         try {
           let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL`;
+          const params = [];
+          if (this.hasWorkspaceIdColumn()) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            query += ` AND workspace_id = ?`;
+            params.push(wid);
+          }
           query += buildQuerySuffix(options);
           const stmt = this.db.prepare(query);
-          return stmt.all();
+          return stmt.all(...params);
         } catch (err) {
           this.handleError(err);
         }
@@ -869,6 +952,14 @@ var init_BaseRepository = __esm({
         try {
           let query = `SELECT COUNT(*) as count FROM ${this.tableName} WHERE deleted_at IS NULL`;
           const values = [];
+          if (this.hasWorkspaceIdColumn()) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            query += ` AND workspace_id = ?`;
+            values.push(wid);
+          }
           if (options?.where) {
             for (const [key, value] of Object.entries(options.where)) {
               query += ` AND ${key} = ?`;
@@ -884,8 +975,19 @@ var init_BaseRepository = __esm({
       }
       exists(id) {
         try {
-          const stmt = this.db.prepare(`SELECT 1 FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL LIMIT 1`);
-          return !!stmt.get(id);
+          let query = `SELECT 1 FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL`;
+          const values = [id];
+          if (this.hasWorkspaceIdColumn()) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            query += ` AND workspace_id = ?`;
+            values.push(wid);
+          }
+          query += ` LIMIT 1`;
+          const stmt = this.db.prepare(query);
+          return !!stmt.get(...values);
         } catch (err) {
           this.handleError(err);
         }
@@ -894,6 +996,14 @@ var init_BaseRepository = __esm({
         try {
           let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL`;
           const values = [];
+          if (this.hasWorkspaceIdColumn()) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            query += ` AND workspace_id = ?`;
+            values.push(wid);
+          }
           for (const [key, value] of Object.entries(conditions)) {
             if (value === null) {
               query += ` AND ${key} IS NULL`;
@@ -912,8 +1022,17 @@ var init_BaseRepository = __esm({
       search(queryStr, fields, options) {
         try {
           if (!queryStr || fields.length === 0) return this.findAll(options);
-          let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL AND (`;
+          let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL`;
           const values = [];
+          if (this.hasWorkspaceIdColumn()) {
+            const wid = this.getCurrentWorkspaceId();
+            if (!wid) {
+              throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+            }
+            query += ` AND workspace_id = ?`;
+            values.push(wid);
+          }
+          query += ` AND (`;
           const conditions = [];
           for (const field of fields) {
             conditions.push(`${field} LIKE ?`);
@@ -999,8 +1118,10 @@ var init_repositories = __esm({
       }
       // Example of domain-specific method
       findLowStock() {
-        const stmt = this.db.prepare("SELECT * FROM products WHERE stock <= min_stock AND deleted_at IS NULL");
-        return stmt.all();
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) throw new Error("[Security] Workspace context missing. Access to products denied.");
+        const stmt = this.db.prepare("SELECT * FROM products WHERE stock <= min_stock AND deleted_at IS NULL AND workspace_id = ?");
+        return stmt.all(wid);
       }
     };
     CustomerRepository = class extends BaseRepository {
@@ -23634,6 +23755,9 @@ var init_index = __esm({
       settings;
       users;
       currentWorkspaceId = null;
+      getCurrentWorkspaceId() {
+        return this.currentWorkspaceId;
+      }
       constructor() {
       }
       static getInstance() {

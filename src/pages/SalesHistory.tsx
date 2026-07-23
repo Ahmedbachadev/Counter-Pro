@@ -130,7 +130,7 @@ const SalesHistory: React.FC = () => {
     let returned = 0;
     returns.forEach(r => {
       if (r.originalSaleId === saleId) {
-        r.items.forEach(item => {
+        r.items?.forEach(item => {
           if (item.productId === productId) {
             returned += item.quantity;
           }
@@ -234,7 +234,7 @@ const SalesHistory: React.FC = () => {
       tax += s.tax;
 
       // Calculate COGS for Gross Profit
-      s.items.forEach(item => {
+      s.items?.forEach(item => {
         cogs += getProductCost(item) * item.quantity;
       });
 
@@ -349,7 +349,7 @@ const SalesHistory: React.FC = () => {
       
       let dayCogs = 0;
       daySales.forEach(s => {
-        s.items.forEach(item => {
+        s.items?.forEach(item => {
           dayCogs += getProductCost(item) * item.quantity;
         });
       });
@@ -383,12 +383,12 @@ const SalesHistory: React.FC = () => {
     filteredSales.forEach(sale => {
       const saleDate = new Date(sale.createdAt);
       if (saleDate >= past7DaysStart && saleDate <= today) {
-        sale.items.forEach(item => {
+        sale.items?.forEach(item => {
           const id = item.productId || item.product?.id;
           if (id) currentQuantities[id] = (currentQuantities[id] || 0) + item.quantity;
         });
       } else if (saleDate >= prior7DaysStart && saleDate < past7DaysStart) {
-        sale.items.forEach(item => {
+        sale.items?.forEach(item => {
           const id = item.productId || item.product?.id;
           if (id) priorQuantities[id] = (priorQuantities[id] || 0) + item.quantity;
         });
@@ -424,7 +424,7 @@ const SalesHistory: React.FC = () => {
     });
 
     filteredSales.forEach(sale => {
-      sale.items.forEach(item => {
+      sale.items?.forEach(item => {
         const id = item.productId || item.product?.id;
         if (id !== undefined && quantities[id] !== undefined) {
           quantities[id] += item.quantity;
@@ -466,7 +466,7 @@ const SalesHistory: React.FC = () => {
   const productRankList = useMemo(() => {
     const stats: Record<string, { name: string; qty: number; revenue: number; cost: number; profit: number }> = {};
     filteredSales.forEach(s => {
-      s.items.forEach(item => {
+      s.items?.forEach(item => {
         const prodId = item.productId?.toString() || item.product?.id?.toString() || item.productName || 'Unknown';
         const name = item.productName || item.product?.name || 'Unknown Product';
         const cost = getProductCost(item) * item.quantity;
@@ -494,7 +494,7 @@ const SalesHistory: React.FC = () => {
   const categoryRankList = useMemo(() => {
     const stats: Record<string, { name: string; qty: number; revenue: number; cost: number; profit: number }> = {};
     filteredSales.forEach(s => {
-      s.items.forEach(item => {
+      s.items?.forEach(item => {
         const prod = products.find(p => p.id === item.productId || p.id === (item.product as any)?.id);
         const catId = prod?.categoryId || 0;
         const catName = categories.find(c => c.id === catId)?.name || (isUrdu ? 'غیر زمرہ بند' : 'Uncategorized');
@@ -595,7 +595,7 @@ const SalesHistory: React.FC = () => {
       p.tax += s.tax;
       p.discount += s.discount;
 
-      s.items.forEach(item => {
+      s.items?.forEach(item => {
         p.cogs += getProductCost(item) * item.quantity;
       });
     });
@@ -875,7 +875,7 @@ const SalesHistory: React.FC = () => {
     const initialReasons: Record<number, string> = {};
     const initialConditions: Record<number, 'Resellable' | 'Damaged' | 'Expired' | 'Other'> = {};
 
-    sale.items.forEach(item => {
+    sale.items?.forEach(item => {
       const pId = item.productId || (item.product ? item.product.id : 0);
       if (pId) {
         initialQuants[pId] = 0;
@@ -901,7 +901,7 @@ const SalesHistory: React.FC = () => {
   const wizardRefundAmount = useMemo(() => {
     if (!wizardSale) return 0;
     let sum = 0;
-    wizardSale.items.forEach(item => {
+    wizardSale.items?.forEach(item => {
       const pId = item.productId || (item.product ? item.product.id : 0);
       if (pId) {
         const qty = wizardQuantities[pId] || 0;
@@ -956,7 +956,7 @@ const SalesHistory: React.FC = () => {
 
     // Build active return items
     const activeReturnItems: ReturnItem[] = [];
-    wizardSale.items.forEach(item => {
+    wizardSale.items?.forEach(item => {
       const pId = item.productId || (item.product ? item.product.id : 0);
       if (pId) {
         const qty = wizardQuantities[pId] || 0;
@@ -1757,7 +1757,7 @@ const SalesHistory: React.FC = () => {
                                 <span>{format(new Date(sale.createdAt), 'MMM dd, yyyy HH:mm')}</span>
                               </div>
                               <div className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">
-                                {sale.items.length} items • By {sale.cashierId}
+                                {(sale.items?.length || 0)} items • By {sale.cashierId}
                               </div>
                             </div>
                           </td>

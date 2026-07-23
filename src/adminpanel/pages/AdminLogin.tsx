@@ -19,9 +19,7 @@ const AdminLogin: React.FC = () => {
   useEffect(() => {
     // If arriving already authenticated as admin, go to admin panel.
     if (isAuthenticated && appType === 'admin' && !loading) {
-      navigate('/admin', { replace: true });
-    } else if (isAuthenticated && appType === 'business' && !loading) {
-      navigate('/', { replace: true });
+      navigate('/adminpanel', { replace: true });
     }
   }, [isAuthenticated, appType, loading, navigate]);
 
@@ -60,7 +58,7 @@ const AdminLogin: React.FC = () => {
         user_agent: userAgent
       }]);
       
-      navigate('/admin', { replace: true });
+      navigate('/adminpanel', { replace: true });
     } catch (err: any) {
       console.error('Login flow error:', err);
       setErrorMsg(err.message || 'An error occurred during login');

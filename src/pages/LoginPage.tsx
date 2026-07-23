@@ -18,12 +18,7 @@ const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
 
-  useEffect(() => {
-    setFormError('');
-    if (loginError) {
-      clearLoginError();
-    }
-  }, [email, password, clearLoginError]);
+  // Removed problematic useEffect that could cause infinite loops or freezing
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,7 +110,11 @@ const LoginPage: React.FC = () => {
                 id="email"
                 type="text"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setFormError('');
+                  if (loginError) clearLoginError();
+                }}
                 disabled={isLoading}
                 autoComplete="email"
                 className="w-full px-3.5 py-2.5 text-sm border border-zinc-200 bg-white text-zinc-900 rounded-lg focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all outline-none placeholder:text-zinc-400 font-medium"
@@ -132,7 +131,11 @@ const LoginPage: React.FC = () => {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setFormError('');
+                  if (loginError) clearLoginError();
+                }}
                 disabled={isLoading}
                 autoComplete="current-password"
                 className="w-full px-3.5 py-2.5 text-sm border border-zinc-200 bg-white text-zinc-900 rounded-lg focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all outline-none placeholder:text-zinc-400 font-medium tracking-wide"

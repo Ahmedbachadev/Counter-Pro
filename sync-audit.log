@@ -879,3 +879,1586 @@
 [2026-07-15T15:34:01.260Z] [SyncEngine] INFO: Sync triggered: Timer expired 
 [2026-07-15T15:34:01.266Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
 [2026-07-15T15:34:01.271Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:47:53.202Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:47:53.232Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:47:53.234Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:47:54.042Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:47:57.014Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:47:57.015Z] [SyncEngine] INFO: Sync cycle completed in 3783ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:48:23.242Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:48:23.244Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:48:23.247Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:48:24.139Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:48:24.285Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:48:26.932Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:48:26.933Z] [SyncEngine] INFO: Sync cycle completed in 3689ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:48:53.249Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:48:53.250Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:48:53.251Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:48:54.782Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:48:54.783Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:48:58.108Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:48:58.110Z] [SyncEngine] INFO: Sync cycle completed in 4860ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:49:23.256Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:49:23.257Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:49:23.259Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:49:24.380Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:49:24.381Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:49:27.158Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:49:27.159Z] [SyncEngine] INFO: Sync cycle completed in 3902ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:49:32.973Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:49:32.973Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:49:32.975Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:49:33.820Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:49:33.820Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:49:37.735Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:49:37.736Z] [SyncEngine] INFO: Sync cycle completed in 4763ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:49:52.247Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:49:52.247Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:49:52.248Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:49:52.611Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:49:52.611Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:49:52.841Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:49:52.842Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:49:55.300Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:49:55.301Z] [SyncEngine] INFO: Sync cycle completed in 3054ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:50:22.613Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:50:22.614Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:50:22.615Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:50:24.631Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:50:24.632Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:50:28.176Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:50:28.177Z] [SyncEngine] INFO: Sync cycle completed in 5563ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:50:52.621Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:50:52.622Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:50:52.623Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:50:55.610Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:50:55.611Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:51:03.712Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:51:03.713Z] [SyncEngine] INFO: Sync cycle completed in 11091ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:51:11.444Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:51:11.445Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:51:11.446Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:51:11.449Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:51:11.450Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:51:15.352Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:51:15.353Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:51:19.880Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:51:19.882Z] [SyncEngine] INFO: Sync cycle completed in 8437ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:51:41.460Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:51:41.462Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:51:41.466Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:51:42.325Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:51:42.326Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:51:52.557Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:51:52.559Z] [SyncEngine] INFO: Sync cycle completed in 11097ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:51:58.398Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:51:58.399Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:51:58.400Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:51:58.412Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:51:58.413Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:51:59.981Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:51:59.981Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:52:09.367Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:52:09.370Z] [SyncEngine] INFO: Sync cycle completed in 10971ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:52:28.419Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:52:28.420Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:52:28.421Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:52:30.914Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:52:30.915Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:52:36.247Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:52:36.248Z] [SyncEngine] INFO: Sync cycle completed in 7828ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:52:43.463Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:52:43.465Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:52:43.528Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:52:43.551Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:52:43.551Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:52:45.120Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:52:45.121Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:52:51.677Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:52:51.678Z] [SyncEngine] INFO: Sync cycle completed in 8213ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:53:13.554Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:53:13.556Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:53:13.558Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:53:14.341Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:53:14.342Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:53:21.737Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:53:21.739Z] [SyncEngine] INFO: Sync cycle completed in 8183ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:53:43.576Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:53:43.578Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:53:43.581Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:53:46.171Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:53:46.173Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:53:53.935Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:53:53.936Z] [SyncEngine] INFO: Sync cycle completed in 10358ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:54:13.590Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:54:13.592Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:54:13.595Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:54:17.876Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:54:17.877Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:54:24.442Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:54:24.445Z] [SyncEngine] INFO: Sync cycle completed in 10853ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:54:43.590Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:54:43.592Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:54:43.596Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:54:44.556Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:54:44.558Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:54:47.284Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:54:47.285Z] [SyncEngine] INFO: Sync cycle completed in 3693ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:55:13.390Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:55:13.391Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:55:13.393Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:55:13.456Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:55:13.456Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:55:15.399Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:55:15.400Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:55:19.322Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:55:19.325Z] [SyncEngine] INFO: Sync cycle completed in 5934ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:55:43.464Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:55:43.465Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:55:43.466Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:55:44.976Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:55:44.977Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:55:47.918Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:55:47.919Z] [SyncEngine] INFO: Sync cycle completed in 4454ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:56:04.924Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:56:04.925Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:56:04.927Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:56:04.949Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:56:04.950Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:56:07.991Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:56:07.992Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:56:19.975Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:56:19.992Z] [SyncEngine] INFO: Sync cycle completed in 15067ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:56:34.957Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:56:34.959Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:56:34.963Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:56:35.895Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:56:35.897Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:56:39.397Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:56:39.398Z] [SyncEngine] INFO: Sync cycle completed in 4439ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:57:04.977Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:57:04.979Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:57:04.983Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:57:07.521Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:57:07.523Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:57:14.738Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:57:14.740Z] [SyncEngine] INFO: Sync cycle completed in 9761ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:57:34.993Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:57:34.995Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:57:34.998Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:57:41.607Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:57:41.609Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:57:52.863Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:57:52.863Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:57:54.544Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:57:54.545Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:58:01.178Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:58:01.181Z] [SyncEngine] INFO: Sync cycle completed in 26186ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:58:24.549Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:58:24.551Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:58:24.555Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:58:26.098Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:58:26.098Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:58:30.052Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:58:30.054Z] [SyncEngine] INFO: Sync cycle completed in 5503ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:58:54.552Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:58:54.554Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:58:54.557Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:59:00.478Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:59:00.481Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:59:09.758Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:59:09.759Z] [SyncEngine] INFO: Sync cycle completed in 15205ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:59:24.566Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T11:59:24.569Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:59:24.572Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:59:29.037Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:59:29.038Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T11:59:32.273Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:59:32.273Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:59:33.665Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:59:33.666Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:59:37.689Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T11:59:37.690Z] [SyncEngine] INFO: Sync cycle completed in 13121ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T11:59:53.744Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:59:53.745Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T11:59:53.746Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T11:59:53.750Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T11:59:53.751Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T11:59:55.415Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T11:59:55.416Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:00:09.530Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:00:09.534Z] [SyncEngine] INFO: Sync cycle completed in 15789ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:00:23.761Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:00:23.763Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:00:23.767Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:00:27.077Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:00:27.078Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:00:30.029Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:00:30.031Z] [SyncEngine] INFO: Sync cycle completed in 6268ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:00:53.773Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:00:53.776Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:00:53.781Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:00:57.400Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:00:57.402Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:01:01.226Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:01:01.228Z] [SyncEngine] INFO: Sync cycle completed in 7452ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:01:23.776Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:01:23.779Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:01:23.783Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:01:25.205Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:01:25.206Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:01:32.313Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:01:32.315Z] [SyncEngine] INFO: Sync cycle completed in 8536ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:01:45.462Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:01:45.464Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:01:45.468Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:01:45.543Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:01:45.544Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:01:48.074Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:01:48.075Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:02:00.378Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:02:00.381Z] [SyncEngine] INFO: Sync cycle completed in 14916ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:02:01.443Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:02:01.445Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:02:01.448Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:02:02.233Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:02:02.234Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:02:02.993Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:02:02.996Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:02:07.798Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:02:07.799Z] [SyncEngine] INFO: Sync cycle completed in 6354ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:02:16.050Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:02:16.051Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:02:16.053Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:02:16.074Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:02:16.074Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:02:17.175Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:02:17.178Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:02:21.995Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:02:21.997Z] [SyncEngine] INFO: Sync cycle completed in 5946ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:02:42.853Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:02:42.853Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:02:42.854Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:02:42.858Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:02:42.858Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:02:45.051Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:02:45.052Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:02:54.326Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:02:54.326Z] [SyncEngine] INFO: Sync cycle completed in 11473ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:03:12.869Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:03:12.871Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:03:12.874Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:03:15.619Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:03:15.621Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:03:21.319Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:03:21.321Z] [SyncEngine] INFO: Sync cycle completed in 8450ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:03:36.247Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:03:36.248Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:03:36.249Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:03:36.557Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:03:36.557Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:03:36.861Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:03:36.862Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:03:45.813Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:03:45.815Z] [SyncEngine] INFO: Sync cycle completed in 9567ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:04:06.570Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:04:06.572Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:04:06.575Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:04:11.305Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:04:11.306Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:04:19.883Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:04:19.883Z] [SyncEngine] INFO: Sync cycle completed in 13311ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:04:36.645Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:04:36.645Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:04:36.646Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:04:38.233Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:04:38.234Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:04:42.085Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:04:42.087Z] [SyncEngine] INFO: Sync cycle completed in 5442ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:05:06.645Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:05:06.647Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:05:06.650Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:05:07.706Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:05:07.707Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:05:10.543Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:05:10.546Z] [SyncEngine] INFO: Sync cycle completed in 3899ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:05:36.653Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:05:36.654Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:05:36.655Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:05:38.129Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:05:38.130Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:05:41.658Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:05:41.659Z] [SyncEngine] INFO: Sync cycle completed in 5005ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:06:02.091Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:06:02.091Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:06:02.095Z] [SyncEngine] INFO: Uploading 1 items to settings 
+[2026-07-23T12:06:02.205Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:06:02.206Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:06:14.949Z] [SyncEngine] ERROR: Upload failed for settings {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'address' column of 'settings' in the schema cache"}
+[2026-07-23T12:06:15.880Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:06:15.881Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:06:18.452Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:06:18.453Z] [SyncEngine] INFO: Sync cycle completed in 16362ms. Uploaded: 0, Downloaded: 1, Failed: 1 
+[2026-07-23T12:06:31.771Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:06:31.772Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:06:31.773Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:06:32.163Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:06:32.163Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:06:32.691Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:06:32.692Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:06:37.136Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:06:37.137Z] [SyncEngine] INFO: Sync cycle completed in 5365ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:07:02.170Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:07:02.172Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:07:02.176Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:07:03.013Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:07:03.014Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:07:06.691Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:07:06.692Z] [SyncEngine] INFO: Sync cycle completed in 4520ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:07:32.172Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:07:32.176Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:07:32.179Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:07:34.110Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:07:34.112Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:07:36.880Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:07:36.882Z] [SyncEngine] INFO: Sync cycle completed in 4706ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:08:02.197Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:08:02.198Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:08:02.199Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:08:03.524Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:08:03.525Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:08:07.205Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:08:07.206Z] [SyncEngine] INFO: Sync cycle completed in 5008ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:08:32.223Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:08:32.224Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:08:32.225Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:08:35.826Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:08:35.827Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:08:39.353Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:08:39.354Z] [SyncEngine] INFO: Sync cycle completed in 7130ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:09:02.242Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:09:02.243Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:09:02.246Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:09:03.050Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:09:03.051Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:09:05.735Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:09:05.738Z] [SyncEngine] INFO: Sync cycle completed in 3495ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:09:32.253Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:09:32.254Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:09:32.256Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:09:33.183Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:09:33.185Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:09:36.277Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:09:36.279Z] [SyncEngine] INFO: Sync cycle completed in 4025ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:10:02.263Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:10:02.264Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:10:02.265Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:10:03.426Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:10:03.426Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:10:07.063Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:10:07.067Z] [SyncEngine] INFO: Sync cycle completed in 4803ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:10:32.268Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:10:32.269Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:10:32.271Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:10:34.108Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:10:34.111Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:10:38.955Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:10:38.956Z] [SyncEngine] INFO: Sync cycle completed in 6687ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:11:02.280Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:11:02.282Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:11:02.285Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:11:02.973Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:11:02.974Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:11:06.295Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:11:06.295Z] [SyncEngine] INFO: Sync cycle completed in 4013ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:11:32.295Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:11:32.297Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:11:32.301Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:11:33.467Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:11:33.469Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:11:41.029Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:11:41.030Z] [SyncEngine] INFO: Sync cycle completed in 8733ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:12:02.302Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:12:02.304Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:12:02.307Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:12:06.028Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:12:06.029Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:12:12.243Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:12:12.243Z] [SyncEngine] INFO: Sync cycle completed in 9939ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:12:32.302Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:12:32.303Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:12:32.304Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:12:35.719Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:12:35.721Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:12:44.627Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:12:44.629Z] [SyncEngine] INFO: Sync cycle completed in 12326ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:13:02.304Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:13:02.306Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:13:02.309Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:13:04.563Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:13:04.565Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:13:11.352Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:13:11.354Z] [SyncEngine] INFO: Sync cycle completed in 9048ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:13:32.309Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:13:32.310Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:13:32.311Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:13:33.369Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:13:33.370Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:13:37.009Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:13:37.012Z] [SyncEngine] INFO: Sync cycle completed in 4702ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:14:02.312Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:14:02.315Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:14:02.318Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:14:05.479Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:14:05.479Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:14:08.393Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:14:08.396Z] [SyncEngine] INFO: Sync cycle completed in 6081ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:14:32.318Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:14:32.320Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:14:32.323Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:14:33.003Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:14:33.005Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:14:35.508Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:14:35.509Z] [SyncEngine] INFO: Sync cycle completed in 3189ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:15:02.329Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:15:02.330Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:15:02.331Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:15:04.243Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:15:04.244Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:15:07.731Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:15:07.732Z] [SyncEngine] INFO: Sync cycle completed in 5402ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:15:32.345Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:15:32.347Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:15:32.350Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:15:33.320Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:15:33.323Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:15:36.095Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:15:36.097Z] [SyncEngine] INFO: Sync cycle completed in 3750ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:16:02.359Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:16:02.361Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:16:02.364Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:16:03.173Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:16:03.175Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:16:05.919Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:16:05.921Z] [SyncEngine] INFO: Sync cycle completed in 3560ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:16:32.365Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:16:32.367Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:16:32.370Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:16:33.181Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:16:33.183Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:16:36.100Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:16:36.102Z] [SyncEngine] INFO: Sync cycle completed in 3735ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:17:02.376Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:17:02.378Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:17:02.382Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:17:03.118Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:17:03.119Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:17:05.847Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:17:05.850Z] [SyncEngine] INFO: Sync cycle completed in 3472ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:17:32.390Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:17:32.392Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:17:32.396Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:17:33.928Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:17:33.928Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:17:37.943Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:17:37.944Z] [SyncEngine] INFO: Sync cycle completed in 5552ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:18:02.409Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:18:02.409Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:18:02.410Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:18:03.995Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:18:03.996Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:18:06.677Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:18:06.677Z] [SyncEngine] INFO: Sync cycle completed in 4268ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:18:32.415Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:18:32.415Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:18:32.419Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:18:33.240Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:18:33.240Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:18:36.199Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:18:36.200Z] [SyncEngine] INFO: Sync cycle completed in 3785ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:18:45.427Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:18:45.428Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:18:45.429Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:18:45.441Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:18:45.441Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:18:46.291Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:18:46.291Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:18:49.347Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:18:49.347Z] [SyncEngine] INFO: Sync cycle completed in 3919ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:19:15.450Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:19:15.451Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:19:15.454Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:19:18.949Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:19:18.951Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:19:22.933Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:19:22.934Z] [SyncEngine] INFO: Sync cycle completed in 7483ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:19:45.465Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:19:45.466Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:19:45.467Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:19:48.114Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:19:48.115Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:19:52.380Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:19:52.380Z] [SyncEngine] INFO: Sync cycle completed in 6914ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:20:15.473Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:20:15.474Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:20:15.476Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:20:16.290Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:20:16.290Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:20:19.116Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:20:19.117Z] [SyncEngine] INFO: Sync cycle completed in 3643ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:20:45.488Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:20:45.489Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:20:45.490Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:20:47.909Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:20:47.910Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:20:51.182Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:20:51.185Z] [SyncEngine] INFO: Sync cycle completed in 5696ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:21:15.502Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:21:15.505Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:21:15.509Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:21:16.219Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:21:16.221Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:21:18.715Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:21:18.718Z] [SyncEngine] INFO: Sync cycle completed in 3213ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:21:45.514Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:21:45.515Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:21:45.518Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:21:46.943Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:21:46.944Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:21:51.032Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:21:51.034Z] [SyncEngine] INFO: Sync cycle completed in 5519ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:22:15.525Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:22:15.527Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:22:15.529Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:22:16.232Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:22:16.233Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:22:18.706Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:22:18.708Z] [SyncEngine] INFO: Sync cycle completed in 3180ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:22:45.534Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:22:45.536Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:22:45.538Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:22:46.369Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:22:46.370Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:22:49.206Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:22:49.208Z] [SyncEngine] INFO: Sync cycle completed in 3672ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:23:15.545Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:23:15.548Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:23:15.551Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:23:16.305Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:23:16.306Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:23:18.845Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:23:18.847Z] [SyncEngine] INFO: Sync cycle completed in 3299ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:23:45.551Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:23:45.553Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:23:45.555Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:23:46.557Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:23:46.558Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:23:49.971Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:23:49.972Z] [SyncEngine] INFO: Sync cycle completed in 4419ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:24:15.565Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:24:15.566Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:24:15.567Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:24:16.435Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:24:16.436Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:24:19.644Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:24:19.647Z] [SyncEngine] INFO: Sync cycle completed in 4081ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:24:45.571Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:24:45.572Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:24:45.573Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:24:46.195Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:24:46.196Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:24:48.613Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:24:48.614Z] [SyncEngine] INFO: Sync cycle completed in 3042ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:25:15.580Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:25:15.582Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:25:15.586Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:25:16.327Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:25:16.330Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:25:18.729Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:25:18.730Z] [SyncEngine] INFO: Sync cycle completed in 3148ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:25:45.587Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:25:45.589Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:25:45.591Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:25:46.427Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:25:46.428Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:25:49.285Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:25:49.287Z] [SyncEngine] INFO: Sync cycle completed in 3698ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:26:15.601Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:26:15.602Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:26:15.603Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:26:16.438Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:26:16.440Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:26:19.130Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:26:19.132Z] [SyncEngine] INFO: Sync cycle completed in 3530ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:26:45.613Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:26:45.616Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:26:45.619Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:26:46.594Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:26:46.595Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:26:49.580Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:26:49.581Z] [SyncEngine] INFO: Sync cycle completed in 3965ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:27:15.624Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:27:15.625Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:27:15.627Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:27:16.312Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:27:16.313Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:27:18.746Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:27:18.748Z] [SyncEngine] INFO: Sync cycle completed in 3123ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:27:45.627Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:27:45.629Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:27:45.632Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:27:46.426Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:27:46.428Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:27:49.542Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:27:49.543Z] [SyncEngine] INFO: Sync cycle completed in 3914ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:28:15.636Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:28:15.638Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:28:15.642Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:28:18.846Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:28:18.847Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:28:21.508Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:28:21.511Z] [SyncEngine] INFO: Sync cycle completed in 5873ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:28:45.641Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:28:45.643Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:28:45.645Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:28:46.424Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:28:46.425Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:28:49.404Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:28:49.405Z] [SyncEngine] INFO: Sync cycle completed in 3762ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:29:15.648Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:29:15.649Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:29:15.651Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:29:16.299Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:29:16.300Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:29:18.802Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:29:18.803Z] [SyncEngine] INFO: Sync cycle completed in 3154ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:29:45.660Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:29:45.662Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:29:45.664Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:29:46.471Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:29:46.472Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:29:49.278Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:29:49.279Z] [SyncEngine] INFO: Sync cycle completed in 3617ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:30:15.674Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:30:15.675Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:30:15.677Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:30:16.448Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:30:16.450Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:30:19.131Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:30:19.132Z] [SyncEngine] INFO: Sync cycle completed in 3457ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:30:45.674Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:30:45.676Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:30:45.678Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:30:46.353Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:30:46.355Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:30:48.799Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:30:48.801Z] [SyncEngine] INFO: Sync cycle completed in 3125ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:31:15.678Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:31:15.680Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:31:15.682Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:31:16.796Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:31:16.797Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:31:19.491Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:31:19.493Z] [SyncEngine] INFO: Sync cycle completed in 3813ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:31:45.687Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:31:45.688Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:31:45.690Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:31:46.455Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:31:46.456Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:31:49.375Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:31:49.377Z] [SyncEngine] INFO: Sync cycle completed in 3689ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:32:15.698Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:32:15.700Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:32:15.703Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:32:16.527Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:32:16.528Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:32:19.591Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:32:19.592Z] [SyncEngine] INFO: Sync cycle completed in 3892ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:32:45.703Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:32:45.705Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:32:45.708Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:32:46.453Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:32:46.454Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:32:49.996Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:32:49.997Z] [SyncEngine] INFO: Sync cycle completed in 4292ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:33:15.714Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:33:15.716Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:33:15.718Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:33:16.469Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:33:16.470Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:33:18.957Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:33:18.958Z] [SyncEngine] INFO: Sync cycle completed in 3242ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:33:45.729Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:33:45.730Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:33:45.732Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:33:46.512Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:33:46.514Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:33:48.965Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:33:48.966Z] [SyncEngine] INFO: Sync cycle completed in 3236ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:34:15.734Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:34:15.735Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:34:15.736Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:34:16.458Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:34:16.460Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:34:18.903Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:34:18.904Z] [SyncEngine] INFO: Sync cycle completed in 3169ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:34:45.748Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:34:45.749Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:34:45.751Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:34:46.510Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:34:46.512Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:34:49.045Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:34:49.046Z] [SyncEngine] INFO: Sync cycle completed in 3297ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:35:15.757Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:35:15.758Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:35:15.759Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:35:16.478Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:35:16.480Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:35:19.095Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:35:19.095Z] [SyncEngine] INFO: Sync cycle completed in 3337ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:35:45.762Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:35:45.763Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:35:45.765Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:35:47.650Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:35:47.651Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:35:50.810Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:35:50.811Z] [SyncEngine] INFO: Sync cycle completed in 5048ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:36:15.764Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:36:15.765Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:36:15.768Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:36:16.768Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:36:16.770Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:36:19.851Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:36:19.852Z] [SyncEngine] INFO: Sync cycle completed in 4087ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:36:45.769Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:36:45.770Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:36:45.772Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:36:46.490Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:36:46.492Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:36:48.968Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:36:48.968Z] [SyncEngine] INFO: Sync cycle completed in 3198ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:37:15.776Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:37:15.776Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:37:15.778Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:37:16.502Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:37:16.502Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:37:19.117Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:37:19.118Z] [SyncEngine] INFO: Sync cycle completed in 3342ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:37:45.787Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:37:45.788Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:37:45.790Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:37:46.497Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:37:46.499Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:37:49.606Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:37:49.607Z] [SyncEngine] INFO: Sync cycle completed in 3819ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:38:15.798Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:38:15.799Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:38:15.801Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:38:17.191Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:38:17.192Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:38:19.917Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:38:19.920Z] [SyncEngine] INFO: Sync cycle completed in 4121ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:38:45.799Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:38:45.800Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:38:45.803Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:38:46.548Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:38:46.549Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:38:49.234Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:38:49.235Z] [SyncEngine] INFO: Sync cycle completed in 3435ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:39:15.813Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:39:15.814Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:39:15.815Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:39:16.511Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:39:16.512Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:39:19.170Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:39:19.171Z] [SyncEngine] INFO: Sync cycle completed in 3357ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:39:45.823Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:39:45.824Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:39:45.826Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:39:46.528Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:39:46.528Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:39:48.933Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:39:48.934Z] [SyncEngine] INFO: Sync cycle completed in 3110ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:40:15.824Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:40:15.824Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:40:15.825Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:40:16.681Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:40:16.682Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:40:23.230Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:40:23.231Z] [SyncEngine] INFO: Sync cycle completed in 7407ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:40:45.831Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:40:45.834Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:40:45.838Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:40:46.790Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:40:46.791Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:40:51.191Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:40:51.249Z] [SyncEngine] INFO: Sync cycle completed in 5415ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:41:15.838Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:41:15.839Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:41:15.841Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:41:18.547Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:41:18.548Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:41:23.421Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:41:23.423Z] [SyncEngine] INFO: Sync cycle completed in 7584ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:41:45.840Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:41:45.840Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:41:45.842Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:41:46.624Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:41:46.625Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:41:49.128Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:41:49.129Z] [SyncEngine] INFO: Sync cycle completed in 3289ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:42:15.853Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:42:15.853Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:42:15.854Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:42:16.534Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:42:16.534Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:42:19.136Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:42:19.137Z] [SyncEngine] INFO: Sync cycle completed in 3284ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:42:29.701Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:42:29.702Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:42:29.703Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:42:29.723Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:42:29.724Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T12:42:30.334Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:42:30.334Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:42:32.755Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:42:32.756Z] [SyncEngine] INFO: Sync cycle completed in 3054ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:42:59.735Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:42:59.736Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:42:59.738Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:43:03.294Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:43:03.297Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:43:06.362Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:43:06.364Z] [SyncEngine] INFO: Sync cycle completed in 6628ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:43:29.748Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:43:29.751Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:43:29.755Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:43:30.715Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:43:30.716Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:43:33.148Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:43:33.151Z] [SyncEngine] INFO: Sync cycle completed in 3400ms. Uploaded: 0, Downloaded: 1, Failed: 0 
+[2026-07-23T12:46:18.996Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:46:18.997Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:46:19.000Z] [SyncEngine] INFO: Uploading 1 items to users 
+[2026-07-23T12:46:19.339Z] [SyncEngine] ERROR: Upload failed for users {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'password' column of 'users' in the schema cache"}
+[2026-07-23T12:46:19.951Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:46:26.067Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:46:26.068Z] [SyncEngine] INFO: Sync cycle completed in 7071ms. Uploaded: 0, Downloaded: 2, Failed: 1 
+[2026-07-23T12:46:49.013Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:46:49.014Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:46:49.015Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:46:53.495Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:46:53.497Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:46:53.498Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:46:57.300Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:46:57.304Z] [SyncEngine] INFO: Sync cycle completed in 8290ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:47:19.017Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:47:19.018Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:47:19.020Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:47:19.750Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:47:19.751Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:47:19.752Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:47:22.155Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:47:22.157Z] [SyncEngine] INFO: Sync cycle completed in 3139ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:47:49.019Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:47:49.021Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:47:49.024Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:47:53.508Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:47:53.509Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:47:53.509Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:47:56.394Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:47:56.395Z] [SyncEngine] INFO: Sync cycle completed in 7374ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:48:19.025Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:48:19.026Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:48:19.027Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:48:19.974Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:48:19.975Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:48:19.975Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:48:22.859Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:48:22.860Z] [SyncEngine] INFO: Sync cycle completed in 3834ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:48:49.036Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:48:49.036Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:48:49.037Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:48:49.783Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:48:49.785Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:48:49.786Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:48:52.323Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:48:52.324Z] [SyncEngine] INFO: Sync cycle completed in 3288ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:49:19.046Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:49:19.046Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:49:19.048Z] [SyncEngine] INFO: Uploading 1 items to users 
+[2026-07-23T12:49:19.368Z] [SyncEngine] ERROR: Upload failed for users {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'password' column of 'users' in the schema cache"}
+[2026-07-23T12:49:20.067Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:49:20.067Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:49:20.068Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:49:22.564Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:49:22.565Z] [SyncEngine] INFO: Sync cycle completed in 3519ms. Uploaded: 0, Downloaded: 2, Failed: 1 
+[2026-07-23T12:49:49.050Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:49:49.053Z] [SyncEngine] INFO: Starting sync cycle for workspace 0949c497-d3bb-4a56-a68f-e530ce301003 
+[2026-07-23T12:49:49.056Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:49:53.163Z] [SyncEngine] WARN: Conflict detected in users for record c83fbf13-280f-4f42-96d8-871f131a153a. Marked as conflict. 
+[2026-07-23T12:49:53.168Z] [SyncEngine] WARN: Conflict detected in users for record ccbdb691-8800-4ddc-bd8d-4a5d1c89cb1c. Marked as conflict. 
+[2026-07-23T12:49:53.170Z] [SyncEngine] INFO: Downloaded 2 records for users 
+[2026-07-23T12:49:55.592Z] [SyncEngine] INFO: Data updated in tables: users 
+[2026-07-23T12:49:55.595Z] [SyncEngine] INFO: Sync cycle completed in 6543ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:54:02.033Z] [SyncEngine] INFO: [InitialSync] Starting full download for workspace 55bd33ac-7c7d-4112-8707-77053f026632... 
+[2026-07-23T12:54:02.034Z] [SyncEngine] INFO: [InitialSync] Downloading categories... 
+[2026-07-23T12:54:02.302Z] [SyncEngine] INFO: [InitialSync] No records for categories 
+[2026-07-23T12:54:02.303Z] [SyncEngine] INFO: [InitialSync] Downloading products... 
+[2026-07-23T12:54:02.630Z] [SyncEngine] INFO: [InitialSync] No records for products 
+[2026-07-23T12:54:02.631Z] [SyncEngine] INFO: [InitialSync] Downloading customers... 
+[2026-07-23T12:54:02.893Z] [SyncEngine] INFO: [InitialSync] No records for customers 
+[2026-07-23T12:54:02.895Z] [SyncEngine] INFO: [InitialSync] Downloading suppliers... 
+[2026-07-23T12:54:03.196Z] [SyncEngine] INFO: [InitialSync] No records for suppliers 
+[2026-07-23T12:54:03.199Z] [SyncEngine] INFO: [InitialSync] Downloading expenses... 
+[2026-07-23T12:54:03.440Z] [SyncEngine] INFO: [InitialSync] No records for expenses 
+[2026-07-23T12:54:03.441Z] [SyncEngine] INFO: [InitialSync] Downloading purchases... 
+[2026-07-23T12:54:03.781Z] [SyncEngine] INFO: [InitialSync] No records for purchases 
+[2026-07-23T12:54:03.781Z] [SyncEngine] INFO: [InitialSync] Downloading purchase_items... 
+[2026-07-23T12:54:03.999Z] [SyncEngine] INFO: [InitialSync] No records for purchase_items 
+[2026-07-23T12:54:03.999Z] [SyncEngine] INFO: [InitialSync] Downloading sales... 
+[2026-07-23T12:54:04.298Z] [SyncEngine] INFO: [InitialSync] No records for sales 
+[2026-07-23T12:54:04.299Z] [SyncEngine] INFO: [InitialSync] Downloading sale_items... 
+[2026-07-23T12:54:04.553Z] [SyncEngine] INFO: [InitialSync] No records for sale_items 
+[2026-07-23T12:54:04.554Z] [SyncEngine] INFO: [InitialSync] Downloading inventory_movements... 
+[2026-07-23T12:54:04.764Z] [SyncEngine] INFO: [InitialSync] No records for inventory_movements 
+[2026-07-23T12:54:04.765Z] [SyncEngine] INFO: [InitialSync] Downloading settings... 
+[2026-07-23T12:54:05.003Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for settings 
+[2026-07-23T12:54:05.007Z] [SyncEngine] INFO: [InitialSync] Finished settings: 1 inserted, 0 skipped. 
+[2026-07-23T12:54:05.007Z] [SyncEngine] INFO: [InitialSync] Downloading users... 
+[2026-07-23T12:54:05.233Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for users 
+[2026-07-23T12:54:05.234Z] [SyncEngine] INFO: [InitialSync] Finished users: 1 inserted, 0 skipped. 
+[2026-07-23T12:54:05.235Z] [SyncEngine] INFO: [InitialSync] Complete. Inserted 2 records across 12 tables. 
+[2026-07-23T12:54:05.236Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:54:05.236Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:54:05.237Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:54:05.479Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T12:54:05.480Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T12:54:05.714Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T12:54:05.715Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T12:54:08.204Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T12:54:08.204Z] [SyncEngine] INFO: Sync cycle completed in 2968ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T12:54:22.285Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T12:54:22.285Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:54:22.286Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:54:27.783Z] [SyncEngine] INFO: Sync cycle completed in 5498ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:54:52.292Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:54:52.293Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:54:52.295Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:55:00.454Z] [SyncEngine] INFO: Sync cycle completed in 8161ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:55:22.302Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:55:22.303Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:55:22.304Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:55:29.174Z] [SyncEngine] INFO: Sync cycle completed in 6871ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:55:52.311Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:55:52.314Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:55:52.317Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:55:58.480Z] [SyncEngine] INFO: Sync cycle completed in 6166ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:56:22.318Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:56:22.321Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:56:22.324Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:56:29.950Z] [SyncEngine] INFO: Sync cycle completed in 7629ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:56:52.329Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:56:52.330Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:56:52.333Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:56:57.746Z] [SyncEngine] INFO: Sync cycle completed in 5416ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:57:22.343Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:57:22.343Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:57:22.344Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:57:30.204Z] [SyncEngine] INFO: Sync cycle completed in 7861ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:57:52.352Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:57:52.353Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:57:52.354Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:58:01.019Z] [SyncEngine] INFO: Sync cycle completed in 8666ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:58:22.363Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:58:22.366Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:58:22.369Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:58:28.214Z] [SyncEngine] INFO: Sync cycle completed in 5848ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T12:58:52.369Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T12:58:52.370Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T12:58:52.371Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T12:58:56.793Z] [SyncEngine] INFO: Sync cycle completed in 4423ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:01:17.661Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:01:17.664Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:01:17.667Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:01:17.949Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:01:17.949Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:01:18.230Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:01:21.318Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:01:21.319Z] [SyncEngine] INFO: Sync cycle completed in 3655ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:01:36.900Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:01:36.901Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:01:36.903Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:01:36.921Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:01:36.921Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:01:37.153Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:01:37.154Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:01:37.409Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:01:37.409Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:01:39.806Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:01:39.807Z] [SyncEngine] INFO: Sync cycle completed in 2906ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:02:06.932Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:02:06.934Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:02:06.937Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:02:07.321Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:02:07.323Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:02:07.545Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:02:07.545Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:02:10.044Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:02:10.046Z] [SyncEngine] INFO: Sync cycle completed in 3112ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:02:36.939Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:02:36.941Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:02:36.944Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:02:37.316Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:02:37.317Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:02:37.590Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:02:37.592Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:02:40.130Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:02:40.133Z] [SyncEngine] INFO: Sync cycle completed in 3192ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:03:06.939Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:03:06.941Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:03:06.944Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:03:07.836Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:03:07.837Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:03:08.866Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:03:08.868Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:03:12.985Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:03:12.986Z] [SyncEngine] INFO: Sync cycle completed in 6045ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:03:36.948Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:03:36.950Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:03:36.951Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:03:37.337Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:03:37.338Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:03:37.607Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:03:37.607Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:03:40.201Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:03:40.201Z] [SyncEngine] INFO: Sync cycle completed in 3251ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:04:06.961Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:04:06.964Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:04:06.967Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:04:07.385Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:04:07.386Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:04:07.823Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:04:07.824Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:04:10.755Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:04:10.757Z] [SyncEngine] INFO: Sync cycle completed in 3793ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:04:20.541Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:04:20.542Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:04:20.544Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:04:20.552Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:04:20.552Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:04:20.897Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:04:20.897Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:04:21.173Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:04:21.174Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:04:23.624Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:04:23.626Z] [SyncEngine] INFO: Sync cycle completed in 3084ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:06:02.519Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:06:02.521Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:06:02.524Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:06:02.835Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:06:02.836Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:06:03.063Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:06:05.653Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:06:05.653Z] [SyncEngine] INFO: Sync cycle completed in 3132ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:06:32.536Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:06:32.538Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:06:32.539Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:06:32.983Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:06:32.983Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:06:33.282Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:06:33.282Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:06:36.160Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:06:36.162Z] [SyncEngine] INFO: Sync cycle completed in 3624ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:07:02.544Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:07:02.547Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:07:02.551Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:07:03.044Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:07:03.046Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:07:03.321Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:07:03.322Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:07:06.451Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:07:06.454Z] [SyncEngine] INFO: Sync cycle completed in 3907ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:07:32.553Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:07:32.556Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:07:32.559Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:07:33.163Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:07:33.164Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:07:33.624Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:07:33.625Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:07:36.814Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:07:36.815Z] [SyncEngine] INFO: Sync cycle completed in 4259ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:08:02.566Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:08:02.568Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:08:02.572Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:08:05.123Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:08:05.125Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:08:05.410Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:08:05.413Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:08:10.698Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:08:10.699Z] [SyncEngine] INFO: Sync cycle completed in 8131ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:08:32.573Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:08:32.575Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:08:32.578Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:08:34.161Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:08:34.163Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:08:34.551Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:08:34.552Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:08:37.936Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:08:37.937Z] [SyncEngine] INFO: Sync cycle completed in 5362ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:09:02.576Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:09:02.577Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:09:02.578Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:09:03.023Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:09:03.023Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:09:03.529Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:09:03.530Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:09:07.111Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:09:07.111Z] [SyncEngine] INFO: Sync cycle completed in 4534ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:09:32.588Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:09:32.592Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:09:32.595Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:09:33.521Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:09:33.522Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:09:33.908Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:09:33.910Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:09:37.824Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:09:37.826Z] [SyncEngine] INFO: Sync cycle completed in 5233ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:10:02.615Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:10:02.616Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:10:02.617Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:10:05.396Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:10:05.398Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:10:05.980Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:10:05.981Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:10:12.354Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:10:12.355Z] [SyncEngine] INFO: Sync cycle completed in 9739ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:10:32.615Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:10:32.616Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:10:32.618Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:10:32.972Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:10:32.973Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:10:33.242Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:10:33.243Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:10:39.849Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:10:39.851Z] [SyncEngine] INFO: Sync cycle completed in 7235ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:11:02.618Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:11:02.620Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:11:02.624Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:11:03.164Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:11:03.166Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:11:03.463Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:11:03.464Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:11:09.096Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:11:09.098Z] [SyncEngine] INFO: Sync cycle completed in 6478ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:11:32.628Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:11:32.630Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:11:32.633Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:11:33.277Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:11:33.277Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:11:33.511Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:11:33.513Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:11:36.082Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:11:36.083Z] [SyncEngine] INFO: Sync cycle completed in 3453ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:12:02.628Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:12:02.630Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:12:02.631Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:12:03.136Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:12:03.137Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:12:03.438Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:12:03.440Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:12:06.237Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:12:06.238Z] [SyncEngine] INFO: Sync cycle completed in 3608ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:12:32.637Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:12:32.640Z] [SyncEngine] INFO: Starting sync cycle for workspace 55bd33ac-7c7d-4112-8707-77053f026632 
+[2026-07-23T13:12:32.642Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:12:34.806Z] [SyncEngine] WARN: Conflict detected in settings for record dc7a9b55-ecef-464f-9801-cf0a342a8f0d. Marked as conflict. 
+[2026-07-23T13:12:34.809Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:12:35.111Z] [SyncEngine] WARN: Conflict detected in users for record 87201672-4feb-4e9a-bc61-66ab7e3d36d8. Marked as conflict. 
+[2026-07-23T13:12:35.113Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:12:38.214Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:12:38.216Z] [SyncEngine] INFO: Sync cycle completed in 5576ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:13:11.532Z] [SyncEngine] INFO: [InitialSync] Starting full download for workspace 622708c7-454e-4bbc-be47-569942b3c92e... 
+[2026-07-23T13:13:11.533Z] [SyncEngine] INFO: [InitialSync] Downloading categories... 
+[2026-07-23T13:13:11.785Z] [SyncEngine] INFO: [InitialSync] No records for categories 
+[2026-07-23T13:13:11.786Z] [SyncEngine] INFO: [InitialSync] Downloading products... 
+[2026-07-23T13:13:12.142Z] [SyncEngine] INFO: [InitialSync] No records for products 
+[2026-07-23T13:13:12.142Z] [SyncEngine] INFO: [InitialSync] Downloading customers... 
+[2026-07-23T13:13:12.401Z] [SyncEngine] INFO: [InitialSync] No records for customers 
+[2026-07-23T13:13:12.403Z] [SyncEngine] INFO: [InitialSync] Downloading suppliers... 
+[2026-07-23T13:13:12.710Z] [SyncEngine] INFO: [InitialSync] No records for suppliers 
+[2026-07-23T13:13:12.711Z] [SyncEngine] INFO: [InitialSync] Downloading expenses... 
+[2026-07-23T13:13:13.029Z] [SyncEngine] INFO: [InitialSync] No records for expenses 
+[2026-07-23T13:13:13.030Z] [SyncEngine] INFO: [InitialSync] Downloading purchases... 
+[2026-07-23T13:13:13.401Z] [SyncEngine] INFO: [InitialSync] No records for purchases 
+[2026-07-23T13:13:13.402Z] [SyncEngine] INFO: [InitialSync] Downloading purchase_items... 
+[2026-07-23T13:13:13.643Z] [SyncEngine] INFO: [InitialSync] No records for purchase_items 
+[2026-07-23T13:13:13.644Z] [SyncEngine] INFO: [InitialSync] Downloading sales... 
+[2026-07-23T13:13:14.433Z] [SyncEngine] INFO: [InitialSync] No records for sales 
+[2026-07-23T13:13:14.434Z] [SyncEngine] INFO: [InitialSync] Downloading sale_items... 
+[2026-07-23T13:13:15.285Z] [SyncEngine] INFO: [InitialSync] No records for sale_items 
+[2026-07-23T13:13:15.285Z] [SyncEngine] INFO: [InitialSync] Downloading inventory_movements... 
+[2026-07-23T13:13:16.893Z] [SyncEngine] INFO: [InitialSync] No records for inventory_movements 
+[2026-07-23T13:13:16.894Z] [SyncEngine] INFO: [InitialSync] Downloading settings... 
+[2026-07-23T13:13:17.929Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for settings 
+[2026-07-23T13:13:17.937Z] [SyncEngine] INFO: [InitialSync] Finished settings: 1 inserted, 0 skipped. 
+[2026-07-23T13:13:17.939Z] [SyncEngine] INFO: [InitialSync] Downloading users... 
+[2026-07-23T13:13:18.428Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for users 
+[2026-07-23T13:13:18.431Z] [SyncEngine] ERROR: [InitialSync] Error syncing users: {
+  "error": "SQLITE_INSERT_FAILED",
+  "message": "UNIQUE constraint failed: users.username",
+  "table": "users",
+  "query": "INSERT INTO users (id, workspace_id, username, role, name, email, phone, status, created_at, updated_at, deleted_at, sync_status, last_synced_at, version, device_id) ...",
+  "values": {
+    "id": "608b40a5-5f3a-4217-89a2-b25e9c2322f8",
+    "workspace_id": "622708c7-454e-4bbc-be47-569942b3c92e",
+    "username": "kingsmenperfume",
+    "role": "Admin",
+    "name": "Abdullah",
+    "email": "kingsmenperfume@gmail.com",
+    "phone": null,
+    "status": "Active",
+    "created_at": "2026-07-23T18:10:41.151477+00:00",
+    "updated_at": "2026-07-23T18:12:12.259256+00:00",
+    "deleted_at": null,
+    "sync_status": "synced",
+    "last_synced_at": "2026-07-23T13:13:18.429Z",
+    "version": 1,
+    "device_id": "CLOUD"
+  }
+} 
+[2026-07-23T13:13:18.433Z] [SyncEngine] INFO: [InitialSync] Complete. Inserted 1 records across 11 tables. 
+[2026-07-23T13:13:18.434Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:13:18.434Z] [SyncEngine] INFO: Starting sync cycle for workspace 622708c7-454e-4bbc-be47-569942b3c92e 
+[2026-07-23T13:13:18.436Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:13:19.430Z] [SyncEngine] WARN: Conflict detected in settings for record 04822536-3fe7-48d2-8bb7-6735f3b05f09. Marked as conflict. 
+[2026-07-23T13:13:19.431Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:13:20.310Z] [SyncEngine] ERROR: Download failed for users {}
+[2026-07-23T13:13:24.738Z] [SyncEngine] INFO: Data updated in tables: settings 
+[2026-07-23T13:13:24.739Z] [SyncEngine] INFO: Sync cycle completed in 6305ms. Uploaded: 0, Downloaded: 1, Failed: 1 
+[2026-07-23T13:14:53.318Z] [SyncEngine] INFO: [InitialSync] Starting full download for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6... 
+[2026-07-23T13:14:53.319Z] [SyncEngine] INFO: [InitialSync] Downloading categories... 
+[2026-07-23T13:14:54.018Z] [SyncEngine] INFO: [InitialSync] No records for categories 
+[2026-07-23T13:14:54.019Z] [SyncEngine] INFO: [InitialSync] Downloading products... 
+[2026-07-23T13:14:54.408Z] [SyncEngine] INFO: [InitialSync] No records for products 
+[2026-07-23T13:14:54.409Z] [SyncEngine] INFO: [InitialSync] Downloading customers... 
+[2026-07-23T13:14:54.641Z] [SyncEngine] INFO: [InitialSync] No records for customers 
+[2026-07-23T13:14:54.641Z] [SyncEngine] INFO: [InitialSync] Downloading suppliers... 
+[2026-07-23T13:14:54.952Z] [SyncEngine] INFO: [InitialSync] No records for suppliers 
+[2026-07-23T13:14:54.953Z] [SyncEngine] INFO: [InitialSync] Downloading expenses... 
+[2026-07-23T13:14:55.269Z] [SyncEngine] INFO: [InitialSync] No records for expenses 
+[2026-07-23T13:14:55.269Z] [SyncEngine] INFO: [InitialSync] Downloading purchases... 
+[2026-07-23T13:14:55.552Z] [SyncEngine] INFO: [InitialSync] No records for purchases 
+[2026-07-23T13:14:55.554Z] [SyncEngine] INFO: [InitialSync] Downloading purchase_items... 
+[2026-07-23T13:14:55.930Z] [SyncEngine] INFO: [InitialSync] No records for purchase_items 
+[2026-07-23T13:14:55.932Z] [SyncEngine] INFO: [InitialSync] Downloading sales... 
+[2026-07-23T13:14:56.392Z] [SyncEngine] INFO: [InitialSync] No records for sales 
+[2026-07-23T13:14:56.394Z] [SyncEngine] INFO: [InitialSync] Downloading sale_items... 
+[2026-07-23T13:14:56.836Z] [SyncEngine] INFO: [InitialSync] No records for sale_items 
+[2026-07-23T13:14:56.836Z] [SyncEngine] INFO: [InitialSync] Downloading inventory_movements... 
+[2026-07-23T13:14:57.660Z] [SyncEngine] INFO: [InitialSync] No records for inventory_movements 
+[2026-07-23T13:14:57.660Z] [SyncEngine] INFO: [InitialSync] Downloading settings... 
+[2026-07-23T13:14:58.421Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for settings 
+[2026-07-23T13:14:58.424Z] [SyncEngine] INFO: [InitialSync] Finished settings: 1 inserted, 0 skipped. 
+[2026-07-23T13:14:58.424Z] [SyncEngine] INFO: [InitialSync] Downloading users... 
+[2026-07-23T13:14:59.025Z] [SyncEngine] INFO: [InitialSync] Downloaded 1 records for users 
+[2026-07-23T13:14:59.026Z] [SyncEngine] INFO: [InitialSync] Finished users: 1 inserted, 0 skipped. 
+[2026-07-23T13:14:59.027Z] [SyncEngine] INFO: [InitialSync] Complete. Inserted 2 records across 12 tables. 
+[2026-07-23T13:14:59.028Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:14:59.028Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:14:59.029Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:14:59.451Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:14:59.452Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:14:59.856Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:14:59.857Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:15:04.136Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:15:04.136Z] [SyncEngine] INFO: Sync cycle completed in 5108ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:15:29.043Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:15:29.044Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:15:29.045Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:15:30.483Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:15:30.484Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:15:31.183Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:15:31.184Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:15:37.764Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:15:37.766Z] [SyncEngine] INFO: Sync cycle completed in 8722ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:15:59.057Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:15:59.058Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:15:59.059Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:16:01.476Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:16:01.476Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:16:02.975Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:16:02.976Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:16:09.873Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:16:09.874Z] [SyncEngine] INFO: Sync cycle completed in 10816ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:16:29.066Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:16:29.069Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:16:29.072Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:16:29.473Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:16:29.475Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:16:29.751Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:16:29.752Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:16:32.714Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:16:32.717Z] [SyncEngine] INFO: Sync cycle completed in 3648ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:16:59.078Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:16:59.081Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:16:59.084Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:16:59.679Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:16:59.680Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:17:00.249Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:17:00.252Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:17:03.401Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:17:03.402Z] [SyncEngine] INFO: Sync cycle completed in 4321ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:17:29.089Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:17:29.091Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:17:29.093Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:17:30.156Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:17:30.157Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:17:30.878Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:17:30.879Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:17:39.026Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:17:39.028Z] [SyncEngine] INFO: Sync cycle completed in 9937ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:17:59.090Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:17:59.093Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:17:59.096Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:18:00.370Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:18:00.371Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:18:01.607Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:18:05.052Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:18:05.053Z] [SyncEngine] INFO: Sync cycle completed in 5960ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:18:29.101Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:18:29.102Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:18:29.104Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:18:30.898Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:18:30.898Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:18:31.930Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:18:31.932Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:18:37.365Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:18:37.366Z] [SyncEngine] INFO: Sync cycle completed in 8264ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:18:59.113Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:18:59.115Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:18:59.120Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:19:00.821Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:19:00.822Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:19:02.057Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:19:02.059Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:19:09.545Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:19:09.547Z] [SyncEngine] INFO: Sync cycle completed in 10432ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:19:29.116Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:19:29.117Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:19:29.118Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:19:29.514Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:19:29.515Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:19:29.761Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:19:29.761Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:19:32.795Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:19:32.796Z] [SyncEngine] INFO: Sync cycle completed in 3679ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:19:59.116Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:19:59.118Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:19:59.121Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:19:59.650Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:19:59.652Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:19:59.934Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:20:03.647Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:20:03.647Z] [SyncEngine] INFO: Sync cycle completed in 4529ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:20:29.125Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:20:29.129Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:20:29.133Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:20:32.006Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:20:32.007Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:20:32.861Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:20:32.863Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:20:43.140Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:20:43.143Z] [SyncEngine] INFO: Sync cycle completed in 14014ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:20:59.139Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:20:59.142Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:20:59.145Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:21:01.140Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:21:01.141Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:21:01.657Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:21:01.659Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:21:04.560Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:21:04.561Z] [SyncEngine] INFO: Sync cycle completed in 5419ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:21:29.141Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:21:29.142Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:21:29.144Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:21:31.802Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:21:31.803Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:21:33.032Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:21:33.034Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:21:38.380Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:21:38.382Z] [SyncEngine] INFO: Sync cycle completed in 9240ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:21:59.153Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:21:59.156Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:21:59.159Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:22:00.015Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:22:00.016Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:22:00.316Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:22:00.318Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:22:04.162Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:22:04.163Z] [SyncEngine] INFO: Sync cycle completed in 5007ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:22:29.161Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:22:29.163Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:22:29.166Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:22:29.710Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:22:29.711Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:22:29.964Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:22:29.966Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:22:32.446Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:22:32.447Z] [SyncEngine] INFO: Sync cycle completed in 3284ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:22:59.166Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:22:59.167Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:22:59.169Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:23:01.133Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:23:01.133Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:23:01.921Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:23:01.923Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:23:04.866Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:23:04.918Z] [SyncEngine] INFO: Sync cycle completed in 5751ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:23:29.175Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:23:29.177Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:23:29.180Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:23:29.746Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:23:29.747Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:23:29.974Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:23:29.975Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:23:38.006Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:23:38.008Z] [SyncEngine] INFO: Sync cycle completed in 8831ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:23:59.183Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:23:59.185Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:23:59.190Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:24:00.246Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:24:00.247Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:24:00.876Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:24:00.877Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:24:04.538Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:24:04.540Z] [SyncEngine] INFO: Sync cycle completed in 5355ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:24:29.190Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:24:29.192Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:24:29.196Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:24:30.891Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:24:30.891Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:24:31.993Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:24:31.995Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:24:39.412Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:24:39.414Z] [SyncEngine] INFO: Sync cycle completed in 10222ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:24:59.201Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:24:59.203Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:24:59.206Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:25:00.895Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:25:00.897Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:25:01.212Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:25:01.214Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:25:03.965Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:25:03.967Z] [SyncEngine] INFO: Sync cycle completed in 4764ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:25:29.216Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:25:29.219Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:25:29.222Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:25:30.836Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:25:30.837Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:25:31.113Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:25:31.114Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:25:35.204Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:25:35.206Z] [SyncEngine] INFO: Sync cycle completed in 5987ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:25:59.228Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:25:59.230Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:25:59.233Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:26:02.795Z] [SyncEngine] WARN: Conflict detected in settings for record 029e761a-7de1-4ef1-a98e-5540c560a698. Marked as conflict. 
+[2026-07-23T13:26:02.796Z] [SyncEngine] INFO: Downloaded 1 records for settings 
+[2026-07-23T13:26:03.525Z] [SyncEngine] WARN: Conflict detected in users for record 04f1635b-89c3-466a-9e15-6914d27d6b9d. Marked as conflict. 
+[2026-07-23T13:26:03.527Z] [SyncEngine] INFO: Downloaded 1 records for users 
+[2026-07-23T13:26:10.745Z] [SyncEngine] INFO: Data updated in tables: settings, users 
+[2026-07-23T13:26:10.746Z] [SyncEngine] INFO: Sync cycle completed in 11516ms. Uploaded: 0, Downloaded: 2, Failed: 0 
+[2026-07-23T13:26:25.923Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:26:25.924Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:26:25.926Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:26:25.956Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:26:25.956Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:26:35.591Z] [SyncEngine] INFO: Sync cycle completed in 9667ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:26:55.963Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:26:55.965Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:26:55.968Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:27:03.845Z] [SyncEngine] INFO: Sync cycle completed in 7880ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:27:25.972Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:27:25.974Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:27:25.977Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:27:32.643Z] [SyncEngine] INFO: Sync cycle completed in 6668ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:27:55.977Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:27:55.978Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:27:55.979Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:27:58.839Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:27:58.839Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:27:58.883Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:27:58.883Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:28:01.099Z] [SyncEngine] INFO: Sync cycle completed in 5121ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:28:24.351Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:28:24.352Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:28:24.353Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:28:24.457Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:28:24.457Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:28:31.131Z] [SyncEngine] INFO: Sync cycle completed in 6779ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:28:54.136Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:28:54.138Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:28:54.141Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:29:01.106Z] [SyncEngine] INFO: Sync cycle completed in 6968ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:29:23.398Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:29:23.398Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:29:23.399Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:29:23.476Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:29:23.477Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:29:26.325Z] [SyncEngine] INFO: Sync cycle completed in 2927ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:29:53.484Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:29:53.487Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:29:53.490Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:30:00.429Z] [SyncEngine] INFO: Sync cycle completed in 6942ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:30:23.500Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:30:23.501Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:30:23.502Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:30:31.709Z] [SyncEngine] INFO: Sync cycle completed in 8208ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:30:53.503Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:30:53.503Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:30:53.505Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:31:01.954Z] [SyncEngine] INFO: Sync cycle completed in 8451ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:31:23.514Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:31:23.515Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:31:23.516Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:31:36.237Z] [SyncEngine] INFO: Sync cycle completed in 12722ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:31:53.606Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:31:53.607Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:31:53.608Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:32:01.190Z] [SyncEngine] INFO: Sync cycle completed in 7583ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:32:23.619Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:32:23.622Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:32:23.626Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:32:36.433Z] [SyncEngine] INFO: Sync cycle completed in 12811ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:32:53.626Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:32:53.627Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:32:53.628Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:33:01.940Z] [SyncEngine] INFO: Sync cycle completed in 8313ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:33:23.635Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:33:23.635Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:33:23.636Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:33:31.498Z] [SyncEngine] INFO: Sync cycle completed in 7863ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:33:53.635Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:33:53.638Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:33:53.641Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:33:57.362Z] [SyncEngine] INFO: Sync cycle completed in 3724ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:34:23.647Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:34:23.648Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:34:23.649Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:34:32.169Z] [SyncEngine] INFO: Sync cycle completed in 8521ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:34:53.653Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:34:53.655Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:34:53.658Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:35:02.481Z] [SyncEngine] INFO: Sync cycle completed in 8826ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:35:23.668Z] [SyncEngine] INFO: Sync triggered: Timer expired 
+[2026-07-23T13:35:23.670Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:35:23.673Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:35:28.644Z] [SyncEngine] INFO: Sync cycle completed in 4974ms. Uploaded: 0, Downloaded: 0, Failed: 0 
+[2026-07-23T13:36:36.845Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:36:36.846Z] [SyncEngine] INFO: Starting sync cycle for workspace 645ab7b3-1cbc-4b60-a944-0b794a7164f6 
+[2026-07-23T13:36:36.848Z] [SyncEngine] INFO: No pending uploads. 
+[2026-07-23T13:36:36.860Z] [SyncEngine] INFO: Sync triggered: Initialization 
+[2026-07-23T13:36:36.860Z] [SyncEngine] WARN: Sync already in progress, skipping request. 
+[2026-07-23T13:36:42.031Z] [SyncEngine] INFO: Sync cycle completed in 5185ms. Uploaded: 0, Downloaded: 0, Failed: 0 

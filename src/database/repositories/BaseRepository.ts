@@ -16,10 +16,34 @@ export class BaseRepository<T extends BaseRecord> {
     throw new DatabaseError(`Database operation failed in ${this.tableName}`, err?.code, err);
   }
 
+  protected hasWorkspaceIdColumn(): boolean {
+    if ((this as any)._hasWorkspaceId !== undefined) return (this as any)._hasWorkspaceId;
+    const columnsInfo = this.db.pragma(`table_info(${this.tableName})`) as any[];
+    (this as any)._hasWorkspaceId = columnsInfo.some((c: any) => c.name === 'workspace_id');
+    return (this as any)._hasWorkspaceId;
+  }
+
+  protected getCurrentWorkspaceId(): string | null {
+    const { dbManager } = require('../index');
+    return dbManager?.getCurrentWorkspaceId() || null;
+  }
+
   public findById(id: string): T | undefined {
     try {
-      const stmt = this.db.prepare(`SELECT * FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL`);
-      return stmt.get(id) as T | undefined;
+      let query = `SELECT * FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL`;
+      const params: any[] = [id];
+
+      if (this.hasWorkspaceIdColumn()) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        query += ` AND workspace_id = ?`;
+        params.push(wid);
+      }
+
+      const stmt = this.db.prepare(query);
+      return stmt.get(...params) as T | undefined;
     } catch (err) {
       this.handleError(err);
     }
@@ -28,9 +52,20 @@ export class BaseRepository<T extends BaseRecord> {
   public findAll(options?: QueryOptions): T[] {
     try {
       let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL`;
+      const params: any[] = [];
+
+      if (this.hasWorkspaceIdColumn()) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        query += ` AND workspace_id = ?`;
+        params.push(wid);
+      }
+
       query += buildQuerySuffix(options);
       const stmt = this.db.prepare(query);
-      return stmt.all() as T[];
+      return stmt.all(...params) as T[];
     } catch (err) {
       this.handleError(err);
     }
@@ -55,6 +90,14 @@ export class BaseRepository<T extends BaseRecord> {
         device_id: 'LOCAL',
         ...data
       };
+
+      if (this.hasWorkspaceIdColumn() && !(record as any).workspace_id) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        (record as any).workspace_id = wid;
+      }
 
       const columnsInfo = this.db.pragma(`table_info(${this.tableName})`) as any[];
       const validColumns = new Set(columnsInfo.map((c: any) => c.name));
@@ -159,6 +202,15 @@ export class BaseRepository<T extends BaseRecord> {
       let query = `SELECT COUNT(*) as count FROM ${this.tableName} WHERE deleted_at IS NULL`;
       const values: any[] = [];
 
+      if (this.hasWorkspaceIdColumn()) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        query += ` AND workspace_id = ?`;
+        values.push(wid);
+      }
+
       if (options?.where) {
         for (const [key, value] of Object.entries(options.where)) {
           query += ` AND ${key} = ?`;
@@ -176,8 +228,21 @@ export class BaseRepository<T extends BaseRecord> {
 
   public exists(id: string): boolean {
     try {
-      const stmt = this.db.prepare(`SELECT 1 FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL LIMIT 1`);
-      return !!stmt.get(id);
+      let query = `SELECT 1 FROM ${this.tableName} WHERE id = ? AND deleted_at IS NULL`;
+      const values: any[] = [id];
+
+      if (this.hasWorkspaceIdColumn()) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        query += ` AND workspace_id = ?`;
+        values.push(wid);
+      }
+
+      query += ` LIMIT 1`;
+      const stmt = this.db.prepare(query);
+      return !!stmt.get(...values);
     } catch (err) {
       this.handleError(err);
     }
@@ -187,6 +252,15 @@ export class BaseRepository<T extends BaseRecord> {
     try {
       let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL`;
       const values: any[] = [];
+
+      if (this.hasWorkspaceIdColumn()) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        query += ` AND workspace_id = ?`;
+        values.push(wid);
+      }
 
       for (const [key, value] of Object.entries(conditions)) {
         if (value === null) {
@@ -209,8 +283,19 @@ export class BaseRepository<T extends BaseRecord> {
     try {
       if (!queryStr || fields.length === 0) return this.findAll(options);
       
-      let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL AND (`;
+      let query = `SELECT * FROM ${this.tableName} WHERE deleted_at IS NULL`;
       const values: any[] = [];
+
+      if (this.hasWorkspaceIdColumn()) {
+        const wid = this.getCurrentWorkspaceId();
+        if (!wid) {
+          throw new Error(`[Security] Workspace context missing. Access to ${this.tableName} denied.`);
+        }
+        query += ` AND workspace_id = ?`;
+        values.push(wid);
+      }
+
+      query += ` AND (`;
       const conditions: string[] = [];
 
       for (const field of fields) {

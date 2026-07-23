@@ -57,14 +57,65 @@ class UserRepositoryProxy extends FrontendBaseRepository<User> {
   }
 
   async addUser(user: Omit<User, 'id' | 'createdAt'>): Promise<User> {
-    return this.create(user);
+    if (!supabase) throw new Error('Supabase client is not configured.');
+    
+    // Call Supabase RPC
+    const { data: newUserId, error } = await supabase.rpc('create_staff_user', {
+      staff_username: user.username,
+      staff_password: user.password,
+      staff_role: user.role,
+      staff_name: user.name || '',
+      staff_phone: user.phone || '',
+      staff_permissions: user.permissions || '',
+      staff_status: user.status || 'Active',
+      workspace_id: user.workspaceId || 1,
+      workspace_name: user.workspaceName || '',
+      staff_email: user.email || null
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Failed to create user via RPC');
+    }
+
+    return this.create({ ...user, id: newUserId } as any);
   }
 
   async updateUser(id: number | string, updates: Partial<User>): Promise<void> {
+    if (!supabase) throw new Error('Supabase client is not configured.');
+    
+    const { error } = await supabase.rpc('update_staff_user', {
+      staff_id: id,
+      new_password: updates.password || null,
+      new_metadata: {
+        username: updates.username,
+        name: updates.name,
+        phone: updates.phone,
+        role: updates.role,
+        permissions: updates.permissions,
+        status: updates.status,
+        workspaceId: updates.workspaceId,
+        workspaceName: updates.workspaceName
+      }
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Failed to update user via RPC');
+    }
+
     await this.update(id, updates);
   }
 
   async deleteUser(id: number | string): Promise<void> {
+    if (!supabase) throw new Error('Supabase client is not configured.');
+    
+    const { error } = await supabase.rpc('delete_staff_user', {
+      staff_id: id
+    });
+
+    if (error) {
+      throw new Error(error.message || 'Failed to delete user via RPC');
+    }
+
     await this.delete(id);
   }
 }

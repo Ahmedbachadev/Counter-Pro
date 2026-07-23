@@ -45,6 +45,10 @@ export class DatabaseManager {
 
   private currentWorkspaceId: string | null = null;
 
+  public getCurrentWorkspaceId(): string | null {
+    return this.currentWorkspaceId;
+  }
+
   private constructor() {}
 
   public static getInstance(): DatabaseManager {

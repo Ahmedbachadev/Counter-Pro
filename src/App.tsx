@@ -70,6 +70,7 @@ function App() {
   const Router = (window as any).electronAPI ? HashRouter : BrowserRouter;
   const isElectron = !!(window as any).electronAPI;
   const [isDbReady, setIsDbReady] = React.useState(!isElectron);
+  const [isSyncReady, setIsSyncReady] = React.useState(!isElectron);
   const { isDarkMode } = useThemeStore();
   const { i18n } = useTranslation();
   const { isAuthenticated, user } = useAuthStore();
@@ -148,16 +149,22 @@ function App() {
       }
     };
 
-    if (isDbReady && isAuthenticated) {
+    if (isDbReady && isAuthenticated && isSyncReady) {
       initializeStores();
       useSyncStore.getState().initializeListeners();
     }
-  }, [isDbReady, isAuthenticated, isOnline]);
+  }, [isDbReady, isAuthenticated, isSyncReady, isOnline]);
 
   // Offline-first: Forward auth session to main process for sync engine
   useEffect(() => {
     const setupSync = async () => {
-      if (!isElectron || !isAuthenticated || !user?.workspaceId) return;
+      if (!isElectron) return;
+      if (!isAuthenticated || !user?.workspaceId) {
+        setIsSyncReady(false);
+        return;
+      }
+
+      setIsSyncReady(false); // Reset before establishing new session
 
       try {
         // Get current Supabase session tokens from the renderer
@@ -183,6 +190,7 @@ function App() {
         await (window as any).electronAPI.initializeSync(String(user.workspaceId));
 
         console.log('[Sync] Sync bridge established successfully');
+        setIsSyncReady(true);
       } catch (err) {
         console.error('[Sync] Failed to set up sync bridge:', err);
       }
@@ -246,8 +254,8 @@ function App() {
           <Route path="/expired" element={<WorkspaceExpired />} />
 
           {/* Admin Platform Routes */}
-          <Route path="/adminpanel" element={<AdminLogin />} />
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/adminpanel/login" element={<AdminLogin />} />
+          <Route path="/adminpanel/*" element={<AdminRoutes />} />
 
           {/* Private Protected Routes */}
           <Route

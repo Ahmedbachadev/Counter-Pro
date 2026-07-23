@@ -96,7 +96,7 @@ const ReturnsExchanges: React.FC = () => {
       totalRefunds += r.refundAmount;
       totalExchanged += r.exchangeAmount;
       netPayout += r.netRefund;
-      if (r.items.length > 0) returnsCount += 1;
+      if ((r.items?.length || 0) > 0) returnsCount += 1;
       if (r.exchangeItems && r.exchangeItems.length > 0) exchangeCount += 1;
     });
 
@@ -444,7 +444,7 @@ const ReturnsExchanges: React.FC = () => {
                           <td className="px-6 py-4">#{rec.originalSaleId}</td>
                           <td className="px-6 py-4 text-slate-505">{format(new Date(rec.createdAt), 'yyyy-MM-dd HH:mm')}</td>
                           <td className="px-6 py-4 text-slate-900 dark:text-white font-bold">{rec.customerName || 'Walk-In'}</td>
-                          <td className="px-6 py-4 text-center">{rec.items.length + (rec.exchangeItems?.length || 0)}</td>
+                          <td className="px-6 py-4 text-center">{(rec.items?.length || 0) + (rec.exchangeItems?.length || 0)}</td>
                           <td className="px-6 py-4 text-right text-rose-605 font-bold">Rs. {rec.refundAmount.toFixed(2)}</td>
                           <td className="px-6 py-4 text-right">Rs. {rec.exchangeAmount.toFixed(2)}</td>
                           {activeTab === 'refund_ledger' && (

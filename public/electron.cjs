@@ -424,6 +424,10 @@ ipcMain.handle('db-get', async (event, sql, params = []) => {
 ipcMain.handle('export-data', async () => {
   try {
     ensureDB();
+    const workspaceId = dbManager ? dbManager.getCurrentWorkspaceId() : null;
+    if (!workspaceId) {
+      throw new Error('Workspace context missing. Cannot export data without being logged into a workspace.');
+    }
 
     const result = await dialog.showSaveDialog(mainWindow, {
       title: 'Export Database',
@@ -439,15 +443,26 @@ ipcMain.handle('export-data', async () => {
     }
 
     const data = {
-      categories: db.prepare('SELECT * FROM categories').all(),
-      suppliers: db.prepare('SELECT * FROM suppliers').all(),
-      products: db.prepare('SELECT * FROM products').all(),
-      customers: db.prepare('SELECT * FROM customers').all(),
-      sales: db.prepare('SELECT * FROM sales').all(),
-      sale_items: db.prepare('SELECT * FROM sale_items').all(),
-      stock_purchases: db.prepare('SELECT * FROM stock_purchases').all(),
-      settings: db.prepare('SELECT * FROM settings').all(),
-      users: db.prepare('SELECT * FROM users').all(),
+      categories: db.prepare('SELECT * FROM categories WHERE workspace_id = ?').all(workspaceId),
+      suppliers: db.prepare('SELECT * FROM suppliers WHERE workspace_id = ?').all(workspaceId),
+      products: db.prepare('SELECT * FROM products WHERE workspace_id = ?').all(workspaceId),
+      customers: db.prepare('SELECT * FROM customers WHERE workspace_id = ?').all(workspaceId),
+      sales: db.prepare('SELECT * FROM sales WHERE workspace_id = ?').all(workspaceId),
+      sale_items: db.prepare('SELECT * FROM sale_items WHERE workspace_id = ?').all(workspaceId),
+      // Use Purchases (with try-catch for stock_purchases compatibility)
+      stock_purchases: (() => {
+        try {
+          return db.prepare('SELECT * FROM stock_purchases WHERE workspace_id = ?').all(workspaceId);
+        } catch (err) {
+          try {
+            return db.prepare('SELECT * FROM purchases WHERE workspace_id = ?').all(workspaceId);
+          } catch (e) {
+            return [];
+          }
+        }
+      })(),
+      settings: db.prepare('SELECT * FROM settings WHERE workspace_id = ?').all(workspaceId),
+      users: db.prepare('SELECT * FROM users WHERE workspace_id = ?').all(workspaceId),
       exportDate: new Date().toISOString(),
       version: '1.0.0'
     };
@@ -487,107 +502,126 @@ ipcMain.handle('import-data', async () => {
     }
 
     const importTransaction = db.transaction(() => {
-      db.prepare('DELETE FROM sale_items').run();
-      db.prepare('DELETE FROM sales').run();
-      db.prepare('DELETE FROM stock_purchases').run();
-      db.prepare('DELETE FROM products').run();
-      db.prepare('DELETE FROM customers').run();
-      db.prepare('DELETE FROM suppliers').run();
-      db.prepare('DELETE FROM categories').run();
-      db.prepare('DELETE FROM users WHERE id > 1').run();
-      db.prepare('DELETE FROM settings WHERE id > 1').run();
+      // Safely delete only the current workspace's data
+      db.prepare('DELETE FROM sale_items WHERE workspace_id = ?').run(workspaceId);
+      db.prepare('DELETE FROM sales WHERE workspace_id = ?').run(workspaceId);
+      try {
+        db.prepare('DELETE FROM stock_purchases WHERE workspace_id = ?').run(workspaceId);
+      } catch (err) {
+        try { db.prepare('DELETE FROM purchases WHERE workspace_id = ?').run(workspaceId); } catch(e) {}
+      }
+      db.prepare('DELETE FROM products WHERE workspace_id = ?').run(workspaceId);
+      db.prepare('DELETE FROM customers WHERE workspace_id = ?').run(workspaceId);
+      db.prepare('DELETE FROM suppliers WHERE workspace_id = ?').run(workspaceId);
+      db.prepare('DELETE FROM categories WHERE workspace_id = ?').run(workspaceId);
+      db.prepare('DELETE FROM users WHERE id > 1 AND workspace_id = ?').run(workspaceId);
+      db.prepare('DELETE FROM settings WHERE id > 1 AND workspace_id = ?').run(workspaceId);
 
       if (data.categories && data.categories.length > 0) {
         const insertCategory = db.prepare(
-          'INSERT INTO categories (id, name, nameUrdu, description, createdAt) VALUES (?, ?, ?, ?, ?)'
+          'INSERT INTO categories (id, name, nameUrdu, description, createdAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?)'
         );
         data.categories.forEach(cat => {
-          insertCategory.run(cat.id, cat.name, cat.nameUrdu, cat.description, cat.createdAt);
+          insertCategory.run(cat.id, cat.name, cat.nameUrdu, cat.description, cat.createdAt, cat.workspace_id || workspaceId);
         });
       }
 
       if (data.suppliers && data.suppliers.length > 0) {
         const insertSupplier = db.prepare(
-          'INSERT INTO suppliers (id, name, contactPerson, phone, email, address, notes, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+          'INSERT INTO suppliers (id, name, contactPerson, phone, email, address, notes, createdAt, updatedAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );
         data.suppliers.forEach(sup => {
-          insertSupplier.run(sup.id, sup.name, sup.contactPerson, sup.phone, sup.email, sup.address, sup.notes, sup.createdAt, sup.updatedAt);
+          insertSupplier.run(sup.id, sup.name, sup.contactPerson, sup.phone, sup.email, sup.address, sup.notes, sup.createdAt, sup.updatedAt, sup.workspace_id || workspaceId);
         });
       }
 
       if (data.products && data.products.length > 0) {
         const insertProduct = db.prepare(
-          'INSERT INTO products (id, name, nameUrdu, categoryId, supplierId, barcode, price, cost, stock, initialStock, minStock, description, image, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+          'INSERT INTO products (id, name, nameUrdu, categoryId, supplierId, barcode, price, cost, stock, initialStock, minStock, description, image, createdAt, updatedAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );
         data.products.forEach(prod => {
           insertProduct.run(
             prod.id, prod.name, prod.nameUrdu, prod.categoryId, prod.supplierId, prod.barcode,
             prod.price, prod.cost, prod.stock, prod.initialStock, prod.minStock,
-            prod.description, prod.image, prod.createdAt, prod.updatedAt
+            prod.description, prod.image, prod.createdAt, prod.updatedAt, prod.workspace_id || workspaceId
           );
         });
       }
 
       if (data.customers && data.customers.length > 0) {
         const insertCustomer = db.prepare(
-          'INSERT INTO customers (id, name, phone, email, address, pendingAmount, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)'
+          'INSERT INTO customers (id, name, phone, email, address, pendingAmount, createdAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         );
         data.customers.forEach(cust => {
-          insertCustomer.run(cust.id, cust.name, cust.phone, cust.email, cust.address, cust.pendingAmount, cust.createdAt);
+          insertCustomer.run(cust.id, cust.name, cust.phone, cust.email, cust.address, cust.pendingAmount, cust.createdAt, cust.workspace_id || workspaceId);
         });
       }
 
       if (data.sales && data.sales.length > 0) {
         const insertSale = db.prepare(
-          'INSERT INTO sales (id, total, tax, discount, finalAmount, amountPaid, change, dueAmount, paymentMethod, customerId, cashierId, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+          'INSERT INTO sales (id, total, tax, discount, finalAmount, amountPaid, change, dueAmount, paymentMethod, customerId, cashierId, createdAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );
         data.sales.forEach(sale => {
           insertSale.run(
             sale.id, sale.total, sale.tax, sale.discount, sale.finalAmount,
             sale.amountPaid, sale.change, sale.dueAmount, sale.paymentMethod,
-            sale.customerId, sale.cashierId, sale.createdAt
+            sale.customerId, sale.cashierId, sale.createdAt, sale.workspace_id || workspaceId
           );
         });
       }
 
       if (data.sale_items && data.sale_items.length > 0) {
         const insertSaleItem = db.prepare(
-          'INSERT INTO sale_items (id, saleId, productId, productName, productPrice, quantity, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)'
+          'INSERT INTO sale_items (id, saleId, productId, productName, productPrice, quantity, subtotal, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         );
         data.sale_items.forEach(item => {
-          insertSaleItem.run(item.id, item.saleId, item.productId, item.productName, item.productPrice, item.quantity, item.subtotal);
+          insertSaleItem.run(item.id, item.saleId, item.productId, item.productName, item.productPrice, item.quantity, item.subtotal, item.workspace_id || workspaceId);
         });
       }
 
       if (data.stock_purchases && data.stock_purchases.length > 0) {
-        const insertPurchase = db.prepare(
-          'INSERT INTO stock_purchases (id, productId, productName, supplierId, supplierName, quantity, costPrice, totalCost, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        );
-        data.stock_purchases.forEach(purchase => {
-          insertPurchase.run(
-            purchase.id, purchase.productId, purchase.productName, purchase.supplierId,
-            purchase.supplierName, purchase.quantity, purchase.costPrice, purchase.totalCost, purchase.createdAt
+        try {
+          const insertPurchase = db.prepare(
+            'INSERT INTO stock_purchases (id, productId, productName, supplierId, supplierName, quantity, costPrice, totalCost, createdAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
           );
-        });
+          data.stock_purchases.forEach(purchase => {
+            insertPurchase.run(
+              purchase.id, purchase.productId, purchase.productName, purchase.supplierId,
+              purchase.supplierName, purchase.quantity, purchase.costPrice, purchase.totalCost, purchase.createdAt, purchase.workspace_id || workspaceId
+            );
+          });
+        } catch (err) {
+          try {
+            const insertPurchase = db.prepare(
+              'INSERT INTO purchases (id, productId, productName, supplierId, supplierName, quantity, costPrice, totalCost, createdAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            );
+            data.stock_purchases.forEach(purchase => {
+              insertPurchase.run(
+                purchase.id, purchase.productId, purchase.productName, purchase.supplierId,
+                purchase.supplierName, purchase.quantity, purchase.costPrice, purchase.totalCost, purchase.createdAt, purchase.workspace_id || workspaceId
+              );
+            });
+          } catch (e) {}
+        }
       }
 
       if (data.settings && data.settings.length > 0) {
         const updateSettings = db.prepare(
-          'UPDATE settings SET name = ?, nameUrdu = ?, address = ?, addressUrdu = ?, phone = ?, email = ?, taxRate = ?, updatedAt = ? WHERE id = 1'
+          'UPDATE settings SET name = ?, nameUrdu = ?, address = ?, addressUrdu = ?, phone = ?, email = ?, taxRate = ?, updatedAt = ? WHERE id = 1 OR workspace_id = ?'
         );
         const settings = data.settings[0];
         updateSettings.run(
           settings.name, settings.nameUrdu, settings.address, settings.addressUrdu,
-          settings.phone, settings.email, settings.taxRate, settings.updatedAt
+          settings.phone, settings.email, settings.taxRate, settings.updatedAt, workspaceId
         );
       }
 
       if (data.users && data.users.length > 1) {
         const insertUser = db.prepare(
-          'INSERT INTO users (id, username, password, role, createdAt) VALUES (?, ?, ?, ?, ?)'
+          'INSERT INTO users (id, username, password, role, createdAt, workspace_id) VALUES (?, ?, ?, ?, ?, ?)'
         );
         data.users.slice(1).forEach(user => {
-          insertUser.run(user.id, user.username, user.password, user.role, user.createdAt);
+          insertUser.run(user.id, user.username, user.password, user.role, user.createdAt, user.workspace_id || workspaceId);
         });
       }
     });

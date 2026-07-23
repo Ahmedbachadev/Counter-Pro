@@ -14,6 +14,19 @@ export const customerService = {
     return isElectron ? customerRepository.getCustomers() : getProvider().getCustomers();
   },
 
+  async paginateCustomers(page: number, limit: number): Promise<{ data: Customer[], total: number, page: number, totalPages: number }> {
+    if (isElectron) {
+      return customerRepository.paginate(page, limit);
+    } else {
+      const all = await getProvider().getCustomers();
+      const total = all.length;
+      const totalPages = Math.ceil(total / limit);
+      const start = (page - 1) * limit;
+      const data = all.slice(start, start + limit);
+      return { data, total, page, totalPages };
+    }
+  },
+
   async addCustomer(customer: Omit<Customer, 'id' | 'createdAt'>): Promise<Customer> {
     return isElectron ? customerRepository.addCustomer(customer) : getProvider().addCustomer(customer);
   },
